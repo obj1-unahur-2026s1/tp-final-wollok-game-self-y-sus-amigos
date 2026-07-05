@@ -52,6 +52,11 @@ object gestorNiveles
         if(musicaActual != null) musicaActual.stop()
     }
 
+    method irANivel_(nivel) {
+        nivelActual = nivel
+        transition.active()
+    }
+
     method reiniciarNivel(){
         transition.active()
     }
@@ -560,7 +565,76 @@ object sliderEfectos inherits Slider(nombre = "Efectos", position = game.at(7, 3
 }
 
 object levelSelector {
+    const totalPaginas = 2
+    const columnas = 5
 
+    const sliderPaginas = new TileTransicion(position = game.at(7, 2), image = "menu_SelectLevelPage_1.png")
+    const puntero = new TileTransicion(position = game.at(7, 2), image = "menu_SelectLevelPuntero_1.png")
+    const property position = game.at(7, 2)
+    var property image = "menu_SelectLevel_1.png"
+    method opcionActualPuntero(){
+        var ret = opcionActual
+        if (ret > 10){
+            ret -= 10
+        }
+        return ret
+    } 
+    var opcionActual = 1
+
+    method entrar() {
+        pantallaDeTitulo.mostrarFondoVacio()
+        game.addVisual(sliderPaginas)
+        game.addVisual(puntero)
+        game.addVisual(self)
+        self.aplicar()
+    }
+
+    method volver() {
+        game.removeVisual(sliderPaginas)
+        game.removeVisual(puntero)
+        game.removeVisual(self)
+    }
+
+    method paginaActual() = (opcionActual - 1).div(10) + 1
+    method fila()    = if (((opcionActual - 1) % 10) < columnas) 1 else 2
+    method columna() = ((opcionActual - 1) % columnas) + 1
+
+    method moverA(pagina, fila, columna) {
+        opcionActual = (pagina - 1) * 10 + (fila - 1) * columnas + columna
+        self.aplicar()
+    }
+
+    method arriba() {
+        if (self.fila() == 2) { self.moverA(self.paginaActual(), 1, self.columna()) }
+    }
+
+    method abajo() {
+        if (self.fila() == 1) { self.moverA(self.paginaActual(), 2, self.columna()) }
+    }
+
+    method derecha() {
+        if (self.columna() < columnas) {
+            self.moverA(self.paginaActual(), self.fila(), self.columna() + 1)
+        } else if (self.paginaActual() < totalPaginas) {
+            self.moverA(self.paginaActual() + 1, self.fila(), 1)
+        }
+    }
+
+    method izquierda() {
+        if (self.columna() > 1) {
+            self.moverA(self.paginaActual(), self.fila(), self.columna() - 1)
+        } else if (self.paginaActual() > 1) {
+            self.moverA(self.paginaActual() - 1, self.fila(), columnas)
+        }
+    }
+
+    method aplicar() {
+        image = "menu_SelectLevel_" + self.paginaActual() + ".png"
+        sliderPaginas.image("menu_SelectLevelPage_" + self.paginaActual() + ".png")
+        puntero.image("menu_SelectLevelPuntero_" + self.opcionActualPuntero() + ".png")
+    }
+
+    method aceptar() { gestorNiveles.irANivel_(opcionActual + 1) }
 }
 
 object gestorMenu {

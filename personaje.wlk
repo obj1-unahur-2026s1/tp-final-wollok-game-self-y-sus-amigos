@@ -4,6 +4,7 @@ import teclado.*
 import wollok.game.*
 import objetos.*
 import gestorAnimacion.*
+import niveles.*
 
 object personaje {
   
@@ -97,7 +98,7 @@ object personaje {
       mapaObjetos.enemigosEn(posDestinoX, posDestinoY).forEach({ e => e.matar() })
 
       const sword = game.sound("sword" + (1..3).anyOne() + ".mp3")
-      sword.volume(0.3)
+      sword.volume(gestorNiveles.volumenEfectos())
       sword.play()
 
       tileA = new TileTransicion(position = game.at(posOrigenX, posOrigenY), image = "swrd_" + dir + "_a_1.png")
@@ -121,11 +122,11 @@ object personaje {
       })
     } else {
       const sword = game.sound("swordMetal.mp3")
-      sword.volume(0.3)
+      sword.volume(gestorNiveles.volumenEfectos())
       sword.play()
 
       const sword2 = game.sound("sword" + (1..3).anyOne() + ".mp3")
-      sword2.volume(0.3)
+      sword2.volume(gestorNiveles.volumenEfectos())
       sword2.play()
 
       tileA = new TileTransicion(position = game.at(posOrigenX, posOrigenY), image = "swrd_" + dir + "_a_1.png")
@@ -289,7 +290,7 @@ object spawn {
         }
 
         const audioSpawn = game.sound("spawn.mp3")
-        audioSpawn.volume(0.3)
+        audioSpawn.volume(gestorNiveles.volumenEfectos())
         audioSpawn.play()
 
         game.onTick(100, "eventoSpawn", {

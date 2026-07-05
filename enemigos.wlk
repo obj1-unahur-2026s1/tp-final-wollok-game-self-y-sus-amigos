@@ -4,6 +4,7 @@ import wollok.game.*
 import objetos.*
 import personaje.*
 import gestorAnimacion.*
+import niveles.*
 
 object gestorDeEnemigos
 {
@@ -178,7 +179,7 @@ class Enemigo
         tileB.image("transparente.png")
 
         const enemigoMuerte = game.sound("enemigoMuerte.mp3")
-        enemigoMuerte.volume(0.5)
+        enemigoMuerte.volume(gestorNiveles.volumenEfectos() * 1.6)
         enemigoMuerte.play()  
 
         frameActual = 0

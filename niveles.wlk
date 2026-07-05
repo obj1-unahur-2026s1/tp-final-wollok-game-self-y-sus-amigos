@@ -206,6 +206,7 @@ object gestorNiveles
         const caja = new Bloque(position = game.at(x,y), collision = collision)
         caja.prepararVisuales()
         mapaObjetos.cajas().add(caja)
+        mapaObjetos.paredes().add(collision)
         game.addVisual(caja)
     }
 
@@ -480,6 +481,8 @@ object pantallaDeTitulo inherits Nivel {
             if (opcionActual == 3) { game.stop() }
         }
     }
+
+    method volver(){}
 }
 
 object volumeOptions {
@@ -511,7 +514,7 @@ object volumeOptions {
     method derecha()   { sliders.get(opcionActual).subir() }
     method izquierda() { sliders.get(opcionActual).bajar() }
 
-    method aceptar() { gestorMenu.volver() }
+    method aceptar() { gestorMenu.cerrarMenu() }
 }
 
 class Slider {
@@ -645,9 +648,39 @@ object gestorMenu {
         menu.entrar()
     }
 
+    method derecha()   { menuActual.derecha(); self.sonidoMovimiento() }
+    method izquierda() { menuActual.izquierda(); self.sonidoMovimiento() }
+    method arriba()    {  menuActual.arriba(); self.sonidoMovimiento() }
+    method abajo()     { menuActual.abajo(); self.sonidoMovimiento() }
+
+    method aceptar() { self.sonidoAceptar(); menuActual.aceptar() }
+
     method volver() {
+        self.sonidoVolver()
+        self.cerrarMenu()
+    }
+
+    method cerrarMenu() {
         menuActual.volver()
         menuActual = pantallaDeTitulo
         pantallaDeTitulo.entrar()
+    }
+
+    method sonidoMovimiento() {
+        const menu1 = game.sound("soundMenu1.mp3")
+        menu1.volume(gestorNiveles.volumenEfectos())
+        menu1.play()
+    }
+
+    method sonidoAceptar() {
+        const menu2 = game.sound("soundMenu2.mp3")
+        menu2.volume(gestorNiveles.volumenEfectos())
+        menu2.play()
+    }
+
+    method sonidoVolver() {
+        const menu3 = game.sound("soundMenu3.mp3")
+        menu3.volume(gestorNiveles.volumenEfectos())
+        menu3.play()
     }
 }

@@ -146,7 +146,7 @@ class Moneda inherits Objeto(nombre = "coin") {
         contadorMonedas.actualizar()
 
         const moneda = game.sound("agarrarMoneda.mp3")
-        moneda.volume(0.4)
+        moneda.volume(gestorNiveles.volumenEfectos())
         moneda.play()
 
         mapaObjetos.monedas().remove(self)
@@ -190,7 +190,7 @@ class Portal inherits Objeto(nombre = "portal", image = "portal_1.png") {
         if (personaje.position() == position){
             personaje.moviendose(true)
             const tp = game.sound("tp_" + (1..2).anyOne() + ".mp3")
-            tp.volume(0.3)
+            tp.volume(gestorNiveles.volumenEfectos())
             if (!personaje.tpeado()) {
                 personaje.tpeado(true)
                 tp.play()
@@ -277,7 +277,7 @@ class Bloque inherits Enemigo {
         if (self.puedeMoverseA(dirActual)) {
 
             const caja = game.sound("Empujar.mp3")
-            caja.volume(0.4)
+            caja.volume(gestorNiveles.volumenEfectos())
             caja.play()
 
             if (mapaObjetos.hayEn(position.x(), position.y(), mapaObjetos.pisables())) {
@@ -401,7 +401,7 @@ class Laser inherits Objeto(nombre = "laser", image = "laserOn.png") {
 
     method abrir() {
         const laserOff = game.sound("laserOff.mp3")
-        laserOff.volume(0.3)
+        laserOff.volume(gestorNiveles.volumenEfectos())
         laserOff.play()
         casillasLaser = []
         image = "laserOff_" + direccion + ".png"
@@ -412,7 +412,7 @@ class Laser inherits Objeto(nombre = "laser", image = "laserOn.png") {
     method cerrar() {
         if (fueApagado){
             const laserOn = game.sound("laserOn.mp3")
-            laserOn.volume(0.3)
+            laserOn.volume(gestorNiveles.volumenEfectos())
             laserOn.play()
             fueApagado = false
         }

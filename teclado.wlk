@@ -17,11 +17,11 @@ object controles {
 
 object controlesMenu {
   method configurar() {
-    keyboard.right().onPressDo({ gestorMenu.menuActual().derecha() })
-    keyboard.left().onPressDo({ gestorMenu.menuActual().izquierda() })
-    keyboard.up().onPressDo({ gestorMenu.menuActual().arriba() })
-    keyboard.down().onPressDo({ gestorMenu.menuActual().abajo() })
-    keyboard.enter().onPressDo({ gestorMenu.menuActual().aceptar() })
+    keyboard.right().onPressDo({ gestorMenu.derecha() })
+    keyboard.left().onPressDo({ gestorMenu.izquierda() })
+    keyboard.up().onPressDo({ gestorMenu.arriba() })
+    keyboard.down().onPressDo({ gestorMenu.abajo() })
+    keyboard.enter().onPressDo({ gestorMenu.aceptar() })
     keyboard.backspace().onPressDo({ gestorMenu.volver() })
   }
 }

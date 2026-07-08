@@ -75,7 +75,7 @@ object personaje
     // método de ataque
     method atacar(dir)
     {
-        if (not atacando and not moviendose)
+        if (not atacando and not moviendose and not tpeando)
         {
             atacando = true
             const destino = self.obtenerDestino(dir)
@@ -108,7 +108,7 @@ object personaje
 
     method iniciarMovimiento(dir)
     {
-        if (not moviendose)
+        if (not moviendose and not atacando and not tpeando)
         {
             const destino = self.obtenerDestino(dir)
             const objetoDestino = mapaObjetos.hayObjetoEn(destino)
@@ -142,7 +142,7 @@ object personaje
 
     method teletransportar(destino)
     {
-        if(not tpeando)
+        if(not tpeando and not moviendose and not atacando)
         {
             tpeando = true
             const frames = bancoImagenes.obtenerFrames("pj", "teleport", dirActual)

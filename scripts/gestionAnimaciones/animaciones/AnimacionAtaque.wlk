@@ -1,0 +1,2 @@
+import scripts.gestionAnimaciones.animaciones.AnimacionDosCasillas.AnimacionDosCasillas
+class AnimacionAtaque inherits AnimacionDosCasillas {}

@@ -10,6 +10,7 @@ program rpg
     game.cellSize(80)
 
     game.title("Mi RPG")
+    game.ground("celda.png")
 
     fabricaNivel.inicializar()
     bancoImagenes.inicializar()

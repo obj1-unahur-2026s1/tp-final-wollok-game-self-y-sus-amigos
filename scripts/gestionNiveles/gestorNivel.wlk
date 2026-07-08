@@ -22,6 +22,8 @@ object gestorNivel
 
     var property nivelActual = 0
     var property musicaActual = null
+    var property volumenMusica = 0.3
+    var property volumenEfectos = 0.3
 
     method pasarNivel()
     {
@@ -65,7 +67,9 @@ object gestorNivel
         gestorEnemigos.comenzarMovimiento()
 
         // construccion del mapa
-        self.construirMapa(mapa)
+        if (not mapa.isEmpty()) {
+            self.construirMapa(mapa)
+        }
     }
 
     method construirMapa(mapa)

@@ -1,5 +1,7 @@
 import scripts.personaje.personaje.*
 import scripts.gestionNiveles.niveles.pantallaTitulo.*
+import scripts.gestionNiveles.gestorMenu.*
+
 
 object controlesJuego
 {
@@ -27,12 +29,13 @@ object controlesJuego
 }
 
 object controlesMenu {
-  method configurar() {
-    keyboard.right().onPressDo({pantallaTitulo.opcionSiguiente()})
-    keyboard.left().onPressDo({pantallaTitulo.opcionAnterior()})
-    keyboard.up().onPressDo({pantallaTitulo.opcionAnterior()})
-    keyboard.down().onPressDo({pantallaTitulo.opcionSiguiente()})
-    keyboard.enter().onPressDo({pantallaTitulo.aceptar()})
-  }
+    method configurar() {
+        keyboard.right().onPressDo({ gestorMenu.derecha() })
+        keyboard.left().onPressDo({ gestorMenu.izquierda() })
+        keyboard.up().onPressDo({ gestorMenu.arriba() })
+        keyboard.down().onPressDo({ gestorMenu.abajo() })
+        
+        keyboard.enter().onPressDo({ gestorMenu.aceptar() })
+        keyboard.backspace().onPressDo({ gestorMenu.volver() })
+    }
 }
-

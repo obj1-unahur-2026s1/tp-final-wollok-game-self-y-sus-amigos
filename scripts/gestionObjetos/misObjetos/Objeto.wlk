@@ -9,22 +9,23 @@ class Objeto
 
     method initialize()
     {
-        mapaObjetos.añadirObjeto(self)
+        mapaObjetos.añadirObjeto(self, game.at(0,0))
         game.addVisual(self)
     }
 
     method destruir()
     {
         game.removeVisual(self)
-        mapaObjetos.removerObjeto(self)
+        mapaObjetos.removerObjeto(self, game.at(0,0))
     }
 
     method puedeEntrar(entidad, dir) = true
+    method dejaPasarLaser() = true
 
-    method alInteractuar() {}
-    method accionar() {}
     method sePoneEncima(entidad) {}
-    method soltar() {} 
+    method soltar(entidad) {} 
+    method alInteractuar(entidad) {}
+    method accionar() {}
 }
 
 class ObjetoMovible inherits Objeto
@@ -39,7 +40,5 @@ class ObjetoMovible inherits Objeto
 
             else position
     }
-
-    method mover(destino, dir) {}
 }
 

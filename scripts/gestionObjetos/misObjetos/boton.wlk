@@ -10,7 +10,7 @@ class Boton inherits Objeto(nombre = "boton", image = "sprites\\objetos\\boton\\
     
     override method initialize()
     {
-        game.addVisual(self)
+        super()
         gestorCanales.registrar(self, canal)
     }
 
@@ -28,7 +28,7 @@ class Boton inherits Objeto(nombre = "boton", image = "sprites\\objetos\\boton\\
         }
     }
 
-    override method soltar()
+    override method soltar(entidad)
     {
         if(pisado)
         {

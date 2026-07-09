@@ -92,8 +92,8 @@ object fabricaNivel
     method inicializar()
     {
         // Objetos
-        constructores.put(0, { p,c => new Vacia(position = p)})
-        constructores.put(0.1, { p,c => new Vacia(position = p, puedeEntrar = false)})
+        //constructores.put(0, { p,c => new Vacia(position = p)})
+        //constructores.put(0.1, { p,c => new Vacia(position = p, puedeEntrar = false)})
         constructores.put(1, { p,c => new Colision(position = p) })
 
         constructores.put(2, { p,c => new Moneda(position = p) })
@@ -119,8 +119,7 @@ object fabricaNivel
 
         // Personaje  (Quizas seria mejor determinar la posicion inicial del jugador en el propio nivel y no aqui, es provisional)
         constructores.put(99, {
-            p,c => new Vacia(position = p)
-            personaje.position(p)
+            p,c => personaje.position(p)
         })
     }
 
@@ -140,8 +139,6 @@ object fabricaNivel
 
             if (constructores.containsKey(objetoID))
                 constructores.get(objetoID).apply(posicion, canalID)
-            else 
-                new Vacia(position = posicion)
         }
     }
 }

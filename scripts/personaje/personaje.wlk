@@ -67,8 +67,8 @@ object personaje
         if (not atacando and not moviendose)
         {
             const destino = self.obtenerDestino(dirActual)
-            const objetoDestino = mapaObjetos.hayObjetoEn(destino)
-            objetoDestino.alInteractuar()
+            const casilla = mapaObjetos.casilla(destino)
+            casilla.alInteractuar(self)
         }
     }
 
@@ -79,16 +79,16 @@ object personaje
         {
             atacando = true
             const destino = self.obtenerDestino(dir)
-            const objetoDestino = mapaObjetos.hayObjetoEn(destino) 
+            const objetosDestino = mapaObjetos.casilla(destino).objetos()
 
             // gestión de sonidos
-            if(objetoDestino == null)
+            if(objetosDestino.isEmpty())
             {
                 const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
                 sonido.volume(0.3)
                 sonido.play()
             }
-            else if(objetoDestino.nombre() == "colision")
+            else if(objetosDestino.any({obj => obj.nombre() == "colision"}))
             {
                 const sonido = game.sound("audio\\SFX\\swordMetal.mp3")
                 sonido.volume(0.3)
@@ -111,19 +111,24 @@ object personaje
         if (not moviendose and not atacando and not tpeando)
         {
             const destino = self.obtenerDestino(dir)
-            const objetoDestino = mapaObjetos.hayObjetoEn(destino)
+            const casilla = mapaObjetos.casilla(position)
+            const casillaDestino = mapaObjetos.casilla(destino)
 
-            if (objetoDestino != null and not objetoDestino.puedeEntrar(self, dir))
+            if (not casillaDestino.puedeEntrar(self, dir))
             {
                 dirActual = dir
                 image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
             }
             else
-                self.moverHacia(destino, objetoDestino, dir)
+            {
+                casilla.alSalir(self)
+                console.println("Objetos en casilla: " + casillaDestino.objetos())
+                self.moverHacia(destino, casillaDestino, dir)
+            }
         }
     }
 
-    method moverHacia(destino, objetoDestino, dir)
+    method moverHacia(destino, casilla, dir)
     {
         moviendose = true
         dirActual = dir
@@ -135,8 +140,8 @@ object personaje
             moviendose = false
             position = destino
             image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
-
-            objetoDestino.sePoneEncima(self)
+            
+            casilla.alEntrar(self)
         })
     }
 

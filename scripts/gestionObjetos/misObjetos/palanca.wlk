@@ -15,7 +15,7 @@ class Palanca inherits Objeto(nombre = "palanca", image = "sprites\\objetos\\pal
         gestorCanales.registrar(self, canal)
     }
 
-    override method alInteractuar()
+    override method alInteractuar(entidad)
     {
         if (activada) self.cerrar()
         else self.abrir()

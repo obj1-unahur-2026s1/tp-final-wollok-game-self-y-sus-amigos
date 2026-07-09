@@ -33,13 +33,12 @@ class Enemigo
             else position
     }
 
-    method puedeMoverseA(pos)
+    method puedeMoverseA(casilla)
     {
-        const objetoDestino = mapaObjetos.hayObjetoEn(pos)
-        const hayColision = objetoDestino.nombre() == "colision"
-        const hayEnemigos = gestorEnemigos.estaOcupado(pos)
+        const puedeEntrar = casilla.puedeEntrar(self, dirActual)
+        const hayEnemigos = gestorEnemigos.estaOcupado(casilla.position())
 
-        return not hayColision and not hayEnemigos
+        return not puedeEntrar and not hayEnemigos
     }
 
     method formaDeMoverse() {}
@@ -49,15 +48,19 @@ class Enemigo
         if (not estaEsperando)
         {
             const destino = self.obtenerDestino(dirActual)
+            const casilla = mapaObjetos.casilla(destino)
+
+            // decidir como se va mover
             self.formaDeMoverse()
             
-            if (self.puedeMoverseA(destino))
+            if (self.puedeMoverseA(casilla))
             {
                 const frames = bancoImagenes.obtenerFrames(nombre, "mov", dirActual)
                 
                 animador.realizarAnimacionDeTransicion(self, destino, frames,{
                     position = destino
                     image = self.rutaImagen()
+                    casilla.sePoneEncima(self)
                 })
             } 
             else

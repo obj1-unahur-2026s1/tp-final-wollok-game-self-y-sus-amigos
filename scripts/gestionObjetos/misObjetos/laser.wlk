@@ -9,12 +9,26 @@ class Laser inherits Objeto(nombre = "laser")
     var property encendido = false
     const hacesProyectados = []
 
+    var posicionHaz = self.obtenerSiguientePosicion(position)
+
     override method puedeEntrar(entidad, dir) = false
 
     override method initialize()
     {
         super()
         gestorCanales.registrar(self, canal)
+
+        (1..20).forEach({ i =>
+            const haz = new HazDeLaser(
+                position = posicionHaz,
+                direccion = direccion,
+                emisor = self
+            )
+
+            hacesProyectados.add(haz)
+            posicionHaz = self.obtenerSiguientePosicion(posicionHaz)
+        })
+
         image = "sprites\\objetos\\laser\\" + direccion + "\\laserOff_" + direccion + ".png"
     }
 
@@ -57,32 +71,32 @@ class Laser inherits Objeto(nombre = "laser")
 
     method limpiarRayo()
     {
-        hacesProyectados.forEach({ haz => haz.destruir() })
-        hacesProyectados.clear()
+        hacesProyectados.forEach({ haz =>
+            haz.desactivar()
+        })
     }
 
     method proyectarRayo()
     {
         self.limpiarRayo()
-        
-        const primerCelda = self.obtenerSiguientePosicion(position)
-        self.evaluarCasilleroProvisional(primerCelda)
+
+        self.proyectarDesde(
+            self.obtenerSiguientePosicion(position),
+            0
+        )
     }
 
-    method evaluarCasilleroProvisional(posicionActual)
+    method proyectarDesde(posicionActual, indice)
     {
-        if (mapaObjetos.hayCeldaVacia(posicionActual))
+        if (mapaObjetos.casilla(posicionActual).permitePasoLaser())
         {
-            const nuevoHaz = new HazDeLaser(position = posicionActual, direccion = direccion, emisor = self)
-            hacesProyectados.add(nuevoHaz)
-            
-            const siguientePosicion = self.obtenerSiguientePosicion(posicionActual)
-            
-            // se llama denuevo para continuar con el bucle
-            self.evaluarCasilleroProvisional(siguientePosicion)
-        }
+            hacesProyectados.get(indice).activar()
 
-        // sale del bucle
+            self.proyectarDesde(
+                self.obtenerSiguientePosicion(posicionActual),
+                indice + 1
+            )
+        }
     }
 
     method obtenerSiguientePosicion(pos)
@@ -99,25 +113,36 @@ class Laser inherits Objeto(nombre = "laser")
 class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
 {
     var property direccion
-    var property encendido = true
+    var property encendido = false
     const property emisor
 
     override method initialize()
     {
-        game.addVisual(self)
+        super()
         self.actualizarVisual()
     }
 
-    override method destruir()
+    override method sePoneEncima(entidad)
     {
-        game.removeVisual(self)
+        emisor.proyectarRayo()
     }
 
-    method tipoDeHaz()
+    override method soltar(entidad)
     {
-        if(direccion == "arr" or direccion == "abj") return "vertical"
-        else return "horizontal"
-    } 
+        emisor.proyectarRayo()
+    }
+
+    method activar()
+    {
+        encendido = true
+        self.actualizarVisual()
+    }
+    
+    method desactivar()
+    {
+        encendido = false
+        self.actualizarVisual()
+    }
 
     method actualizarVisual()
     {
@@ -128,4 +153,10 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
             image = "sprites\\utilidades\\transparente.png"
         }
     }
+
+    method tipoDeHaz()
+    {
+        if(direccion == "arr" or direccion == "abj") return "vertical"
+        else return "horizontal"
+    } 
 }

@@ -18,6 +18,7 @@ class Puerta inherits Objeto(nombre = "Puerta")
         image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_cerrada.png"
     }
 
+    override method dejaPasarLaser() = false 
     override method puedeEntrar(entidad, dir) = false
 
     override method accionar()
@@ -34,13 +35,13 @@ class Puerta inherits Objeto(nombre = "Puerta")
             image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_abierta.png"
             abierto = true
             
-            mapaObjetos.hayObjetoEn( self.posicionPuerta() ).puedeEntrar(true)
+            //mapaObjetos.hayObjetoEn( self.posicionPuerta() ).puedeEntrar(true)
         })
     }
 
     method cerrar()
     {
-        if (mapaObjetos.hayCeldaVacia( self.posicionPuerta() ))
+        if (mapaObjetos.casilla( self.posicionPuerta() ).isEmpty())
         {
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "\\puerta_" + direccion + "_"
 
@@ -48,7 +49,7 @@ class Puerta inherits Objeto(nombre = "Puerta")
                 image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_cerrada.png"
                 abierto = false
 
-                mapaObjetos.hayObjetoEn( self.posicionPuerta() ).puedeEntrar(false)
+                //mapaObjetos.hayObjetoEn( self.posicionPuerta() ).puedeEntrar(false)
             })
         }
     }

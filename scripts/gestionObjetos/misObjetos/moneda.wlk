@@ -17,7 +17,7 @@ class Moneda inherits Objeto(nombre = "moneda", image = "sprites\\objetos\\moned
         // limpiar
         animador.detenerAnimacionSimple(self)
         game.removeVisual(self) 
-        mapaObjetos.removerObjeto(self)
+        mapaObjetos.removerObjeto(self, game.at(0,0))
 
         // activar sonido
         const moneda = game.sound("audio\\SFX\\agarrarMoneda.mp3")

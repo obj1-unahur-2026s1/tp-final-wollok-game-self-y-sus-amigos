@@ -1,41 +1,60 @@
 import scripts.gestionObjetos.misObjetos.celdaVacia.*
 
+class Casilla
+{
+    const property position 
+    const property objetos = []
+
+    method añadir(objeto)
+    {
+        objetos.add(objeto)
+    }
+
+    method remover(objeto)
+    {
+        objetos.remove(objeto)
+    }
+
+    method puedeEntrar(entidad, dir) = objetos.all({obj => obj.puedeEntrar(entidad, dir)})
+
+    method alEntrar(entidad)       = objetos.forEach({ obj => obj.sePoneEncima(entidad)})
+    method alSalir(entidad)        = objetos.forEach({ obj => obj.soltar(entidad) })
+    method alInteractuar(entidad)  = objetos.forEach({ obj => obj.alInteractuar(entidad) })
+
+    method permitePasoLaser() = objetos.all({ o => o.dejaPasarLaser() })
+}
+
 object mapaObjetos
 {
-    const objetos = new Dictionary()
+    const casillas = new Dictionary()
 
-    method añadirObjeto(objeto)
+    method casilla(posicion)
     {
-        objetos.put(objeto.position(), objeto)
+        return casillas.getOrElse(posicion, {
+            const nueva = new Casilla(position = posicion)
+            casillas.put(posicion, nueva)
+            nueva
+        })
     }
 
-    method removerObjeto(objeto)
+    method añadirObjeto(objeto, posicion)
     {
-        const vacio = new Vacia(position = objeto.position())
-        objetos.put(objeto.position(), vacio)
+        if(posicion != game.at(0,0))
+            self.casilla(posicion).añadir(objeto)
+        else
+            self.casilla( objeto.position() ).añadir(objeto)
     }
 
-    method hayObjetoEn(pos)
+    method removerObjeto(objeto, posicion)
     {
-        return objetos.getOrElse(pos, { new Vacia(position = pos) })
+        if(posicion != game.at(0,0) )
+            self.casilla(posicion).remover(objeto)
+        else
+            self.casilla( objeto.position() ).remover(objeto)
     }
 
-    method hayCeldaVacia(pos) {
-        return objetos.get(pos).nombre() == "vacia" 
-    }
-
-    method todosLosObjetos() {
-        return objetos.values()
-    }
-
-    method limpiarObjetos() {
-        objetos.clear()
-    }
-
-    method actualizarLaseres()
+    method limpiarObjetos()
     {
-        objetos.values()
-            .filter({ o => o.nombre() == "laser" and o.encendido() })
-            .forEach({ laser => laser.proyectarRayo() })
+        casillas.clear()
     }
 }

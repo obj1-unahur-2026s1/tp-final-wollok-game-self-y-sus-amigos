@@ -77,14 +77,16 @@ class Laser inherits Objeto(nombre = "laser")
     }
 
     method proyectarRayo()
+{
+    if (encendido)
     {
         self.limpiarRayo()
-
         self.proyectarDesde(
             self.obtenerSiguientePosicion(position),
             0
         )
     }
+}
 
     method proyectarDesde(posicionActual, indice)
     {
@@ -122,15 +124,17 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
         self.actualizarVisual()
     }
 
-    override method sePoneEncima(entidad)
-    {
-        emisor.proyectarRayo()
+    override method sePoneEncima(entidad) {
+    if (encendido and entidad.nombre() == "caja") {
+        game.schedule(500, {emisor.proyectarRayo()})
     }
+}
 
-    override method soltar(entidad)
-    {
+override method soltar(entidad) {
+    if (entidad.nombre() == "caja") {
         emisor.proyectarRayo()
     }
+}
 
     method activar()
     {

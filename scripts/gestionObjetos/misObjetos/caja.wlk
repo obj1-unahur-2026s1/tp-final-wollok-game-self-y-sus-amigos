@@ -36,6 +36,7 @@ class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\ca
         mapaObjetos.añadirObjeto(self, destino)
 
         casillaDestino.alEntrar(self)
+        casillaActual.alSalir(self)
 
         const frames = bancoImagenes.obtenerFrames("caja", "mov", dir)
         animador.realizarAnimacionDeTransicion(self, destino, frames, {

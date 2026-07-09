@@ -12,6 +12,7 @@ object personaje
     // propiedades visuales y de posición básicos
     var property position = game.at(0, 0)
     var property image = "sprites\\utilidades\\transparente.png"
+    var property nombre = "personaje"
     var property dirActual = "abj"
 
     // estados del personaje

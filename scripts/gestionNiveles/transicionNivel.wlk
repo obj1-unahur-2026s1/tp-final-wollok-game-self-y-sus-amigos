@@ -15,7 +15,7 @@ object transicion
 
         const ruta = bancoImagenes.rutaAnimacionSimple("UI", "transicion", "play")
 
-        animador.reproducirAdelante(self, ruta + "transition_", 25, 1, {
+        animador.reproducirAdelante(self, ruta + "transition_", 28, 1, {
             gestorNivel.descargarNivel()
             gestorNivel.cargarNivelActual()
             self.desactivar()

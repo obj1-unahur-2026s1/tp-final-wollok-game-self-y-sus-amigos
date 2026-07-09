@@ -7,11 +7,13 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 
 class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\caja\\caja.png")
 {
+    var objetoAbajo = null 
+
     override method mover(destino, dir)
     {
         const posicionOriginal = position
-        const objetoPosicionActual = mapaObjetos.hayObjetoEn(position)
-        const objetoPosicionDestino = mapaObjetos.hayObjetoEn(destino)
+        
+        const proximoObjetoAbajo = mapaObjetos.hayObjetoEn(destino)
 
         const sonido = game.sound("audio\\SFX\\empujar.mp3")
         sonido.volume(0.4)
@@ -26,14 +28,16 @@ class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\ca
 
         animador.realizarAnimacionDeTransicion(self, destino, frames, {
             image = "sprites\\objetos\\caja\\caja.png"
-
             position = destino 
-            mapaObjetos.añadirObjeto(self)
-            mapaObjetos.removerObjeto(new Vacia(position = posicionOriginal))
 
+            const objetoARestaurar = if (objetoAbajo != null) objetoAbajo else new Vacia(position = posicionOriginal)
+            mapaObjetos.añadirObjeto(objetoARestaurar)
+            mapaObjetos.añadirObjeto(self)
+        
+            objetoAbajo = proximoObjetoAbajo
 
             if (botonActual != null) {
-                botonActual.soltar()
+                //botonActual.soltar()
             }
             
             const botonDestino = game.getObjectsIn(destino).findOrElse(

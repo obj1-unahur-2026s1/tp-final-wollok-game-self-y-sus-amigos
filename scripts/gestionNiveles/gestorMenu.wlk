@@ -75,8 +75,8 @@ class Slider {
     method image() = "sprites\\UI\\menu\\" + prefijo + "_" + niveles.get(nivel) + ".png"
 
     method modificar(delta) {
-        nivel = (nivel + delta).min(4).max(0)
-        alCambiar.apply(nivel / 4.0)
+        nivel = (nivel + delta).min(niveles.size() - 1).max(0)
+        alCambiar.apply(nivel / niveles.size() - 1)
     }
 
     method activar()    { tileSeleccion.image("sprites\\UI\\menu\\" + prefijo + "_Select.png") }

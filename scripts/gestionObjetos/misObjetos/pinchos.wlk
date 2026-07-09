@@ -28,7 +28,6 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
         {
             puedeCerrar = true
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "pinchos", "usar")
-            console.println(ruta)
             const enemigoPosicion = gestorEnemigos.hayEnemigoEn(position)
 
             if(enemigoPosicion != null)

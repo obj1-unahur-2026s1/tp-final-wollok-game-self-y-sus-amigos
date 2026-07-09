@@ -7,7 +7,7 @@ object pantallaTitulo {
     var canPress = true
     const fondo = new VisualMenu(position = game.at(0, 0), image = "sprites\\UI\\menu\\menu_NewGame.png")
 
-    // Wollok llama a esto al arrancar: dibuja el fondo y activa tus flechas
+    
     method iniciarNivel() { 
         game.addVisual(fondo)
         controlesMenu.configurar()
@@ -40,8 +40,7 @@ object pantallaTitulo {
 
     method aceptar() {
         if (canPress) {
-            if (opcionActual == 0) { 
-                game.removeVisual(fondo) // Limpiamos el fondo del menú antes de iniciar la partida
+            if (opcionActual == 0) {
                 gestorNivel.pasarNivel() 
                 canPress = false 
             }

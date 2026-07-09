@@ -82,13 +82,12 @@ object personaje
             const objetoDestino = mapaObjetos.hayObjetoEn(destino) 
 
             // gestión de sonidos
-            if(objetoDestino == null)
-            {
-                const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
-                sonido.volume(0.3)
-                sonido.play()
-            }
-            else if(objetoDestino.nombre() == "colision")
+            
+            const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
+            sonido.volume(0.3)
+            sonido.play()
+            
+            if(objetoDestino.nombre() == "colision")
             {
                 const sonido = game.sound("audio\\SFX\\swordMetal.mp3")
                 sonido.volume(0.3)
@@ -112,6 +111,7 @@ object personaje
         {
             const destino = self.obtenerDestino(dir)
             const objetoDestino = mapaObjetos.hayObjetoEn(destino)
+            const objetoOrigen = mapaObjetos.hayObjetoEn(position)
 
             if (objetoDestino != null and not objetoDestino.puedeEntrar(self, dir))
             {
@@ -119,16 +119,17 @@ object personaje
                 image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
             }
             else
-                self.moverHacia(destino, objetoDestino, dir)
+                self.moverHacia(destino, objetoOrigen, objetoDestino, dir)
         }
     }
 
-    method moverHacia(destino, objetoDestino, dir)
+    method moverHacia(destino, objetoOrigen, objetoDestino, dir)
     {
         moviendose = true
         dirActual = dir
         
         const frames = bancoImagenes.obtenerFrames("pj", "mov", dir)
+        objetoOrigen.soltar()
 
         animador.realizarAnimacionDeTransicion(self, destino, frames,
         {

@@ -33,13 +33,17 @@ class Enemigo
             else position
     }
 
-    method puedeMoverseA(casilla)
-    {
-        const puedeEntrar = casilla.puedeEntrar(self, dirActual)
+    method actualizarPosicion(posicionDestino) {
+        position = posicionDestino
+    }
+
+    method puedeMoverseA(casilla, dir)
+{
+        const puedeEntrar = casilla.puedeEntrar(self, dir)
         const hayEnemigos = gestorEnemigos.estaOcupado(casilla.position())
 
-        return puedeEntrar and not hayEnemigos
-    }
+    return puedeEntrar and not hayEnemigos
+}
 
     method formaDeMoverse() {}
 
@@ -51,16 +55,18 @@ class Enemigo
             self.formaDeMoverse()
 
             const destino = self.obtenerDestino(dirActual)
-            const casilla = mapaObjetos.casilla(destino)
+            const casillaDestino = mapaObjetos.casilla(destino)
+            const casillaActual = mapaObjetos.casilla(position)
             
-            if (self.puedeMoverseA(casilla))
+            if (self.puedeMoverseA(casillaDestino, dirActual))
             {
                 const frames = bancoImagenes.obtenerFrames(nombre, "mov", dirActual)
-                
+
+                casillaActual.alSalir(self)
+
                 animador.realizarAnimacionDeTransicion(self, destino, frames,{
-                    position = destino
                     image = self.rutaImagen()
-                    casilla.alEntrar(self)
+                    casillaDestino.alEntrar(self)
                 })
             } 
             else
@@ -83,5 +89,10 @@ class Enemigo
 
         const ruta = bancoImagenes.rutaAnimacionSimple("enemigos", "muerte", "play") + "enemigoMuerte_"
         animador.reproducirAdelante(self, ruta, 6, 3, {game.removeVisual(self)})
+    }
+
+    method actualizarVisuales(){
+        game.removeVisual(self)
+        game.addVisual(self)
     }
 }

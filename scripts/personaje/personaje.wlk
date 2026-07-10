@@ -1,3 +1,4 @@
+import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 
 import scripts.gestionAnimaciones.bancoImagenes.*
@@ -19,6 +20,7 @@ object personaje
     var property moviendose = false
     var property tpeando    = false 
     var property atacando   = false
+    var property spawning   = false  
 
     // inventario
     var property monedas = 0
@@ -27,6 +29,7 @@ object personaje
     // spawn de jugador
     method spawn()
     {
+        spawning = true
         position = game.at(position.x()-1, position.y())
         game.addVisual(self)
         
@@ -36,6 +39,7 @@ object personaje
         {
             position = game.at(position.x()+1, position.y())
             image = "sprites\\personaje\\pj\\mov\\" + dirActual + "\\pj_" + dirActual + ".png"
+            spawning = false
         })
 
         const sonidoSpawn = game.sound("audio\\SFX\\spawn.mp3")
@@ -52,6 +56,9 @@ object personaje
     method ataque()         { self.atacar(dirActual) }
 
     // métodos de control de lógica de movimiento e interacción
+
+    method estáQuieto() = not moviendose and not spawning and not atacando and not tpeando and not transicion.transicionActiva()
+
     method obtenerDestino(direccion)
     {
         return
@@ -63,9 +70,13 @@ object personaje
             else position
     }
 
+    method actualizarPosicion(posicionDestino) {
+        position = posicionDestino
+    }
+
     method interact()
     {
-        if (not atacando and not moviendose)
+        if (self.estáQuieto())
         {
             const destino = self.obtenerDestino(dirActual)
             const casilla = mapaObjetos.casilla(destino)
@@ -76,7 +87,7 @@ object personaje
     // método de ataque
     method atacar(dir)
     {
-        if (not atacando and not moviendose and not tpeando)
+        if (self.estáQuieto())
         {
             atacando = true
             const destino = self.obtenerDestino(dir)
@@ -109,7 +120,7 @@ object personaje
 
     method iniciarMovimiento(dir)
     {
-        if (not moviendose and not atacando and not tpeando)
+        if (self.estáQuieto())
         {
             const destino = self.obtenerDestino(dir)
             const casilla = mapaObjetos.casilla(position)
@@ -139,7 +150,6 @@ object personaje
         animador.realizarAnimacionDeTransicion(self, destino, frames,
         {
             moviendose = false
-            position = destino
             image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
             
             casilla.alEntrar(self)

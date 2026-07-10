@@ -4,6 +4,7 @@ import scripts.gestionObjetos.misObjetos.pinchos.*
 import scripts.gestionObjetos.misObjetos.palanca.*
 import scripts.gestionObjetos.misObjetos.puerta.*
 import scripts.gestionObjetos.misObjetos.caja.*
+import scripts.gestionObjetos.misObjetos.salida.*
 import scripts.gestionObjetos.misObjetos.portal.*
 import scripts.gestionObjetos.misObjetos.boton.*
 import scripts.gestionObjetos.misObjetos.laser.*
@@ -40,6 +41,9 @@ Los IDs simples representan directamente un tipo de objeto:
         810 = Láser hacia abajo
         820 = Láser hacia la derecha
         830 = Láser hacia la izquierda
+
+        101 = Salida hacia la izquierda
+        102 = Salida hacia la derecha
 
     Enemigos
         90 = Sapo
@@ -114,6 +118,9 @@ object fabricaNivel
         constructores.put(90, { p,c => new Sapo(position = p) })
         constructores.put(91, { p,c => new Mur(position = p) })
         constructores.put(92, { p,c => new Gato(position = p) })
+
+        constructores.put(101, { p,c => new Salida(position = p, canal = c, direccion = "izq") })
+        constructores.put(102, { p,c => new Salida(position = p, canal = c, direccion = "der") })
 
         // Personaje  (Quizas seria mejor determinar la posicion inicial del jugador en el propio nivel y no aqui, es provisional)
         constructores.put(99, {

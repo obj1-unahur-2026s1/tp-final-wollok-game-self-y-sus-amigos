@@ -79,6 +79,8 @@ object gestorNivel
         // construccion del mapa
         if (not mapa.isEmpty()) {
             self.construirMapa(mapa)
+            
+            gestorEnemigos.enemigosActivos().forEach({e => e.actualizarVisuales()})
         }
     }
 

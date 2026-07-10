@@ -9,7 +9,7 @@ class Sapo inherits Enemigo(nombre = "sapo", image = "sprites\\enemigos\\sapo\\m
     const direcciones = [dirPrincipal, dirSecundaria]
 
     const dirElegida = direcciones.findOrDefault(
-        { dir => self.puedeMoverseA(mapaObjetos.casilla(self.obtenerDestino(dir))) },
+        { dir => self.puedeMoverseA(mapaObjetos.casilla(self.obtenerDestino(dir)), dir) },
         null
     )
 

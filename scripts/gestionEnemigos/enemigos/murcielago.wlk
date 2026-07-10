@@ -7,7 +7,7 @@ class Mur inherits Enemigo(nombre = "mur", dirActual = "arr")
     {   
         const destino = self.obtenerDestino(dirActual)
         const casillaDestino = mapaObjetos.casilla(destino)
-        if (not self.puedeMoverseA(casillaDestino))
+        if (not self.puedeMoverseA(casillaDestino, dirActual))
         {
             if (dirActual == "arr") dirActual = "abj" else dirActual = "arr"    
         }

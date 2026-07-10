@@ -1,3 +1,5 @@
+import scripts.personaje.personaje.*
+import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionObjetos.misObjetos.Objeto.*
 
 import scripts.gestionObjetos.gestorObjetos.*
@@ -6,47 +8,51 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 
 class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\caja\\caja.png")
 {
+    var moviendose = false
+
     override method dejaPasarLaser() = false 
 
     override method puedeEntrar(entidad, dir) 
     {
-        const puedeEntrar = mapaObjetos.casilla( self.obtenerDestino(dir) ).puedeEntrar(entidad, dir)
-        
-        if(puedeEntrar)
-            self.mover(dir)
+        if (moviendose) return false 
+
+        const destino = self.obtenerDestino(dir)
+        const puedeEntrar = mapaObjetos.casilla(destino).puedeEntrar(entidad, dir) 
+            and not gestorEnemigos.estaOcupado(destino) 
+            and personaje.position() != destino
+
+        if (puedeEntrar) self.mover(dir)
 
         return puedeEntrar
-    
     }
 
-    // mover caja al entrar
+    method actualizarPosicion(posicionDestino) { position = posicionDestino }
+    method actualizarVisuales() { game.removeVisual(self); game.addVisual(self) }
+
     method mover(dir)
-    {
-        const destino = self.obtenerDestino(dir)
-        
-        const casillaActual = mapaObjetos.casilla(position)
-        const casillaDestino = mapaObjetos.casilla(destino)
+{
+    const destino = self.obtenerDestino(dir)
+    const casillaActual = mapaObjetos.casilla(position)
+    const casillaDestino = mapaObjetos.casilla(destino)
 
-        // sonido
-        const sonido = game.sound("audio\\SFX\\empujar.mp3")
-        sonido.volume(0.4)
-        sonido.play()
+    moviendose = true
 
-        mapaObjetos.removerObjeto(self, position)
-        mapaObjetos.añadirObjeto(self, destino)
+    const sonido = game.sound("audio\\SFX\\empujar.mp3")
+    sonido.volume(0.4)
+    sonido.play()
 
-        casillaDestino.alEntrar(self)
-        casillaActual.alSalir(self)
+    mapaObjetos.removerObjeto(self, position)
+    mapaObjetos.añadirObjeto(self, destino)
 
-        const frames = bancoImagenes.obtenerFrames("caja", "mov", dir)
-        animador.realizarAnimacionDeTransicion(self, destino, frames, {
+    casillaDestino.alEntrar(self)
+    casillaActual.alSalir(self)
 
-            position = destino
-
-            // Actualizar visual
-            image = "sprites\\objetos\\caja\\caja.png"
-            game.removeVisual(self)
-            game.addVisual(self)
-        })
-    }
+    const frames = bancoImagenes.obtenerFrames("caja", "mov", dir)
+    animador.realizarAnimacionDeTransicion(self, destino, frames, {
+        image = "sprites\\objetos\\caja\\caja.png"
+        game.removeVisual(self)
+        game.addVisual(self)
+        moviendose = false
+    })
+}
 }

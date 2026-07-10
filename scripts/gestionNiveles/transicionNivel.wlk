@@ -8,10 +8,12 @@ object transicion
 {
     var property image = "sprites\\utilidades\\transparente.png"
     var property position = game.at(0, 0)
+    var property transicionActiva = false
 
     method activar()
     {
         game.addVisual(self)
+        transicionActiva = true
 
         const ruta = bancoImagenes.rutaAnimacionSimple("UI", "transicion", "play")
 
@@ -32,6 +34,7 @@ object transicion
         animador.reproducirAtras(self, ruta + "transition_", 28, 1, {
             game.removeVisual(self)
             personaje.spawn()
+            transicionActiva = false
         })
     }
 }

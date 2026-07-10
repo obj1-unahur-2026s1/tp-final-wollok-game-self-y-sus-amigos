@@ -1,4 +1,3 @@
-import scripts.gestionObjetos.misObjetos.celdaVacia.*
 import scripts.gestionObjetos.misObjetos.colision.*
 import scripts.gestionObjetos.misObjetos.moneda.*
 import scripts.gestionObjetos.misObjetos.pinchos.*
@@ -8,7 +7,6 @@ import scripts.gestionObjetos.misObjetos.caja.*
 import scripts.gestionObjetos.misObjetos.portal.*
 import scripts.gestionObjetos.misObjetos.boton.*
 import scripts.gestionObjetos.misObjetos.laser.*
-
 import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionEnemigos.enemigos.sapo.*
 import scripts.gestionEnemigos.enemigos.murcielago.*

@@ -1,9 +1,9 @@
-import Nivel.*
-import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
+import Nivel.*
+import scripts.gestionObjetos.misObjetos.Objeto.*
 
-object nivel_3 inherits Nivel
+object nivel_4 inherits Nivel
 {
     override method mapaData() =
     [
@@ -19,13 +19,4 @@ object nivel_3 inherits Nivel
         [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
         [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]
     ]
-
-    const tutorial1 = new Objeto(position = game.at(14,1))
-
-    override method iniciarNivel() {
-        super()
-        game.addVisual(tutorial1)
-        animador.reproducirLoop(tutorial1, bancoImagenes.rutaAnimacionSimple("UI", "tutorial", "tutorial4") + "tutorial_", 2, 10)
-    }
 }
-

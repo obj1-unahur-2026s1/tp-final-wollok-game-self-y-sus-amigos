@@ -38,7 +38,7 @@ class Enemigo
         const puedeEntrar = casilla.puedeEntrar(self, dirActual)
         const hayEnemigos = gestorEnemigos.estaOcupado(casilla.position())
 
-        return not puedeEntrar and not hayEnemigos
+        return puedeEntrar and not hayEnemigos
     }
 
     method formaDeMoverse() {}
@@ -47,11 +47,11 @@ class Enemigo
     {
         if (not estaEsperando)
         {
-            const destino = self.obtenerDestino(dirActual)
-            const casilla = mapaObjetos.casilla(destino)
-
             // decidir como se va mover
             self.formaDeMoverse()
+
+            const destino = self.obtenerDestino(dirActual)
+            const casilla = mapaObjetos.casilla(destino)
             
             if (self.puedeMoverseA(casilla))
             {
@@ -60,7 +60,7 @@ class Enemigo
                 animador.realizarAnimacionDeTransicion(self, destino, frames,{
                     position = destino
                     image = self.rutaImagen()
-                    casilla.sePoneEncima(self)
+                    casilla.alEntrar(self)
                 })
             } 
             else
@@ -82,6 +82,6 @@ class Enemigo
         animador.cancelarAnimacionesDe(self)
 
         const ruta = bancoImagenes.rutaAnimacionSimple("enemigos", "muerte", "play") + "enemigoMuerte_"
-        animador.reproducirAdelante(self, ruta, 6, 3, {})
+        animador.reproducirAdelante(self, ruta, 6, 3, {game.removeVisual(self)})
     }
 }

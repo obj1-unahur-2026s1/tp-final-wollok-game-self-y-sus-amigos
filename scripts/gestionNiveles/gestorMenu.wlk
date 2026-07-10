@@ -136,7 +136,7 @@ object levelSelector {
     }
 
     method aceptar() {
-        gestorNivel.nivelActual(opcionActual)
+        gestorNivel.nivelActual(opcionActual - 1)
         gestorNivel.pasarNivel()
     }
 }

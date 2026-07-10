@@ -14,19 +14,23 @@ class Moneda inherits Objeto(nombre = "moneda", image = "sprites\\objetos\\moned
 
     override method sePoneEncima(entidad)
     {
-        // limpiar
-        animador.detenerAnimacionSimple(self)
-        game.removeVisual(self) 
-        mapaObjetos.removerObjeto(self, game.at(0,0))
+        if (entidad.nombre() == "personaje" )
+        {
+            // limpiar
+            animador.detenerAnimacionSimple(self)
+            game.removeVisual(self) 
+            mapaObjetos.removerObjeto(self, game.at(0,0))
 
-        // activar sonido
-        const moneda = game.sound("audio\\SFX\\agarrarMoneda.mp3")
-        moneda.volume(0.5)
-        moneda.play()
+            // activar sonido
+            const moneda = game.sound("audio\\SFX\\agarrarMoneda.mp3")
+            moneda.volume(0.5)
+            moneda.play()
 
-        // sumar moneda al jugador
-        entidad.añadirMoneda()
+            // sumar moneda al jugador
+            entidad.añadirMoneda()
 
-        //contadorMonedas.actualizar()
+            //contadorMonedas.actualizar()
+        }
+        
     }
 }

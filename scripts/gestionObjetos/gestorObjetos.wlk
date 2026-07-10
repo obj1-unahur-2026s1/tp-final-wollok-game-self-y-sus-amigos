@@ -1,4 +1,4 @@
-import scripts.gestionObjetos.misObjetos.celdaVacia.*
+
 
 class Casilla
 {

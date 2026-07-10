@@ -5,8 +5,6 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 
 class Baldosa inherits Objeto(nombre = "baldosa", image = "sprites\\objetos\\boton\\baldosa_1.png")
 {
-    var estadoActual = 1
-    method estaRoto() = estadoActual > 5 
 
     override method initialize()
     {
@@ -15,10 +13,6 @@ class Baldosa inherits Objeto(nombre = "baldosa", image = "sprites\\objetos\\bot
 
     override method soltar(entidad)
     {
-        if (!self.estaRoto())
-        {
-        estadoActual += 1
-        image = "sprites\\objetos\\boton\\baldosa_" + estadoActual + ".png"
-        }  
+        
     }
 }

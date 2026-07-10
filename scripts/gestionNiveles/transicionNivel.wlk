@@ -29,7 +29,7 @@ object transicion
         
         const ruta = bancoImagenes.rutaAnimacionSimple("UI", "transicion", "play")
 
-        animador.reproducirAtras(self, ruta + "transition_", 25, 1, {
+        animador.reproducirAtras(self, ruta + "transition_", 28, 1, {
             game.removeVisual(self)
             personaje.spawn()
         })

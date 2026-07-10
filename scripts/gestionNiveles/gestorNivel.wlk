@@ -1,7 +1,11 @@
 import niveles.datosNivel1.*
 import niveles.datosNivel2.*
 import niveles.datosNivel3.*
+import niveles.datosNivel4.*
+import niveles.datosNivel5.*
 import niveles.pantallaTitulo.*
+
+
 
 import transicionNivel.*
 import fabricaNivel.*
@@ -15,9 +19,11 @@ object gestorNivel
 {
     const niveles = [
         pantallaTitulo,
+        nivel_1,
         nivel_2,
-        nivel_2,
-        nivel_3
+        nivel_3,
+        nivel_4,
+        nivel_5
     ]
 
     var property nivelActual = 0
@@ -28,6 +34,10 @@ object gestorNivel
     method pasarNivel()
     {
         nivelActual += 1 
+        transicion.activar()
+    }
+
+    method reiniciarNivel() {
         transicion.activar()
     }
 
@@ -91,7 +101,10 @@ object gestorNivel
                 const posX = indexColumna
                 const posY = altoMatriz - 1 - indexFila
 
-                fabricaNivel.crear(celda, game.at(posX,posY))
+                if (celda != 0)
+                {
+                    fabricaNivel.crear(celda, game.at(posX,posY))   
+                }
             })
         })
     }

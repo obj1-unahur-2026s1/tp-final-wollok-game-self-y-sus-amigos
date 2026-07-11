@@ -4,6 +4,7 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionMejoras.gestorMejoras.*
 //import gestorAnimaciones.*
 //import gestorObjetos.*
 
@@ -19,9 +20,33 @@ object personaje
     var property tpeando    = false 
     var property atacando   = false
 
-    // inventario
     var property monedas = 0
-    method añadirMoneda() { monedas += 1 }
+    var property intentos = 2
+    var property tieneLlave = false
+
+    method añadirMoneda(){
+        monedas += gestorMejoras.multiplicadorMonedas()
+    }
+
+    method gastarMonedas(cantidad){
+        monedas -= cantidad
+    }
+
+    method añadirIntento()
+    {
+        if(intentos < self.intentosMaximos())
+            intentos += 1
+    }
+
+    method perderIntento(){
+        intentos -= 1
+    }
+
+    method intentosMaximos()
+    {
+        return 2 + gestorMejoras.intentosExtra()
+    }
+
 
     // spawn de jugador
     method spawn()
@@ -51,15 +76,16 @@ object personaje
     method ataque()         { self.atacar(dirActual) }
 
     // métodos de control de lógica de movimiento e interacción
-    method obtenerDestino(direccion)
+    method obtenerDestino(direccion) = self.obtenerDestinoDesde(position, direccion)
+
+    method obtenerDestinoDesde(pos, direccion)
     {
         return
-            if (direccion == "arr")      position.up(1)
-            else if (direccion == "abj") position.down(1)
-            else if (direccion == "der") position.right(1)
-            else if (direccion == "izq") position.left(1)
-
-            else position
+            if (direccion == "arr") pos.up(1)
+            else if (direccion == "abj") pos.down(1)
+            else if (direccion == "der") pos.right(1)
+            else if (direccion == "izq") pos.left(1)
+            else pos
     }
 
     method interact()
@@ -72,7 +98,21 @@ object personaje
         }
     }
 
-    // método de ataque
+    // métodos de ataque
+
+    method casillasDeAtaque(dir)
+    {
+        const casillas = []
+        var pos = self.position()
+
+        (1..gestorMejoras.alcanceEspada()).forEach({ _ =>
+            pos = self.obtenerDestinoDesde(pos, dir)
+            casillas.add(pos)
+        })
+
+        return casillas
+    }
+
     method atacar(dir)
     {
         if (not atacando and not moviendose and not tpeando)
@@ -97,11 +137,15 @@ object personaje
 
             const frames = bancoImagenes.obtenerFrames("swrd", "ataque", dir)
 
-            animador.realizarAnimacionDeAtaque(self, destino, frames,{
+            animador.realizarAnimacionDeAtaque(self, destino, frames, gestorMejoras.ticksAtaque(),{
                 atacando = false
 
-                const enemigo = gestorEnemigos.hayEnemigoEn(destino)
-                if(enemigo != null) enemigo.matar()
+                self.casillasDeAtaque(dir).forEach({ casilla =>
+                    const enemigo = gestorEnemigos.hayEnemigoEn(casilla)
+
+                    if(enemigo != null)
+                        enemigo.matar()
+                })
             })
         }
     }
@@ -135,7 +179,7 @@ object personaje
         
         const frames = bancoImagenes.obtenerFrames("pj", "mov", dir)
 
-        animador.realizarAnimacionDeTransicion(self, destino, frames,
+        animador.realizarAnimacionDeTransicion(self, destino, frames, gestorMejoras.ticksMovimiento(),
         {
             moviendose = false
             position = destino
@@ -152,7 +196,7 @@ object personaje
             tpeando = true
             const frames = bancoImagenes.obtenerFrames("pj", "teleport", dirActual)
             
-            animador.realizarAnimacionDeTransicion(self, destino, frames, {
+            animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
                 image = "sprites\\personaje\\pj\\mov\\" + dirActual + "\\pj_" + dirActual + ".png"
                 position = destino
                 tpeando = false

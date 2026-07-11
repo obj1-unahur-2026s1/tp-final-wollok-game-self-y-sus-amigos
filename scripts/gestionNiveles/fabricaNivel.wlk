@@ -1,13 +1,19 @@
+import scripts.gestionObjetos.misObjetos.cartel.*
 import scripts.gestionObjetos.misObjetos.celdaVacia.*
 import scripts.gestionObjetos.misObjetos.colision.*
 import scripts.gestionObjetos.misObjetos.moneda.*
 import scripts.gestionObjetos.misObjetos.pinchos.*
 import scripts.gestionObjetos.misObjetos.palanca.*
+
+import scripts.gestionObjetos.misObjetos.cofres.cofreNivel.*
+import scripts.gestionObjetos.misObjetos.cofres.cofreTienda.*
+
 import scripts.gestionObjetos.misObjetos.puerta.*
 import scripts.gestionObjetos.misObjetos.caja.*
 import scripts.gestionObjetos.misObjetos.portal.*
 import scripts.gestionObjetos.misObjetos.boton.*
 import scripts.gestionObjetos.misObjetos.laser.*
+import scripts.gestionObjetos.misObjetos.llave.*
 
 import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionEnemigos.enemigos.sapo.*
@@ -100,12 +106,17 @@ object fabricaNivel
         constructores.put(3, { p,c => new Pinchos(position = p, canal = c) })
         constructores.put(4, { p,c => new Palanca(position = p, canal = c) })
 
+        constructores.put(10, { p,c => new CofreNivel(position = p)})
+        constructores.put(11, { p,c => new CofreTienda(position = p, precioBase = 20)})
+        constructores.put(12, { p,c => new Cartel(position = p)})
+
         constructores.put(51, { p,c => new Puerta(position = p, canal = c, direccion = "horizontal") })
         constructores.put(52, { p,c => new Puerta(position = p, canal = c, direccion = "vertical") })
 
         constructores.put(6, { p,c => new Caja(position = p) })
         constructores.put(7, { p,c => new Portal(position = p) })
         constructores.put(8, { p,c => new Boton(position = p, canal = c) })
+        constructores.put(9, { p,c => new Llave(position = p) })
 
         constructores.put(800, { p,c => new Laser(position = p, canal = c, direccion = "arr") })
         constructores.put(810, { p,c => new Laser(position = p, canal = c, direccion = "abj") })

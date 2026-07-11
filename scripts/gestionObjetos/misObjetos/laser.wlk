@@ -124,12 +124,14 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
 
     override method sePoneEncima(entidad)
     {
-        emisor.proyectarRayo()
+        if(entidad.nombre() != "personaje")
+            emisor.proyectarRayo()
     }
 
     override method soltar(entidad)
     {
-        emisor.proyectarRayo()
+        if(emisor.encendido())
+            emisor.proyectarRayo()
     }
 
     method activar()

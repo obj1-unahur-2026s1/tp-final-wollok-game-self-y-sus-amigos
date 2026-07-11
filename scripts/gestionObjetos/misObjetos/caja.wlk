@@ -38,7 +38,7 @@ class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\ca
         casillaDestino.alEntrar(self)
 
         const frames = bancoImagenes.obtenerFrames("caja", "mov", dir)
-        animador.realizarAnimacionDeTransicion(self, destino, frames, {
+        animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
 
             position = destino
 

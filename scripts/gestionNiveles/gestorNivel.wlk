@@ -2,6 +2,7 @@ import niveles.datosNivel1.*
 import niveles.datosNivel2.*
 import niveles.datosNivel3.*
 import niveles.pantallaTitulo.*
+import niveles.tienda.*
 
 import transicionNivel.*
 import fabricaNivel.*
@@ -17,17 +18,41 @@ object gestorNivel
         pantallaTitulo,
         nivel_2,
         nivel_2,
-        nivel_3
+        nivel_3,
+        tienda
     ]
 
     var property nivelActual = 0
+    const property primerNivelConTienda = 1
+    const property frecuenciaTienda = 1
+    var property enTienda = false
+
     var property musicaActual = null
     var property volumenMusica = 0.3
     var property volumenEfectos = 0.3
 
+    method debeIrATienda()
+    {
+        return
+            nivelActual >= primerNivelConTienda and
+            (nivelActual - primerNivelConTienda) % frecuenciaTienda == 0
+    }
+
     method pasarNivel()
     {
-        nivelActual += 1 
+        if(enTienda)
+        {
+            enTienda = false
+            nivelActual += 1
+        }
+        else
+        {
+            if(self.debeIrATienda())
+                enTienda = true
+            else
+                nivelActual += 1
+        }
+
         transicion.activar()
     }
 
@@ -60,7 +85,14 @@ object gestorNivel
         musicaActual.volume(0.1)
         musicaActual.play()
 
-        nivel.iniciarNivel()
+        if(enTienda)
+        {
+            tienda.iniciarNivel()
+        }
+        else
+        {
+            niveles.get(nivelActual).iniciarNivel()
+        }
 
         // inicializacion de animaciones y movimiento de enemigos
         animador.iniciar()

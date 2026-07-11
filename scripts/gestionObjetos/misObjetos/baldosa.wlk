@@ -13,7 +13,7 @@ class Baldosa inherits Objeto(nombre = "baldosa", image = "sprites\\objetos\\bot
         game.addVisual(self)
     }
 
-    override method soltar()
+    override method soltar(entidad)
     {
         if (!self.estaRoto())
         {

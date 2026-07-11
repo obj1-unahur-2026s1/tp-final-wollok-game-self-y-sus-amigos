@@ -3,12 +3,14 @@ import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionEnemigos.gestorEnemigos.*
+import scripts.gestionMejoras.gestorMejoras.*
 
 class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pinchos\\usar\\pinchosAbiertos.png")
 {
     var property abierto = true
     var property puedeCerrar = true
-    //const collision = new Colision(position = position)
+    
+    override method puedeEntrar(entidad,dir) = gestorMejoras.pasarPinchos() > 0
 
     override method initialize()
     {
@@ -27,6 +29,8 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
         if (not puedeCerrar)
         {
             puedeCerrar = true
+            abierto = true
+
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "pinchos", "usar")
             const enemigoPosicion = gestorEnemigos.hayEnemigoEn(position)
 
@@ -34,7 +38,6 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
                 enemigoPosicion.matar()
 
             animador.reproducirAdelante(self, ruta + "pinchosAbriendo_", 6, 2, {
-                abierto = true
                 image = ruta + "pinchosAbiertos.png"
             })
         }
@@ -45,10 +48,10 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
         if (puedeCerrar)
         {
             puedeCerrar = false
+            abierto = false
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "pinchos", "usar")
 
             animador.reproducirAtras(self, ruta + "pinchosAbriendo_", 6, 2, {
-                abierto = false
                 image = ruta + "pinchosCerrados.png"
             })
         }

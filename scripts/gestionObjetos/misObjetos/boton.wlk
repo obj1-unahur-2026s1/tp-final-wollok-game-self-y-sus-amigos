@@ -18,12 +18,13 @@ class Boton inherits Objeto(nombre = "boton", image = "sprites\\objetos\\boton\\
     {
         if(not pisado)
         {
+            pisado = true
+            gestorCanales.notificarAccion(canal)
+
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "boton", "pulsar") + "boton_"
             animador.reproducirAdelante(self, ruta, 7, 1,
             {
-                pisado = true
                 image = "sprites\\objetos\\boton\\boton_pulsado.png"
-                gestorCanales.notificarAccion(canal)
             })
         }
     }
@@ -32,12 +33,13 @@ class Boton inherits Objeto(nombre = "boton", image = "sprites\\objetos\\boton\\
     {
         if(pisado)
         {
+            pisado = false
+            gestorCanales.notificarAccion(canal)
+            
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "boton", "pulsar") + "boton_"
             animador.reproducirAtras(self, ruta, 7, 1,
             {
-                pisado = false
                 image = "sprites\\objetos\\boton\\boton_sinPulsar.png"
-                gestorCanales.notificarAccion(canal)
             })
         }
     }

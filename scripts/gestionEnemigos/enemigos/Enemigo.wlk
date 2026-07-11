@@ -1,6 +1,9 @@
+import scripts.gestionRecompensas.gestorRecompensas.*
+import scripts.gestionMejoras.misMejoras.recompensaCombate.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionMejoras.gestorMejoras.*
 import gestorEnemigos.*
 
 class Enemigo
@@ -9,7 +12,7 @@ class Enemigo
     var property position = game.at(0, 0)
     var property image = "default.png"
     var property dirActual = "abj"
-
+    
     // estados
     var property estaEsperando = false
 
@@ -57,7 +60,7 @@ class Enemigo
             {
                 const frames = bancoImagenes.obtenerFrames(nombre, "mov", dirActual)
                 
-                animador.realizarAnimacionDeTransicion(self, destino, frames,{
+                animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
                     position = destino
                     image = self.rutaImagen()
                     casilla.sePoneEncima(self)
@@ -83,5 +86,7 @@ class Enemigo
 
         const ruta = bancoImagenes.rutaAnimacionSimple("enemigos", "muerte", "play") + "enemigoMuerte_"
         animador.reproducirAdelante(self, ruta, 6, 3, {})
+
+        gestorRecompensas.generarDrop(position)
     }
 }

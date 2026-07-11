@@ -32,6 +32,7 @@ object gestorNivel
         nivel_2,
         nivel_3,
         nivel_4,
+        nivel_5,
         nivel_7,
         nivel_11,
         nivel_12,

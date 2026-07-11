@@ -4,6 +4,7 @@ class Cartel inherits Objeto(nombre = "cartel", image = "sprites\\objetos\\carte
 {
     override method initialize()
     {
+        position = position.left(1)
         game.addVisual(self)
     }
 }

@@ -6,6 +6,7 @@ import scripts.gestionObjetos.misObjetos.puerta.*
 import scripts.gestionObjetos.misObjetos.caja.*
 import scripts.gestionObjetos.misObjetos.salida.*
 import scripts.gestionObjetos.misObjetos.portal.*
+import scripts.gestionObjetos.misObjetos.baldosa.*
 import scripts.gestionObjetos.misObjetos.boton.*
 import scripts.gestionObjetos.misObjetos.laser.*
 import scripts.gestionEnemigos.gestorEnemigos.*
@@ -25,10 +26,11 @@ Los IDs simples representan directamente un tipo de objeto:
 
     Objetos
         0   = Celda vacía
-        0.1 = Celda bloqueada (no transitable)
         1   = Colisión
         2   = Moneda
-        3   = Pinchos
+        20  = Baldosa
+        30  = Pinchos
+        31  = Pinchos cerrados
         4   = Palanca
         6   = Caja
         7   = Portal
@@ -36,6 +38,8 @@ Los IDs simples representan directamente un tipo de objeto:
 
         51  = Puerta horizontal
         52  = Puerta vertical
+        53  = Puerta horizontal abierta
+        54  = Puerta vertical abierta
 
         800 = Láser hacia arriba
         810 = Láser hacia abajo
@@ -65,8 +69,8 @@ El canal se codifica agregando un dígito al final del ID.
 
 Ejemplos:
 
-    31 -> Pinchos del canal 1
-    34 -> Pinchos del canal 4
+    301 -> Pinchos del canal 1
+    304 -> Pinchos del canal 4
 
     81 -> Botón del canal 1
     85 -> Botón del canal 5
@@ -99,11 +103,16 @@ object fabricaNivel
         constructores.put(1, { p,c => new Colision(position = p) })
 
         constructores.put(2, { p,c => new Moneda(position = p) })
-        constructores.put(3, { p,c => new Pinchos(position = p, canal = c) })
+
+        constructores.put(30, { p,c => new Pinchos(position = p, canal = c) })
+        constructores.put(31, { p,c => new Pinchos(position = p, canal = c, abierto = false) })
+
         constructores.put(4, { p,c => new Palanca(position = p, canal = c) })
 
         constructores.put(51, { p,c => new Puerta(position = p, canal = c, direccion = "horizontal") })
         constructores.put(52, { p,c => new Puerta(position = p, canal = c, direccion = "vertical") })
+        constructores.put(53, { p,c => new Puerta(position = p, canal = c, direccion = "horizontal", abierto = true) })
+        constructores.put(53, { p,c => new Puerta(position = p, canal = c, direccion = "vertical", abierto = true) })
 
         constructores.put(6, { p,c => new Caja(position = p) })
         constructores.put(7, { p,c => new Portal(position = p) })
@@ -121,6 +130,8 @@ object fabricaNivel
 
         constructores.put(101, { p,c => new Salida(position = p, canal = c, direccion = "izq") })
         constructores.put(102, { p,c => new Salida(position = p, canal = c, direccion = "der") })
+
+        constructores.put(20, { p,c => new Baldosa(position = p, canal = c) })
 
         // Personaje  (Quizas seria mejor determinar la posicion inicial del jugador en el propio nivel y no aqui, es provisional)
         constructores.put(99, {

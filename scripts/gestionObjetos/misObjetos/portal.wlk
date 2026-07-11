@@ -1,5 +1,5 @@
 import scripts.gestionObjetos.misObjetos.Objeto.*
-
+import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
@@ -25,6 +25,9 @@ class Portal inherits Objeto(nombre = "portal")
 
             if (portalDestino != null) {
                 entity.teletransportar(portalDestino.position())
+                const tp = game.sound("audio\\SFX\\tp_" + (1..2).anyOne() + ".mp3")
+                tp.volume(gestorNivel.volumenEfectos())
+                tp.play()
             }
 
             entity = null 
@@ -34,11 +37,6 @@ class Portal inherits Objeto(nombre = "portal")
     override method sePoneEncima(entidad)
     {
         entity = entidad
-
-        const tp = game.sound("audio\\SFX\\tp_" + (1..2).anyOne() + ".mp3")
-        tp.volume(0.3)
-        tp.play()
-
         gestorCanales.notificarAccion(canal)
     }
 }

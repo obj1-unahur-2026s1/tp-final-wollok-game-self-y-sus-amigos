@@ -2,6 +2,7 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionNiveles.transicionNivel.*
+import scripts.gestionNiveles.gestorNivel.*
 import gestorEnemigos.*
 
 class Enemigo
@@ -14,6 +15,7 @@ class Enemigo
     // estados
     var property estaEsperando = false
     var property destinoReservado = null
+    var property tpeando    = false
     var property moviendose = false 
 
     method rutaImagen() = "sprites\\enemigos\\" + nombre +"\\mov\\" + dirActual + "\\" + nombre + "_" + dirActual + ".png" 
@@ -53,6 +55,7 @@ class Enemigo
     method estáQuieto() = not moviendose 
                             and not estaEsperando 
                             and not transicion.transicionActiva()
+                            and not tpeando
 
     method ocupaPosicion(pos) = position == pos or destinoReservado == pos
 
@@ -95,7 +98,7 @@ class Enemigo
         gestorEnemigos.sacarEnemigo(self)
 
         const sonidoMuerte = game.sound("audio\\SFX\\enemigoMuerte.mp3")
-        sonidoMuerte.volume(0.5)
+        sonidoMuerte.volume(gestorNivel.volumenEfectos())
         sonidoMuerte.play()
 
         animador.cancelarAnimacionesDe(self)
@@ -107,5 +110,22 @@ class Enemigo
     method actualizarVisuales(){
         game.removeVisual(self)
         game.addVisual(self)
+    }
+
+    method teletransportar(destino)
+    {
+        if(not estaEsperando 
+            and not transicion.transicionActiva()
+            and not tpeando)
+        {
+            tpeando = true
+            const frames = bancoImagenes.obtenerFrames(self.nombre(), "teleport", dirActual)
+            
+            animador.realizarAnimacionDeTransicion(self, destino, frames, {
+                image = "sprites\\enemigos\\" + self.nombre() + "\\mov\\" + dirActual + "\\" + self.nombre() + "_" + dirActual + ".png"
+                position = destino
+                tpeando = false
+            })
+        }
     }
 }

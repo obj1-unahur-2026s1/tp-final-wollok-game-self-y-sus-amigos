@@ -16,6 +16,9 @@ class Salida inherits Objeto(nombre = "salida", image = "sprites\\objetos\\salid
 
     override method sePoneEncima(entidad)
     {
-        gestorNivel.pasarNivel()
+        if (entidad.nombre() == "personaje")
+        {
+            gestorNivel.pasarNivel()  
+        }
     }
 }

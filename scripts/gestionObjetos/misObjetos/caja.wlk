@@ -18,41 +18,41 @@ class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\ca
 
         const destino = self.obtenerDestino(dir)
         const puedeEntrar = mapaObjetos.casilla(destino).puedeEntrar(entidad, dir) 
+            and not gestorEnemigos.celdaBloqueadaPorEnemigo(destino) 
             and not gestorEnemigos.estaOcupado(destino) 
-            and personaje.position() != destino
+            and not personaje.ocupaPosicion(destino)  
 
         if (puedeEntrar) self.mover(dir)
 
         return puedeEntrar
     }
-
     method actualizarPosicion(posicionDestino) { position = posicionDestino }
     method actualizarVisuales() { game.removeVisual(self); game.addVisual(self) }
 
     method mover(dir)
-{
-    const destino = self.obtenerDestino(dir)
-    const casillaActual = mapaObjetos.casilla(position)
-    const casillaDestino = mapaObjetos.casilla(destino)
+    {
+        const destino = self.obtenerDestino(dir)
+        const casillaActual = mapaObjetos.casilla(position)
+        const casillaDestino = mapaObjetos.casilla(destino)
 
-    moviendose = true
+        moviendose = true
 
-    const sonido = game.sound("audio\\SFX\\empujar.mp3")
-    sonido.volume(0.4)
-    sonido.play()
+        const sonido = game.sound("audio\\SFX\\empujar.mp3")
+        sonido.volume(0.4)
+        sonido.play()
 
-    mapaObjetos.removerObjeto(self, position)
-    mapaObjetos.añadirObjeto(self, destino)
+        mapaObjetos.removerObjeto(self, position)
+        mapaObjetos.añadirObjeto(self, destino)
 
-    casillaDestino.alEntrar(self)
-    casillaActual.alSalir(self)
+        casillaDestino.alEntrar(self)
+        casillaActual.alSalir(self)
 
-    const frames = bancoImagenes.obtenerFrames("caja", "mov", dir)
-    animador.realizarAnimacionDeTransicion(self, destino, frames, {
-        image = "sprites\\objetos\\caja\\caja.png"
-        game.removeVisual(self)
-        game.addVisual(self)
-        moviendose = false
-    })
-}
+        const frames = bancoImagenes.obtenerFrames("caja", "mov", dir)
+        animador.realizarAnimacionDeTransicion(self, destino, frames, {
+            image = "sprites\\objetos\\caja\\caja.png"
+            game.removeVisual(self)
+            game.addVisual(self)
+            moviendose = false
+        })
+    }
 }

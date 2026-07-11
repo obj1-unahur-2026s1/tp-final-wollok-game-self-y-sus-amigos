@@ -4,7 +4,7 @@ object gestorEnemigos
 
     method comenzarMovimiento()
     {
-        game.onTick(1000, "movimientoSecuencialEnemigos",
+        game.onTick(200, "movimientoSecuencialEnemigos",
         {
             if (!enemigosActivos.isEmpty()) 
             {
@@ -44,5 +44,10 @@ object gestorEnemigos
         return enemigosActivos.any({ enemigo => 
             enemigo.position() == pos
         })
+    }
+
+    method celdaBloqueadaPorEnemigo(pos)
+    {
+        return enemigosActivos.any({ enemigo => enemigo.ocupaPosicion(pos) })   
     }
 }

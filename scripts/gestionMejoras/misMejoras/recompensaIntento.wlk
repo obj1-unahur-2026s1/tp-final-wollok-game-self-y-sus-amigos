@@ -9,6 +9,6 @@ object recompensaIntento inherits Mejora
 
     override method aplicar()
     {
-        gestorMejoras.recompensaIntento( gestorMejoras.recompensaIntento() + 1)
+        gestorMejoras.bonusRecompensaIntento( gestorMejoras.bonusRecompensaIntento() + 1)
     } 
 }

@@ -10,7 +10,7 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
     var property abierto = true
     var property puedeCerrar = true
     
-    override method puedeEntrar(entidad,dir) = gestorMejoras.pasarPinchos() > 0
+    override method puedeEntrar(entidad,dir) = gestorMejoras.pasarPinchos() < 0 or abierto
 
     override method initialize()
     {
@@ -21,8 +21,6 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
             self.accionar()
         } 
     }
-
-    override method puedeEntrar(entidad, dir) = !abierto
 
     override method accionar()
     {

@@ -10,7 +10,7 @@ object intentosExtra inherits Mejora
 
     override method aplicar()
     {
-        gestorMejoras.intentosExtra(gestorMejoras.intentosExtra() + 1)
+        gestorMejoras.bonusIntentosExtra(gestorMejoras.bonusIntentosExtra() + 1)
         personaje.añadirIntento()
     } 
 }

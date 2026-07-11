@@ -32,12 +32,12 @@ object gestorMejoras
     const property mejorasObtenidas = new Dictionary()
 
     // Personaje
-    var property intentosExtra = 0   // listo
+    var property bonusIntentosExtra = 0   // listo
     var property ticksMovimiento = 5 // listo
 
     // Enemigos
-    var property recompensaIntento = 0 // listo
-    var property recompensaCombate = 0 // listo
+    var property bonusRecompensaIntento = 0 // listo
+    var property bonusRecompensaCombate = 0 // listo
 
     // Espada
     var property alcanceEspada = 1  // listo
@@ -48,7 +48,7 @@ object gestorMejoras
     var property multiplicadorMonedas = 1  // listo
     var property monedasFinalNivel = 0 // aun no
 
-    var property descuentoCofres = 0  // listo
+    var property bonusDescuentoCofres = 0  // listo
 
     // Suerte
     var property suerte = 5   // despues
@@ -93,6 +93,10 @@ object gestorMejoras
 
     method mejoraAleatoria()
     {
+        mejorasDisponibles.forEach({ m =>
+            console.println(m.nombre())
+        })
+
         const disponibles = mejorasDisponibles.filter({ m =>
             self.puedeObtener(m)
         })

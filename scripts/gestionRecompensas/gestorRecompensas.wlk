@@ -31,10 +31,10 @@ object gestorRecompensas
     {
         const posibles = []
 
-        if(gestorMejoras.recompensaCombate() > 0)
+        if(gestorMejoras.bonusRecompensaCombate() > 0)
             posibles.add({ new Moneda(position = posicion) })
 
-        if(gestorMejoras.recompensaIntento() > 0)
+        if(gestorMejoras.bonusRecompensaIntento() > 0)
             posibles.add({ new Intento(position = posicion) })
 
         if(posibles.isNotEmpty())

@@ -9,6 +9,6 @@ object descuentoCofres inherits Mejora
 
     override method aplicar()
     {
-        gestorMejoras.descuentoCofres(gestorMejoras.descuentoCofres() + 1)
+        gestorMejoras.bonusDescuentoCofres(gestorMejoras.bonusDescuentoCofres() + 1)
     } 
 }

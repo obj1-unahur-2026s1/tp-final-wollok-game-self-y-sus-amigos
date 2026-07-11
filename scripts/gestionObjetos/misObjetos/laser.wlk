@@ -6,7 +6,7 @@ import scripts.gestionObjetos.gestorObjetos.*
 class Laser inherits Objeto(nombre = "laser")
 {
     var property direccion
-    var property encendido = false
+    var property encendido = true
     const hacesProyectados = []
 
     var posicionHaz = self.obtenerSiguientePosicion(position)

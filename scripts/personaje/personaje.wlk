@@ -24,7 +24,7 @@ object personaje
     var property atacando   = false
     var property spawning   = false  
 
-    var property monedas = 0
+    var property monedas = 50
     var property intentos = 2
     var property tieneLlave = false
 
@@ -33,7 +33,9 @@ object personaje
     }
 
     method gastarMonedas(cantidad){
+        console.println(monedas)
         monedas -= cantidad
+        console.println(monedas)
     }
 
     method añadirIntento()
@@ -48,7 +50,7 @@ object personaje
 
     method intentosMaximos()
     {
-        return 2 + gestorMejoras.intentosExtra()
+        return 2 + gestorMejoras.bonusIntentosExtra()
     }
 
 

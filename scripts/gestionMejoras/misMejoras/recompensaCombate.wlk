@@ -8,6 +8,6 @@ object recompensaCombate inherits Mejora
 
     override method aplicar()
     {
-        gestorMejoras.recompensaCombate( gestorMejoras.recompensaCombate() + 1)
+        gestorMejoras.bonusRecompensaCombate( gestorMejoras.bonusRecompensaCombate() + 1)
     } 
 }

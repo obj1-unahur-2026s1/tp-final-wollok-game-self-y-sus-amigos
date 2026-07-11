@@ -4,7 +4,7 @@ import scripts.gestionMejoras.gestorMejoras.*
 class CofreTienda inherits Cofre
 {
     const property precioBase = 30
-    method precio() = precioBase - gestorMejoras.descuentoCofres()
+    method precio() = precioBase - gestorMejoras.bonusDescuentoCofres()
 
     override method puedeAbrirse(entidad)
     {

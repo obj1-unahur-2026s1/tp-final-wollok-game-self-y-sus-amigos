@@ -3,7 +3,7 @@ import scripts.gestionAnimaciones.animador.*
 import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionRecompensas.gestorRecompensas.*
 
-class Cofre inherits Objeto(nombre = "cofre")
+class Cofre inherits Objeto(nombre = "cofre", image = "sprites\\objetos\\cofre\\cofreCerrado.png")
 {
     var property abierto = false
 

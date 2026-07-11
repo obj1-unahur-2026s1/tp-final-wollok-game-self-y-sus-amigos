@@ -1,6 +1,6 @@
 import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionEnemigos.gestorEnemigos.*
-
+import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 
@@ -12,6 +12,7 @@ object personaje
 {
     // propiedades visuales y de posición básicos
     var property position = game.at(0, 0)
+    var property destinoReservado = null
     var property image = "sprites\\utilidades\\transparente.png"
     var property nombre = "personaje"
     var property dirActual = "abj"
@@ -43,7 +44,7 @@ object personaje
         })
 
         const sonidoSpawn = game.sound("audio\\SFX\\spawn.mp3")
-        sonidoSpawn.volume(0.6)
+        sonidoSpawn.volume(gestorNivel.volumenEfectos())
         sonidoSpawn.play()
     }
 
@@ -57,7 +58,11 @@ object personaje
 
     // métodos de control de lógica de movimiento e interacción
 
-    method estáQuieto() = not moviendose and not spawning and not atacando and not tpeando and not transicion.transicionActiva()
+    method estáQuieto() = not moviendose 
+                        and not spawning 
+                        and not atacando 
+                        and not tpeando 
+                        and not transicion.transicionActiva()
 
     method obtenerDestino(direccion)
     {
@@ -94,16 +99,15 @@ object personaje
             const objetosDestino = mapaObjetos.casilla(destino).objetos()
 
             // gestión de sonidos
-            if(objetosDestino.isEmpty())
-            {
-                const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
-                sonido.volume(0.3)
-                sonido.play()
-            }
-            else if(objetosDestino.any({obj => obj.nombre() == "colision"}))
+            
+            const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
+            sonido.volume(gestorNivel.volumenEfectos())
+            sonido.play()
+            
+            if(objetosDestino.any({obj => obj.nombre() == "colision"}))
             {
                 const sonido = game.sound("audio\\SFX\\swordMetal.mp3")
-                sonido.volume(0.3)
+                sonido.volume(gestorNivel.volumenEfectos())
                 sonido.play()
             }
 
@@ -118,43 +122,45 @@ object personaje
         }
     }
 
-    method iniciarMovimiento(dir)
-    {
-        if (self.estáQuieto())
-        {
-            const destino = self.obtenerDestino(dir)
-            const casilla = mapaObjetos.casilla(position)
-            const casillaDestino = mapaObjetos.casilla(destino)
+    method ocupaPosicion(pos) = position == pos or destinoReservado == pos
 
-            if (not casillaDestino.puedeEntrar(self, dir))
-            {
-                dirActual = dir
-                image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
-            }
-            else
-            {
-                casilla.alSalir(self)
-                console.println("Objetos en casilla: " + casillaDestino.objetos())
-                self.moverHacia(destino, casillaDestino, dir)
-            }
+method iniciarMovimiento(dir)
+{
+    if (self.estáQuieto())
+    {
+        const destino = self.obtenerDestino(dir)
+        const casilla = mapaObjetos.casilla(position)
+        const casillaDestino = mapaObjetos.casilla(destino)
+
+        if (not casillaDestino.puedeEntrar(self, dir))
+        {
+            dirActual = dir
+            image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
+        }
+        else
+        {
+            destinoReservado = destino   
+            casilla.alSalir(self)
+            self.moverHacia(destino, casillaDestino, dir)
         }
     }
+}
 
-    method moverHacia(destino, casilla, dir)
+method moverHacia(destino, casilla, dir)
+{
+    moviendose = true
+    dirActual = dir
+    
+    const frames = bancoImagenes.obtenerFrames("pj", "mov", dir)
+
+    animador.realizarAnimacionDeTransicion(self, destino, frames,
     {
-        moviendose = true
-        dirActual = dir
-        
-        const frames = bancoImagenes.obtenerFrames("pj", "mov", dir)
-
-        animador.realizarAnimacionDeTransicion(self, destino, frames,
-        {
-            moviendose = false
-            image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
-            
-            casilla.alEntrar(self)
-        })
-    }
+        moviendose = false
+        destinoReservado = null   
+        image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
+        casilla.alEntrar(self)
+    })
+}
 
     method teletransportar(destino)
     {

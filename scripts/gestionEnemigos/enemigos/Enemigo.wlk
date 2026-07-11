@@ -1,6 +1,8 @@
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionNiveles.transicionNivel.*
+import scripts.gestionNiveles.gestorNivel.*
 import gestorEnemigos.*
 
 class Enemigo
@@ -12,6 +14,8 @@ class Enemigo
 
     // estados
     var property estaEsperando = false
+    var property destinoReservado = null
+    var property moviendose = false 
 
     method rutaImagen() = "sprites\\enemigos\\" + nombre +"\\mov\\" + dirActual + "\\" + nombre + "_" + dirActual + ".png" 
 
@@ -47,30 +51,40 @@ class Enemigo
 
     method formaDeMoverse() {}
 
+    method estáQuieto() = not moviendose 
+                            and not estaEsperando 
+                            and not transicion.transicionActiva()
+
+    method ocupaPosicion(pos) = position == pos or destinoReservado == pos
+
     method mover()
     {
-        if (not estaEsperando)
+        if (self.estáQuieto())
         {
-            // decidir como se va mover
+            moviendose = true
             self.formaDeMoverse()
 
+            const casillaActual = mapaObjetos.casilla(position)
             const destino = self.obtenerDestino(dirActual)
             const casillaDestino = mapaObjetos.casilla(destino)
-            const casillaActual = mapaObjetos.casilla(position)
             
             if (self.puedeMoverseA(casillaDestino, dirActual))
             {
                 const frames = bancoImagenes.obtenerFrames(nombre, "mov", dirActual)
 
+                destinoReservado = destino
                 casillaActual.alSalir(self)
 
                 animador.realizarAnimacionDeTransicion(self, destino, frames,{
+                    destinoReservado = null
                     image = self.rutaImagen()
                     casillaDestino.alEntrar(self)
+                    moviendose = false
                 })
             } 
             else
             {
+                moviendose = false
                 estaEsperando = true
                 game.schedule(1500, { estaEsperando = false })
             }
@@ -82,7 +96,7 @@ class Enemigo
         gestorEnemigos.sacarEnemigo(self)
 
         const sonidoMuerte = game.sound("audio\\SFX\\enemigoMuerte.mp3")
-        sonidoMuerte.volume(0.5)
+        sonidoMuerte.volume(gestorNivel.volumenEfectos())
         sonidoMuerte.play()
 
         animador.cancelarAnimacionesDe(self)

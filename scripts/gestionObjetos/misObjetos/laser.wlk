@@ -1,5 +1,5 @@
 import scripts.gestionObjetos.misObjetos.Objeto.*
-
+import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionObjetos.gestorObjetos.*
 
@@ -45,7 +45,7 @@ class Laser inherits Objeto(nombre = "laser")
         encendido = true
         // Sonido
         const laserOn = game.sound("audio\\SFX\\laserOn.mp3")
-        laserOn.volume(0.3)
+        laserOn.volume(gestorNivel.volumenEfectos())
         laserOn.play()
 
         // visual
@@ -60,7 +60,7 @@ class Laser inherits Objeto(nombre = "laser")
 
         // Sonido
         const laserOff = game.sound("audio\\SFX\\laserOff.mp3")
-        laserOff.volume(0.3)
+        laserOff.volume(gestorNivel.volumenEfectos())
         laserOff.play()
 
         // visual

@@ -14,6 +14,10 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
     {
         super()
         gestorCanales.registrar(self, canal)
+        if (!abierto) 
+        {
+            self.accionar()
+        } 
     }
 
     override method puedeEntrar(entidad, dir) = !abierto

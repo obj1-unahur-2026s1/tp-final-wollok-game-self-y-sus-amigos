@@ -2,6 +2,7 @@ import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
+import scripts.gestionNiveles.gestorNivel.*
 
 class Moneda inherits Objeto(nombre = "moneda", image = "sprites\\objetos\\moneda\\moneda.png")
 {
@@ -23,7 +24,7 @@ class Moneda inherits Objeto(nombre = "moneda", image = "sprites\\objetos\\moned
 
             // activar sonido
             const moneda = game.sound("audio\\SFX\\agarrarMoneda.mp3")
-            moneda.volume(0.5)
+            moneda.volume(gestorNivel.volumenEfectos())
             moneda.play()
 
             // sumar moneda al jugador

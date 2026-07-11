@@ -3,7 +3,7 @@ import niveles.datosNivel2.*
 import niveles.datosNivel3.*
 import niveles.datosNivel4.*
 import niveles.datosNivel5.*
-import niveles.datosNivel6.*
+import niveles.datosNivelADefinir.*
 import niveles.pantallaTitulo.*
 import niveles.datosNivel16.*
 import niveles.datosNivel17.*
@@ -22,6 +22,7 @@ object gestorNivel
 {
     const niveles = [
         pantallaTitulo,
+        nivel_16,
         nivel_1,
         nivel_2,
         nivel_3,

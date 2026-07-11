@@ -2,6 +2,8 @@ import niveles.datosNivel1.*
 import niveles.datosNivel2.*
 import niveles.datosNivel3.*
 import niveles.pantallaTitulo.*
+import niveles.datosNivel16.*
+import niveles.datosNivel17.*
 
 import transicionNivel.*
 import fabricaNivel.*

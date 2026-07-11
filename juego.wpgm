@@ -1,0 +1,20 @@
+import wollok.game.*
+import scripts.gestionNiveles.gestorNivel.*
+import scripts.gestionNiveles.fabricaNivel.*
+import scripts.gestionAnimaciones.bancoImagenes.*
+
+program rpg
+{
+    game.width(21)
+    game.height(11)
+    game.cellSize(80)
+
+    game.title("Mi RPG")
+    game.ground("celda.png")
+
+    fabricaNivel.inicializar()
+    bancoImagenes.inicializar()
+    gestorNivel.iniciarJuego()
+
+    game.start()
+}

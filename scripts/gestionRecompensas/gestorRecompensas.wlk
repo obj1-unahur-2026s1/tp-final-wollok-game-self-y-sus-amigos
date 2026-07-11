@@ -37,7 +37,7 @@ object gestorRecompensas
         if(gestorMejoras.bonusRecompensaIntento() > 0)
             posibles.add({ new Intento(position = posicion) })
 
-        if(posibles.isNotEmpty())
+        if(not posibles.isEmpty())
             posibles.anyOne().apply()
     }
 }

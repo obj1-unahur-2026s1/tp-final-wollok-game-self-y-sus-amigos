@@ -1,3 +1,4 @@
+import scripts.personaje.personaje.*
 import scripts.gestionObjetos.misObjetos.Objeto.*
 
 import scripts.gestionObjetos.gestorCanales.*

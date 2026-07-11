@@ -1,6 +1,7 @@
 import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 
@@ -8,18 +9,25 @@ class Puerta inherits Objeto(nombre = "Puerta")
 {
     const property direccion
     var property abierto = false
+    var property puedeCerrar = true
 
     method posicionPuerta() =  if (direccion == "horizontal") self.position().right(1) else self.position().up(1)
+    method actualizarPosicion() = if (direccion == "horizontal") position = position.left(1) else position = position.down(1)
 
     override method initialize()
     {
         super()
+        self.actualizarPosicion()
         gestorCanales.registrar(self, canal)
         image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_cerrada.png"
+        if (abierto)
+        {
+            self.cerrar()
+        }
     }
 
     override method dejaPasarLaser() = false 
-    override method puedeEntrar(entidad, dir) = false
+    override method puedeEntrar(entidad, dir) = abierto
 
     override method accionar()
     {
@@ -28,29 +36,34 @@ class Puerta inherits Objeto(nombre = "Puerta")
     }
 
     method abrir()
-    {
-        const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "\\puerta_" + direccion + "_"
-
-        animador.reproducirAdelante(self, ruta, 8, 3, {
-            image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_abierta.png"
-            abierto = true
-            
-            //mapaObjetos.hayObjetoEn( self.posicionPuerta() ).puedeEntrar(true)
-        })
+    { 
+        if (puedeCerrar)
+        {
+    
+            puedeCerrar = false
+            const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "\\puerta_" + direccion + "_"
+            animador.reproducirAdelante(self, ruta, 8, 1, {
+                image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_abierta.png"
+                abierto = true
+            })
+        }
+        
     }
 
     method cerrar()
     {
-        if (mapaObjetos.casilla( self.posicionPuerta() ).isEmpty())
-        {
-            const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "\\puerta_" + direccion + "_"
+        if (not puedeCerrar)
+        {   
+            const enemigo = gestorEnemigos.hayEnemigoEn(self.posicionPuerta())
+                if(enemigo != null) enemigo.matar()
 
-            animador.reproducirAtras(self, ruta, 8, 3, {
+            puedeCerrar = true
+            const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "\\puerta_" + direccion + "_"
+            animador.reproducirAtras(self, ruta, 8, 1, {
                 image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_cerrada.png"
                 abierto = false
-
-                //mapaObjetos.hayObjetoEn( self.posicionPuerta() ).puedeEntrar(false)
             })
         }
+        
     }
 }

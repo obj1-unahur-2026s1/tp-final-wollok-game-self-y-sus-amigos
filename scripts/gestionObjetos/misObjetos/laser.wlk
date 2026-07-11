@@ -1,5 +1,5 @@
 import scripts.gestionObjetos.misObjetos.Objeto.*
-
+import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionObjetos.gestorObjetos.*
 
@@ -45,7 +45,7 @@ class Laser inherits Objeto(nombre = "laser")
         encendido = true
         // Sonido
         const laserOn = game.sound("audio\\SFX\\laserOn.mp3")
-        laserOn.volume(0.3)
+        laserOn.volume(gestorNivel.volumenEfectos())
         laserOn.play()
 
         // visual
@@ -60,7 +60,7 @@ class Laser inherits Objeto(nombre = "laser")
 
         // Sonido
         const laserOff = game.sound("audio\\SFX\\laserOff.mp3")
-        laserOff.volume(0.3)
+        laserOff.volume(gestorNivel.volumenEfectos())
         laserOff.play()
 
         // visual
@@ -77,14 +77,16 @@ class Laser inherits Objeto(nombre = "laser")
     }
 
     method proyectarRayo()
+{
+    if (encendido)
     {
         self.limpiarRayo()
-
         self.proyectarDesde(
             self.obtenerSiguientePosicion(position),
             0
         )
     }
+}
 
     method proyectarDesde(posicionActual, indice)
     {
@@ -122,17 +124,17 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
         self.actualizarVisual()
     }
 
-    override method sePoneEncima(entidad)
-    {
-        if(entidad.nombre() != "personaje")
-            emisor.proyectarRayo()
+    override method sePoneEncima(entidad) {
+    if (encendido and entidad.nombre() == "caja") {
+        game.schedule(500, {emisor.proyectarRayo()})
     }
+}
 
-    override method soltar(entidad)
-    {
-        if(emisor.encendido())
-            emisor.proyectarRayo()
+override method soltar(entidad) {
+    if (entidad.nombre() == "caja") {
+        emisor.proyectarRayo()
     }
+}
 
     method activar()
     {

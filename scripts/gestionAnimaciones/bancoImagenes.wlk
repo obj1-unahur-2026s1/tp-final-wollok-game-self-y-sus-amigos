@@ -103,15 +103,18 @@ object bancoImagenes
     method registrarEnemigos()
     {
         self.registrarAnimacionesEntidad("enemigos", "sapo", [
-            new DefinicionAnimacion(nombre = "mov", cantidadFrames = 21)
+            new DefinicionAnimacion(nombre = "mov", cantidadFrames = 21),
+            new DefinicionAnimacion(nombre = "teleport", cantidadFrames = 6)
         ])
 
         self.registrarAnimacionesEntidad("enemigos", "mur", [
-            new DefinicionAnimacion(nombre = "mov", cantidadFrames = 21, direcciones = ["arr", "abj"])
+            new DefinicionAnimacion(nombre = "mov", cantidadFrames = 21, direcciones = ["arr", "abj"]),
+            new DefinicionAnimacion(nombre = "teleport", cantidadFrames = 6, direcciones = ["arr", "abj"])
         ])
 
         self.registrarAnimacionesEntidad("enemigos", "gato", [
-            new DefinicionAnimacion(nombre = "mov", cantidadFrames = 21, direcciones = ["der", "izq"])
+            new DefinicionAnimacion(nombre = "mov", cantidadFrames = 21, direcciones = ["der", "izq"]),
+            new DefinicionAnimacion(nombre = "teleport", cantidadFrames = 6, direcciones = ["der", "izq"])
         ])
     }
 

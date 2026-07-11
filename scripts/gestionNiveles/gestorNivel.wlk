@@ -1,8 +1,21 @@
+
+import niveles.pantallaTitulo.*
 import niveles.datosNivel1.*
 import niveles.datosNivel2.*
 import niveles.datosNivel3.*
-import niveles.pantallaTitulo.*
+import niveles.datosNivel4.*
+import niveles.datosNivel5.*
+import niveles.datosNivel7.*
+import niveles.datosNivel11.*
+import niveles.datosNivel12.*
+import niveles.datosNivel13.*
+import niveles.datosNivel14.*
+import niveles.datosNivel15.*
+import niveles.datosNivel16.*
+import niveles.datosNivel17.*
 import niveles.tienda.*
+
+
 
 import transicionNivel.*
 import fabricaNivel.*
@@ -16,9 +29,18 @@ object gestorNivel
 {
     const niveles = [
         pantallaTitulo,
-        nivel_2,
+        nivel_1,
         nivel_2,
         nivel_3,
+        nivel_4,
+        nivel_7,
+        nivel_11,
+        nivel_12,
+        nivel_13,
+        nivel_14,
+        nivel_15,
+        nivel_16,
+        nivel_17,
         tienda
     ]
 
@@ -56,6 +78,10 @@ object gestorNivel
         transicion.activar()
     }
 
+    method reiniciarNivel() {
+        transicion.activar()
+    }
+
     method iniciarJuego()
     {
         self.cargarNivelActual()
@@ -82,7 +108,7 @@ object gestorNivel
 
         musicaActual = game.sound( nivel.musicasFondo().anyOne() )
         musicaActual.shouldLoop(true)
-        musicaActual.volume(0.1)
+        musicaActual.volume(volumenMusica)
         musicaActual.play()
 
         if(enTienda)
@@ -101,6 +127,8 @@ object gestorNivel
         // construccion del mapa
         if (not mapa.isEmpty()) {
             self.construirMapa(mapa)
+            
+            gestorEnemigos.enemigosActivos().forEach({e => e.actualizarVisuales()})
         }
     }
 
@@ -123,7 +151,10 @@ object gestorNivel
                 const posX = indexColumna
                 const posY = altoMatriz - 1 - indexFila
 
-                fabricaNivel.crear(celda, game.at(posX,posY))
+                if (celda != 0)
+                {
+                    fabricaNivel.crear(celda, game.at(posX,posY))   
+                }
             })
         })
     }

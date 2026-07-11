@@ -16,7 +16,13 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
     {
         super()
         gestorCanales.registrar(self, canal)
+        if (!abierto) 
+        {
+            self.accionar()
+        } 
     }
+
+    override method puedeEntrar(entidad, dir) = !abierto
 
     override method accionar()
     {
@@ -39,6 +45,8 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
 
             animador.reproducirAdelante(self, ruta + "pinchosAbriendo_", 6, 2, {
                 image = ruta + "pinchosAbiertos.png"
+                const enemigo = gestorEnemigos.hayEnemigoEn(position)
+                if(enemigo != null) enemigo.matar()
             })
         }
     }

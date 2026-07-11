@@ -1,9 +1,13 @@
 import scripts.gestionRecompensas.gestorRecompensas.*
-import scripts.gestionMejoras.misMejoras.recompensaCombate.*
+
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
+
 import scripts.gestionObjetos.gestorObjetos.*
-import scripts.gestionMejoras.gestorMejoras.*
+
+import scripts.gestionNiveles.transicionNivel.*
+import scripts.gestionNiveles.gestorNivel.*
+
 import gestorEnemigos.*
 
 class Enemigo
@@ -15,6 +19,9 @@ class Enemigo
     
     // estados
     var property estaEsperando = false
+    var property destinoReservado = null
+    var property tpeando    = false
+    var property moviendose = false 
 
     method rutaImagen() = "sprites\\enemigos\\" + nombre +"\\mov\\" + dirActual + "\\" + nombre + "_" + dirActual + ".png" 
 
@@ -36,38 +43,55 @@ class Enemigo
             else position
     }
 
-    method puedeMoverseA(casilla)
-    {
-        const puedeEntrar = casilla.puedeEntrar(self, dirActual)
+    method actualizarPosicion(posicionDestino) {
+        position = posicionDestino
+    }
+
+    method puedeMoverseA(casilla, dir)
+{
+        const puedeEntrar = casilla.puedeEntrar(self, dir)
         const hayEnemigos = gestorEnemigos.estaOcupado(casilla.position())
 
-        return not puedeEntrar and not hayEnemigos
-    }
+    return puedeEntrar and not hayEnemigos
+}
 
     method formaDeMoverse() {}
 
+    method estáQuieto() = not moviendose 
+                            and not estaEsperando 
+                            and not transicion.transicionActiva()
+                            and not tpeando
+
+    method ocupaPosicion(pos) = position == pos or destinoReservado == pos
+
     method mover()
     {
-        if (not estaEsperando)
+        if (self.estáQuieto())
         {
-            const destino = self.obtenerDestino(dirActual)
-            const casilla = mapaObjetos.casilla(destino)
-
-            // decidir como se va mover
+            moviendose = true
             self.formaDeMoverse()
+
+            const casillaActual = mapaObjetos.casilla(position)
+            const destino = self.obtenerDestino(dirActual)
+            const casillaDestino = mapaObjetos.casilla(destino)
             
-            if (self.puedeMoverseA(casilla))
+            if (self.puedeMoverseA(casillaDestino, dirActual))
             {
                 const frames = bancoImagenes.obtenerFrames(nombre, "mov", dirActual)
-                
+
+                destinoReservado = destino
+                casillaActual.alSalir(self)
+
                 animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
-                    position = destino
+                    destinoReservado = null
                     image = self.rutaImagen()
-                    casilla.sePoneEncima(self)
+                    casillaDestino.alEntrar(self)
+                    moviendose = false
                 })
             } 
             else
             {
+                moviendose = false
                 estaEsperando = true
                 game.schedule(1500, { estaEsperando = false })
             }
@@ -79,7 +103,7 @@ class Enemigo
         gestorEnemigos.sacarEnemigo(self)
 
         const sonidoMuerte = game.sound("audio\\SFX\\enemigoMuerte.mp3")
-        sonidoMuerte.volume(0.5)
+        sonidoMuerte.volume(gestorNivel.volumenEfectos())
         sonidoMuerte.play()
 
         animador.cancelarAnimacionesDe(self)
@@ -88,5 +112,28 @@ class Enemigo
         animador.reproducirAdelante(self, ruta, 6, 3, {})
 
         gestorRecompensas.generarDrop(position)
+        animador.reproducirAdelante(self, ruta, 6, 3, {game.removeVisual(self)})
+    }
+
+    method actualizarVisuales(){
+        game.removeVisual(self)
+        game.addVisual(self)
+    }
+
+    method teletransportar(destino)
+    {
+        if(not estaEsperando 
+            and not transicion.transicionActiva()
+            and not tpeando)
+        {
+            tpeando = true
+            const frames = bancoImagenes.obtenerFrames(self.nombre(), "teleport", dirActual)
+            
+            animador.realizarAnimacionDeTransicion(self, destino, frames, 3,{
+                image = "sprites\\enemigos\\" + self.nombre() + "\\mov\\" + dirActual + "\\" + self.nombre() + "_" + dirActual + ".png"
+                position = destino
+                tpeando = false
+            })
+        }
     }
 }

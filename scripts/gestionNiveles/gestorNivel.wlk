@@ -22,12 +22,12 @@ object gestorNivel
 {
     const niveles = [
         pantallaTitulo,
-        nivel_16,
         nivel_1,
         nivel_2,
         nivel_3,
         nivel_4,
         nivel_5,
+        nivel_16,
         nivel_17
     ]
 

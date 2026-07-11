@@ -1,6 +1,6 @@
 import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionEnemigos.gestorEnemigos.*
-
+import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 
@@ -44,7 +44,7 @@ object personaje
         })
 
         const sonidoSpawn = game.sound("audio\\SFX\\spawn.mp3")
-        sonidoSpawn.volume(0.6)
+        sonidoSpawn.volume(gestorNivel.volumenEfectos())
         sonidoSpawn.play()
     }
 
@@ -99,16 +99,15 @@ object personaje
             const objetosDestino = mapaObjetos.casilla(destino).objetos()
 
             // gestión de sonidos
-            if(objetosDestino.isEmpty())
-            {
-                const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
-                sonido.volume(0.3)
-                sonido.play()
-            }
-            else if(objetosDestino.any({obj => obj.nombre() == "colision"}))
+            
+            const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
+            sonido.volume(gestorNivel.volumenEfectos())
+            sonido.play()
+            
+            if(objetosDestino.any({obj => obj.nombre() == "colision"}))
             {
                 const sonido = game.sound("audio\\SFX\\swordMetal.mp3")
-                sonido.volume(0.3)
+                sonido.volume(gestorNivel.volumenEfectos())
                 sonido.play()
             }
 

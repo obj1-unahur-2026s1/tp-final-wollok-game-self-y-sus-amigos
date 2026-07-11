@@ -9,9 +9,15 @@ object gestorMenu {
         menu.entrar()
     }
 
+    method reproducirSonido(archivo) {
+        const sonido = game.sound(archivo)
+        sonido.volume(gestorNivel.volumenEfectos())
+        sonido.play()
+    }
+
     method ejecutar(accion) {
         accion.apply()
-        game.sound("soundMenu1.mp3").play()
+        self.reproducirSonido("soundMenu1.mp3")
     }
 
     method derecha()   { self.ejecutar({ menuActual.derecha() }) }
@@ -19,10 +25,13 @@ object gestorMenu {
     method arriba()    { self.ejecutar({ menuActual.arriba() }) }
     method abajo()     { self.ejecutar({ menuActual.abajo() }) }
 
-    method aceptar() { game.sound("soundMenu2.mp3").play(); menuActual.aceptar() }
+    method aceptar() { 
+        self.reproducirSonido("soundMenu2.mp3")
+        menuActual.aceptar() 
+    }
     
     method volver() {
-        game.sound("soundMenu3.mp3").play()
+        self.reproducirSonido("soundMenu3.mp3")
         menuActual.volver()
         menuActual = pantallaTitulo
         pantallaTitulo.entrar()
@@ -75,9 +84,10 @@ class Slider {
     method image() = "sprites\\UI\\menu\\" + prefijo + "_" + niveles.get(nivel) + ".png"
 
     method modificar(delta) {
-        nivel = (nivel + delta).min(niveles.size() - 1).max(0)
-        alCambiar.apply(nivel / niveles.size() - 1)
-    }
+    nivel = (nivel + delta).min(niveles.size() - 1).max(0)
+    alCambiar.apply(niveles.get(nivel) / 100.0)
+    gestorNivel.musicaActual().volume(gestorNivel.volumenMusica())
+}
 
     method activar()    { tileSeleccion.image("sprites\\UI\\menu\\" + prefijo + "_Select.png") }
     method desactivar() { tileSeleccion.image("sprites\\utilidades\\transparente.png") }

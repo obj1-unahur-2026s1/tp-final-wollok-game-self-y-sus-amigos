@@ -1,7 +1,7 @@
 import scripts.personaje.personaje.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionObjetos.misObjetos.Objeto.*
-
+import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
@@ -38,7 +38,7 @@ class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\ca
         moviendose = true
 
         const sonido = game.sound("audio\\SFX\\empujar.mp3")
-        sonido.volume(0.4)
+        sonido.volume(gestorNivel.volumenEfectos())
         sonido.play()
 
         mapaObjetos.removerObjeto(self, position)

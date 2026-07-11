@@ -2,6 +2,7 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionNiveles.transicionNivel.*
+import scripts.gestionNiveles.gestorNivel.*
 import gestorEnemigos.*
 
 class Enemigo
@@ -95,7 +96,7 @@ class Enemigo
         gestorEnemigos.sacarEnemigo(self)
 
         const sonidoMuerte = game.sound("audio\\SFX\\enemigoMuerte.mp3")
-        sonidoMuerte.volume(0.5)
+        sonidoMuerte.volume(gestorNivel.volumenEfectos())
         sonidoMuerte.play()
 
         animador.cancelarAnimacionesDe(self)

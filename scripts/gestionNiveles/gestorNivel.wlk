@@ -67,7 +67,7 @@ object gestorNivel
 
         musicaActual = game.sound( nivel.musicasFondo().anyOne() )
         musicaActual.shouldLoop(true)
-        musicaActual.volume(0.1)
+        musicaActual.volume(volumenMusica)
         musicaActual.play()
 
         nivel.iniciarNivel()

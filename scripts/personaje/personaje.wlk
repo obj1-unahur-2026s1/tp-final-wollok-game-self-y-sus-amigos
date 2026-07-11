@@ -164,7 +164,7 @@ method moverHacia(destino, casilla, dir)
 
     method teletransportar(destino)
     {
-        if(not tpeando and not moviendose and not atacando)
+        if(self.estáQuieto())
         {
             tpeando = true
             const frames = bancoImagenes.obtenerFrames("pj", "teleport", dirActual)

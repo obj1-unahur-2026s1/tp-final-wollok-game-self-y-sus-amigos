@@ -1,9 +1,13 @@
 import niveles.datosNivel1.*
 import niveles.datosNivel2.*
 import niveles.datosNivel3.*
+import niveles.datosNivel4.*
+import niveles.datosNivel5.*
 import niveles.pantallaTitulo.*
 import niveles.datosNivel16.*
 import niveles.datosNivel17.*
+
+
 
 import transicionNivel.*
 import fabricaNivel.*
@@ -17,9 +21,11 @@ object gestorNivel
 {
     const niveles = [
         pantallaTitulo,
+        nivel_1,
         nivel_2,
-        nivel_2,
-        nivel_3
+        nivel_3,
+        nivel_4,
+        nivel_5
     ]
 
     var property nivelActual = 0
@@ -30,6 +36,10 @@ object gestorNivel
     method pasarNivel()
     {
         nivelActual += 1 
+        transicion.activar()
+    }
+
+    method reiniciarNivel() {
         transicion.activar()
     }
 
@@ -59,7 +69,7 @@ object gestorNivel
 
         musicaActual = game.sound( nivel.musicasFondo().anyOne() )
         musicaActual.shouldLoop(true)
-        musicaActual.volume(0.1)
+        musicaActual.volume(volumenMusica)
         musicaActual.play()
 
         nivel.iniciarNivel()
@@ -71,6 +81,8 @@ object gestorNivel
         // construccion del mapa
         if (not mapa.isEmpty()) {
             self.construirMapa(mapa)
+            
+            gestorEnemigos.enemigosActivos().forEach({e => e.actualizarVisuales()})
         }
     }
 
@@ -93,7 +105,10 @@ object gestorNivel
                 const posX = indexColumna
                 const posY = altoMatriz - 1 - indexFila
 
-                fabricaNivel.crear(celda, game.at(posX,posY))
+                if (celda != 0)
+                {
+                    fabricaNivel.crear(celda, game.at(posX,posY))   
+                }
             })
         })
     }

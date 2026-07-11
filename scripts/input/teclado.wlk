@@ -1,6 +1,7 @@
 import scripts.personaje.personaje.*
 import scripts.gestionNiveles.niveles.pantallaTitulo.*
 import scripts.gestionNiveles.gestorMenu.*
+import scripts.gestionNiveles.gestorNivel.*
 
 
 object controlesJuego
@@ -22,6 +23,7 @@ object controlesJuego
         // controles generales
         keyboard.space().onPressDo({personaje.ataque()})
         keyboard.e().onPressDo({personaje.interact()})
+        keyboard.r().onPressDo({gestorNivel.reiniciarNivel()})
 
         //keyboard.l().onPressDo({gestorNiveles.pasarNivel() })
         keyboard.p().onPressDo({game.stop()})

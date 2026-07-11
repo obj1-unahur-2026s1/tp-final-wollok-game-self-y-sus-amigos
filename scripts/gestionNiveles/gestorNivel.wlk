@@ -3,7 +3,10 @@ import niveles.datosNivel2.*
 import niveles.datosNivel3.*
 import niveles.datosNivel4.*
 import niveles.datosNivel5.*
+import niveles.datosNivel6.*
 import niveles.pantallaTitulo.*
+import niveles.datosNivel16.*
+import niveles.datosNivel17.*
 
 
 
@@ -23,7 +26,8 @@ object gestorNivel
         nivel_2,
         nivel_3,
         nivel_4,
-        nivel_5
+        nivel_5,
+        nivel_17
     ]
 
     var property nivelActual = 0

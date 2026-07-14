@@ -1,0 +1,6 @@
+object gestorPausa
+{
+    method pausar() {
+        
+    }
+}

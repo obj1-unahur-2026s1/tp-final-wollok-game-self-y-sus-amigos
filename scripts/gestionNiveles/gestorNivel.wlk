@@ -20,7 +20,7 @@ import transicionNivel.*
 import fabricaNivel.*
 
 import scripts.gestionAnimaciones.animador.*
-
+import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 
@@ -48,8 +48,6 @@ object gestorNivel
     const property primerNivelConTienda = 4
     const property frecuenciaTienda = 1
     var property enTienda = false
-
-    var property musicaActual = null
     var property volumenMusica = 0.3
     var property volumenEfectos = 0.3
 
@@ -106,8 +104,8 @@ object gestorNivel
         gestorEnemigos.borrarEnemigos()
 
         game.clear()
-
-        if(musicaActual != null) musicaActual.stop()
+        
+        gestorSonidos.pararMusica()
     }
 
     method cargarNivelActual()
@@ -116,10 +114,7 @@ object gestorNivel
         const nivel =  if(enTienda) tienda else niveles.get(nivelActual)
         const mapa = nivel.mapaData()
 
-        musicaActual = game.sound( nivel.musicasFondo().anyOne() )
-        musicaActual.shouldLoop(true)
-        musicaActual.volume(volumenMusica)
-        musicaActual.play()
+        gestorSonidos.reproducirMusica(nivel.musicasFondo().anyOne())
 
         nivel.iniciarNivel()
 

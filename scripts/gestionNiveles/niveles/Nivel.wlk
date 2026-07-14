@@ -1,4 +1,4 @@
-import scripts.input.teclado.*
+import scripts.gestionInput.teclado.*
 
 class Nivel
 {

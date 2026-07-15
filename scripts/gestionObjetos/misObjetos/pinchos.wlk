@@ -4,6 +4,7 @@ import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionMejoras.gestorMejoras.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pinchos\\usar\\pinchosAbiertos.png")
 {

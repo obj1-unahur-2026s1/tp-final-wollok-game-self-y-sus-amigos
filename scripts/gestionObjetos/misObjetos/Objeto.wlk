@@ -1,4 +1,5 @@
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Objeto
 {

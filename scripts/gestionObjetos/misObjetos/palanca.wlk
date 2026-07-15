@@ -2,6 +2,7 @@ import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Palanca inherits Objeto(nombre = "palanca", image = "sprites\\objetos\\palanca\\palancaCerrada.png")
 {

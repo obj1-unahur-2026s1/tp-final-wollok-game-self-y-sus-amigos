@@ -1,5 +1,6 @@
 import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Llave inherits Objeto(nombre = "llave", image = "sprites\\objetos\\llave\\llave.png")
 {

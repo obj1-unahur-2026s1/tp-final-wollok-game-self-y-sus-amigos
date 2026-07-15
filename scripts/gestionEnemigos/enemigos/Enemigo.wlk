@@ -1,5 +1,5 @@
 import scripts.gestionRecompensas.gestorRecompensas.*
-
+import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 
@@ -18,6 +18,7 @@ class Enemigo
     var property dirActual = "abj"
     
     // estados
+    var property pausa = false
     var property estaEsperando = false
     var property destinoReservado = null
     var property tpeando    = false
@@ -61,6 +62,7 @@ class Enemigo
                             and not estaEsperando 
                             and not transicion.transicionActiva()
                             and not tpeando
+                            and not pausa
 
     method ocupaPosicion(pos) = position == pos or destinoReservado == pos
 
@@ -102,9 +104,7 @@ class Enemigo
     {
         gestorEnemigos.sacarEnemigo(self)
 
-        const sonidoMuerte = game.sound("audio\\SFX\\enemigoMuerte.mp3")
-        sonidoMuerte.volume(gestorNivel.volumenEfectos())
-        sonidoMuerte.play()
+        gestorSonidos.reproducirSonido("enemigoMuerte", "enemigos")
 
         animador.cancelarAnimacionesDe(self)
 
@@ -124,7 +124,8 @@ class Enemigo
     {
         if(not estaEsperando 
             and not transicion.transicionActiva()
-            and not tpeando)
+            and not tpeando
+            and not pausa)
         {
             tpeando = true
             const frames = bancoImagenes.obtenerFrames(self.nombre(), "teleport", dirActual)

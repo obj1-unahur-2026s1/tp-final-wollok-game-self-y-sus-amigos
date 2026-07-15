@@ -2,6 +2,7 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionRecompensas.gestorRecompensas.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Cofre inherits Objeto(nombre = "cofre", image = "sprites\\objetos\\cofre\\cofreCerrado.png")
 {

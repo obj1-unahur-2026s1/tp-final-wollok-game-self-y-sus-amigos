@@ -1,5 +1,6 @@
 import cofre.*
 import scripts.gestionMejoras.gestorMejoras.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class CofreTienda inherits Cofre
 {

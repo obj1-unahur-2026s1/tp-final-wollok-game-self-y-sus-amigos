@@ -1,3 +1,4 @@
+import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionNiveles.gestorNivel.*
@@ -70,9 +71,8 @@ object personaje
             spawning = false
         })
 
-        const sonidoSpawn = game.sound("audio\\SFX\\spawn.mp3")
-        sonidoSpawn.volume(gestorNivel.volumenEfectos())
-        sonidoSpawn.play()
+        gestorSonidos.reproducirSonido("spawn", "personaje")
+
     }
 
     // direcciones de movimiento para el personaje
@@ -141,16 +141,12 @@ object personaje
             const objetosDestino = mapaObjetos.casilla(destino).objetos()
 
             // gestión de sonidos
-            
-            const sonido = game.sound("audio\\SFX\\sword" + (1..3).anyOne() + ".mp3")
-            sonido.volume(gestorNivel.volumenEfectos())
-            sonido.play()
+            const sonidoAleatorio = "sword" + (1..3).anyOne()
+            gestorSonidos.reproducirSonido(sonidoAleatorio, "personaje")
             
             if(objetosDestino.any({obj => obj.nombre() == "colision"}))
             {
-                const sonido = game.sound("audio\\SFX\\swordMetal.mp3")
-                sonido.volume(gestorNivel.volumenEfectos())
-                sonido.play()
+                gestorSonidos.reproducirSonido("swordMetal", "personaje")
             }
 
             const frames = bancoImagenes.obtenerFrames("swrd", "ataque", dir)

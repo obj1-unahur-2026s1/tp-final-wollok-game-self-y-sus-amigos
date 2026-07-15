@@ -45,8 +45,8 @@ object gestorNivel
     ]
 
     var property nivelActual = 0
-    const property primerNivelConTienda = 4
-    const property frecuenciaTienda = 1
+    const property primerNivelConTienda = 5
+    const property frecuenciaTienda = 2
     var property enTienda = false
     var property volumenMusica = 0.3
     var property volumenEfectos = 0.3

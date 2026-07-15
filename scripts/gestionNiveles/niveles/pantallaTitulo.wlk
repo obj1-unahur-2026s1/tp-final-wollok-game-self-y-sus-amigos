@@ -11,6 +11,6 @@ object pantallaTitulo inherits Nivel(controles = controlesMenu){
         gestorMenu.iniciarTitulo()
     }
     
-    override method musicasFondo() = ["menuMusic.mp3"]
+    override method musicasFondo() = ["audio\\SFX\\UI\\menuMusic.mp3"]
 }
 

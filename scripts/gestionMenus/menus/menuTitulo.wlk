@@ -1,10 +1,11 @@
+import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionMenus.menus.Menu.*
 import scripts.gestionMenus.menus.menuNiveles.*
 import scripts.gestionMenus.menus.menuVolumen.*
 import scripts.gestionMenus.gestorMenu.*
 
-object menuTitulo inherits Menu(opciones = [newGame, continue, options, exit], image = "sprites\\UI\\menu\\menuTitulo\\menuTitulo_1.png") {
+object menuTitulo inherits Menu(opciones = [newGame, continue, options, exit]) {
     override method volver() {}
 }
 
@@ -17,16 +18,14 @@ object newGame {
 object continue {
     method entrar() {
         game.removeVisual(menuTitulo)
-        gestorMenu.menuActual(menuNiveles)
-        menuNiveles.entrar()
+        gestorMenu.abrir(menuNiveles)
     }
 }
 
 object options {
     method entrar() {
         game.removeVisual(menuTitulo)
-        gestorMenu.menuActual(menuVolumen)
-        menuVolumen.entrar()
+        gestorMenu.abrir(menuVolumen)
     }
 }
 

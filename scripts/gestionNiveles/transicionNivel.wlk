@@ -1,6 +1,7 @@
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionNiveles.gestorNivel.*
+import scripts.gestionMenus.gestorMenu.*
 import scripts.personaje.personaje.*
 
 
@@ -32,8 +33,8 @@ object transicion
         const ruta = bancoImagenes.rutaAnimacionSimple("UI", "transicion", "play")
 
         animador.reproducirAtras(self, ruta + "transition_", 28, 1, {
+            if (gestorNivel.nivelActual() != 0) {personaje.spawn(); gestorMenu.inMenu(false)} else gestorMenu.inMenu(true)
             game.removeVisual(self)
-            personaje.spawn()
             transicionActiva = false
         })
     }

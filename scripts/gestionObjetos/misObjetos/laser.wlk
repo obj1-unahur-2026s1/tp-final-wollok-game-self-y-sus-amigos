@@ -2,6 +2,7 @@ import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Laser inherits Objeto(nombre = "laser")
 {
@@ -44,9 +45,7 @@ class Laser inherits Objeto(nombre = "laser")
     {
         encendido = true
         // Sonido
-        const laserOn = game.sound("audio\\SFX\\laserOn.mp3")
-        laserOn.volume(gestorNivel.volumenEfectos())
-        laserOn.play()
+        gestorSonidos.reproducirSonido("laserOn", "objetos")
 
         // visual
         image = "sprites\\objetos\\laser\\" + direccion + "\\laserOn_" + direccion + ".png"
@@ -59,9 +58,7 @@ class Laser inherits Objeto(nombre = "laser")
         encendido = false
 
         // Sonido
-        const laserOff = game.sound("audio\\SFX\\laserOff.mp3")
-        laserOff.volume(gestorNivel.volumenEfectos())
-        laserOff.play()
+        gestorSonidos.reproducirSonido("laserOf", "objetos")
 
         // visual
         image = "sprites\\objetos\\laser\\" + direccion + "\\laserOff_" + direccion + ".png"

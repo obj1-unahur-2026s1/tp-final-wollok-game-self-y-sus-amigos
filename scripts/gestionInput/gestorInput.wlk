@@ -6,23 +6,23 @@ import scripts.personaje.personaje.*
 
 object gestorInput{
     
-    var property inMenu = true
+    method inMenu() = gestorMenu.inMenu()
 
-    method up()         = if (inMenu)  {gestorMenu.menuActual().arriba()}    else {personaje.moverArriba()}
+    method up()         = if (self.inMenu())  {gestorMenu.menuActual().arriba()}    else {personaje.moverArriba()}
 
-    method down()       = if (inMenu)  {gestorMenu.menuActual().abajo()}     else {personaje.moverIzquierda()}
+    method down()       = if (self.inMenu())  {gestorMenu.menuActual().abajo()}     else {personaje.moverAbajo()}
 
-    method left()       = if (inMenu)  {gestorMenu.menuActual().izquierda()} else {personaje.moverAbajo()}
+    method left()       = if (self.inMenu())  {gestorMenu.menuActual().izquierda()} else {personaje.moverIzquierda()}
 
-    method right()      = if (inMenu)  {gestorMenu.menuActual().derecha()}   else {personaje.moverDerecha()}
+    method right()      = if (self.inMenu())  {gestorMenu.menuActual().derecha()}   else {personaje.moverDerecha()}
 
-    method enter()      = if (inMenu)  {gestorMenu.menuActual().aceptar()}   else {gestorPausa.pausar()}
+    method enter()      = if (self.inMenu())  {gestorMenu.menuActual().aceptar()}   else {gestorPausa.pausar()}
 
-    method space()      = if (inMenu)  {gestorMenu.menuActual().aceptar()}   else {personaje.ataque()}
+    method space()      = if (self.inMenu())  {gestorMenu.menuActual().aceptar()}   else {personaje.ataque()}
 
-    method backspace()  = if (inMenu)  {gestorMenu.menuActual().volver()}
+    method backspace()  = if (self.inMenu())  {gestorMenu.menuActual().volver()}
 
-    method pressE()     = if (!inMenu) {personaje.interact()}
+    method pressE()     = if (!self.inMenu()) {personaje.interact()}
 
-    method pressR()     = if (!inMenu) {gestorNivel.reiniciarNivel()}
+    method pressR()     = if (!self.inMenu()) {gestorNivel.reiniciarNivel()}
 }

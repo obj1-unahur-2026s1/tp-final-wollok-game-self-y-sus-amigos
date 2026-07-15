@@ -1,16 +1,14 @@
 
-
-
 object gestorSonidos {
 
     var musicaActual = null
     var property volumenEfectos = 0.3
     var property volumenMusica  = 0.3  
 
-    method reproducirSonido(sonido, ruta, volumen) {
+    method reproducirSonido(sonido, ruta) {
         const sound = game.sound(self.ruta(sonido, ruta))
-        sonido.volume(volumenEfectos)
-        sonido.play()
+        sound.volume(volumenEfectos)
+        sound.play()
     }
 
     method reproducirMusica(musica) {
@@ -23,6 +21,7 @@ object gestorSonidos {
     method actualizarVolumenMusica() {
         musicaActual.volume(volumenMusica)
     }
+
 
     method pararMusica() {
         if (musicaActual != null) musicaActual.stop()

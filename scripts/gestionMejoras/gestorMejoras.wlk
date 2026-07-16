@@ -10,6 +10,7 @@ import misMejoras.intentosExtra.*
 import misMejoras.recompensaCombate.*
 import misMejoras.recompensaIntento.*
 import misMejoras.tesoroVictoria.*
+import scripts.gestionMenus.menus.menuMejoras.*
 
 
 object gestorMejoras
@@ -67,6 +68,8 @@ object gestorMejoras
             )
 
             mejora.aplicar()
+
+            menuMejoras.insertarObjeto(mejora)
         }
     }
 

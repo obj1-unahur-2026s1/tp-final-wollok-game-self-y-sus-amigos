@@ -46,6 +46,7 @@ object menuMejoras inherits Menu(image = "sprites\\UI\\menu\\menuMejoras\\menuMe
             objeto1.image("sprites\\mejoras\\grandes\\" + self.objetoActual() + ".png")
             objeto2.image("sprites\\mejoras\\pequeños\\" + self.objetoAnterior() + ".png")
             objeto3.image("sprites\\mejoras\\pequeños\\" + self.objetoSiguiente() + "_b.png")
+            definicion.image("sprites\\UI\\menu\\menuMejoras\\descripcionesMejoras\\" + self.objetoActual() + ".png")
             multiplicador.image("sprites\\UI\\menu\\menuMejoras\\multiplicador\\multiplicador_" + gestorMejoras.cantidad(self.objetoActual()) + ".png")
         }
     }

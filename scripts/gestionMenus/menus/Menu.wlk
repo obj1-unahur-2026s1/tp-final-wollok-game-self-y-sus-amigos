@@ -11,10 +11,10 @@ class Menu
     var property canPress = true 
     const property opciones = []
 
-    method derecha()   { self.mover(1) }
-    method abajo()     { self.mover(1) }
-    method izquierda() { self.mover(-1) }
-    method arriba()    { self.mover(-1) }
+    method derecha()   { if (!opciones.isEmpty()) self.mover(1) }
+    method abajo()     { if (!opciones.isEmpty()) self.mover(1) }
+    method izquierda() { if (!opciones.isEmpty()) self.mover(-1) }
+    method arriba()    { if (!opciones.isEmpty()) self.mover(-1) }
 
     method mover(delta) {
         if (canPress)

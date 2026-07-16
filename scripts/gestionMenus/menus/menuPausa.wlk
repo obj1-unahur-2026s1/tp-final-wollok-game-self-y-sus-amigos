@@ -10,6 +10,7 @@ object menuPausa inherits Menu(opciones = [resume, upgrades, control, exit2], po
     override method volver() 
     {
         super()
+        gestorPausa.despausarMovimientos()
         gestorMenu.quitarMenuVacio()
         game.removeVisual(self)
         gestorMenu.inMenu(false)

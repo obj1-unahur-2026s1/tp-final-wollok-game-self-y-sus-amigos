@@ -7,6 +7,8 @@ import niveles.datosNivel4.*
 import niveles.datosNivel5.*
 import niveles.datosNivel6.*
 import niveles.datosNivel7.*
+import niveles.datosNivel8.*
+import niveles.datosNivel9.*
 import niveles.datosNivel10.*
 import niveles.datosNivel11.*
 import niveles.datosNivel12.*
@@ -16,6 +18,8 @@ import niveles.datosNivel15.*
 import niveles.datosNivel16.*
 import niveles.datosNivel17.*
 import niveles.datosNivel18.*
+import niveles.datosNivel19.*
+import niveles.datosNivel20.*
 import niveles.tienda.*
 
 
@@ -40,6 +44,8 @@ object gestorNivel
         nivel_5,
         nivel_6,
         nivel_7,
+        nivel_8,
+        nivel_9,
         nivel_10,
         nivel_11,
         nivel_12,
@@ -49,6 +55,8 @@ object gestorNivel
         nivel_16,
         nivel_17,
         nivel_18,
+        nivel_19,
+        nivel_20,
         tienda
     ]
 

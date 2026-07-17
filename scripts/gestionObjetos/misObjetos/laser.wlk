@@ -35,6 +35,7 @@ class Laser inherits Objeto(nombre = "laser")
 
     override method configuracionFinal()
     {
+        hacesProyectados.forEach({a => game.removeVisual(a); game.addVisual(a)})
         self.encender()
     }
 

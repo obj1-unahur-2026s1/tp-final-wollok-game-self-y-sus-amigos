@@ -1,12 +1,11 @@
 import Nivel.*
 import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionAnimaciones.animador.*
-import scripts.gestionAnimacines.bancoImagenes.*
 
-object nivel_9 inherits Nivel{
+object nivel_8 inherits Nivel{
     override method mapaData()=
     [
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [1 ,1 ,1 ,1, 1 ,1 ,1 ,1 ,1 ,53 ,1 ,1 ,1, 1 ,8102 ,1, 1 ,1 ,1 ,1 ,1 ],
         [1 ,0 ,0 ,81 ,0 ,0 ,0 ,0 ,0 ,99 ,1 ,1 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 ],
         [1 ,0 ,90,0 ,0 ,2 ,0 ,6 ,0 ,0 ,1 ,1 ,1 ,0 ,2 ,90 ,0 ,0 ,0 ,0 ,1 ],

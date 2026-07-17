@@ -33,14 +33,18 @@ object personaje
     var property intentos = 2
     var property tieneLlave = false
 
-    method añadirMoneda(){
-        monedas += gestorMejoras.multiplicadorMonedas()
+    method añadirMoneda(cantidad){
+        monedas += cantidad + gestorMejoras.multiplicadorMonedas()
+
+        console.println("Se AGREGARON " + cantidad + "monedas.")
+        console.println("Monedas Actuales: " + monedas)
     }
 
     method gastarMonedas(cantidad){
-        console.println(monedas)
         monedas -= cantidad
-        console.println(monedas)
+
+        console.println("Se GASTARON " + cantidad + "monedas.")
+        console.println("Monedas Actuales: " + monedas)
     }
 
     method añadirIntento()
@@ -54,7 +58,10 @@ object personaje
         intentos -= 1
 
         if(intentos <= 0)
+        {
             exit2.entrar()
+            intentos = 2
+        }
         else
             gestorNivel.reiniciarNivel()
     }

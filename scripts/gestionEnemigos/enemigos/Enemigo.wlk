@@ -95,7 +95,7 @@ class Enemigo
             {
                 moviendose = false
                 estaEsperando = true
-                game.schedule(1500, { estaEsperando = false })
+                game.schedule(1800, { estaEsperando = false })
             }
         }
     }
@@ -109,10 +109,10 @@ class Enemigo
         animador.cancelarAnimacionesDe(self)
 
         const ruta = bancoImagenes.rutaAnimacionSimple("enemigos", "muerte", "play") + "enemigoMuerte_"
-        animador.reproducirAdelante(self, ruta, 6, 3, {})
+        animador.reproducirAdelante(self, ruta, 6, 4, {})
 
         gestorRecompensas.generarDrop(position)
-        animador.reproducirAdelante(self, ruta, 6, 3, {game.removeVisual(self)})
+        animador.reproducirAdelante(self, ruta, 6, 4, {game.removeVisual(self)})
     }
 
     method actualizarVisuales(){
@@ -130,7 +130,7 @@ class Enemigo
             tpeando = true
             const frames = bancoImagenes.obtenerFrames(self.nombre(), "teleport", dirActual)
             
-            animador.realizarAnimacionDeTransicion(self, destino, frames, 3,{
+            animador.realizarAnimacionDeTransicion(self, destino, frames, 4,{
                 image = "sprites\\enemigos\\" + self.nombre() + "\\mov\\" + dirActual + "\\" + self.nombre() + "_" + dirActual + ".png"
                 position = destino
                 tpeando = false

@@ -29,22 +29,20 @@ object menuMejoras inherits Menu(image = "sprites\\UI\\menu\\menuMejoras\\menuMe
 
     method objetoSiguiente() 
     {
-        opcionActual = (opcionActual) % opciones.lenght()
-        return opciones.get(opcionActual)
+        return opciones.get(opcionActual % opciones.size())
     }
 
     method objetoAnterior() 
-    {
-        opcionActual = (opcionActual - 2) % opciones.lenght()
-        return opciones.get(opcionActual)
-    }
+{
+    return opciones.get((opcionActual - 2 + opciones.size()) % opciones.size())
+}
 
     override method actualizar() 
     {
         if (!opciones.isEmpty())
         {
             objeto1.image("sprites\\mejoras\\grandes\\" + self.objetoActual() + ".png")
-            objeto2.image("sprites\\mejoras\\pequeños\\" + self.objetoAnterior() + ".png")
+            objeto2.image("sprites\\mejoras\\pequeños\\" + self.objetoAnterior() + "_a.png")
             objeto3.image("sprites\\mejoras\\pequeños\\" + self.objetoSiguiente() + "_b.png")
             definicion.image("sprites\\UI\\menu\\menuMejoras\\descripcionesMejoras\\" + self.objetoActual() + ".png")
             multiplicador.image("sprites\\UI\\menu\\menuMejoras\\multiplicador\\multiplicador_" + gestorMejoras.cantidad(self.objetoActual()) + ".png")

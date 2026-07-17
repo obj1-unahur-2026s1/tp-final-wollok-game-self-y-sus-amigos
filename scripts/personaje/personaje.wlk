@@ -25,7 +25,7 @@ object personaje
     var property atacando   = false
     var property spawning   = false  
 
-    var property monedas = 50
+    var property monedas = 1000
     var property intentos = 2
     var property tieneLlave = false
 

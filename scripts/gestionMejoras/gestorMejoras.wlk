@@ -104,6 +104,8 @@ object gestorMejoras
             self.puedeObtener(m)
         })
 
-        return disponibles.anyOne()
+        const debugg = disponibles.anyOne()
+        console.println(debugg)
+        return debugg
     }
 }

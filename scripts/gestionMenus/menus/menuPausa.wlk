@@ -56,5 +56,7 @@ object exit2 {
     {
         menuPausa.canPress(false)
         gestorNivel.cargarNivel(0)
+        gestorMejoras.borrarTodasMejoras()
+        menuMejoras.borrarMejoras()
     }
 }

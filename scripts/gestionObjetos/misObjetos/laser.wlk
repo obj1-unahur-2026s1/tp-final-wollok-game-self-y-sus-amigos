@@ -28,9 +28,14 @@ class Laser inherits Objeto(nombre = "laser")
 
             hacesProyectados.add(haz)
             posicionHaz = self.obtenerSiguientePosicion(posicionHaz)
-        })
+        }) 
 
         image = "sprites\\objetos\\laser\\" + direccion + "\\laserOff_" + direccion + ".png"
+    }
+
+    override method configuracionFinal()
+    {
+        self.encender()
     }
 
     override method accionar()
@@ -122,13 +127,13 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
     }
 
     override method sePoneEncima(entidad) {
-    if (encendido and entidad.nombre() == "caja") {
+    if (emisor.encendido() and entidad.nombre() == "caja") {
         game.schedule(500, {emisor.proyectarRayo()})
     }
 }
 
 override method soltar(entidad) {
-    if (entidad.nombre() == "caja") {
+    if (emisor.encendido() and entidad.nombre() == "caja") {
         emisor.proyectarRayo()
     }
 }

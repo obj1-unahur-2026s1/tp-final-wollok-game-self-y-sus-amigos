@@ -25,6 +25,11 @@ object menuMejoras inherits Menu(image = "sprites\\UI\\menu\\menuMejoras\\menuMe
         self.actualizar()
     }
 
+    method borrarMejoras(){
+        opciones.clear()
+        self.actualizar()
+    }
+
     method objetoActual() = opciones.get(opcionActual - 1)
 
     method objetoSiguiente() 
@@ -33,9 +38,9 @@ object menuMejoras inherits Menu(image = "sprites\\UI\\menu\\menuMejoras\\menuMe
     }
 
     method objetoAnterior() 
-{
-    return opciones.get((opcionActual - 2 + opciones.size()) % opciones.size())
-}
+    {
+        return opciones.get((opcionActual - 2 + opciones.size()) % opciones.size())
+    }
 
     override method actualizar() 
     {
@@ -46,6 +51,15 @@ object menuMejoras inherits Menu(image = "sprites\\UI\\menu\\menuMejoras\\menuMe
             objeto3.image("sprites\\mejoras\\pequeños\\" + self.objetoSiguiente() + "_b.png")
             definicion.image("sprites\\UI\\menu\\menuMejoras\\descripcionesMejoras\\" + self.objetoActual() + ".png")
             multiplicador.image("sprites\\UI\\menu\\menuMejoras\\multiplicador\\multiplicador_" + gestorMejoras.cantidad(self.objetoActual()) + ".png")
+        }
+        else
+        {
+            definicion.image("sprites\\UI\\menu\\menuMejoras\\descripcionesMejoras\\noUpgrades.png")
+            
+            game.removeVisual(multiplicador)
+            game.removeVisual(objeto1)
+            game.removeVisual(objeto2)
+            game.removeVisual(objeto3)
         }
     }
 

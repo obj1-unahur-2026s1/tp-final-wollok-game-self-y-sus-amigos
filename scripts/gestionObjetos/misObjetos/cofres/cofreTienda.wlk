@@ -3,6 +3,8 @@ import scripts.gestionMejoras.gestorMejoras.*
 import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionRecompensas.gestorRecompensas.*
 import scripts.gestionObjetos.misObjetos.cartel.*
+import scripts.gestionAnimaciones.animador.*
+import scripts.gestionAnimaciones.bancoImagenes.*
 
 class CofreTienda inherits Cofre
 {
@@ -23,7 +25,15 @@ class CofreTienda inherits Cofre
 
     override method entregarContenido(entidad)
     {
-        gestorRecompensas.recompensaTienda().entregar(entidad)
         entidad.gastarMonedas(self.precio())
+
+        const ruta = bancoImagenes.rutaAnimacionSimple("personaje", "pj", "getItem") + "personajeItem_"
+
+        gestorSonidos.reproducirSonido("obtenerMejoras", "personaje")
+        
+        animador.reproducirAdelante(entidad, ruta, 13, 3, {
+            gestorRecompensas.recompensaTienda().entregar(entidad)
+        })
+
     }
 }

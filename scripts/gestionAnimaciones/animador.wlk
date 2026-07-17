@@ -53,18 +53,18 @@ object animador
     }
 
     // lanza una animacion de movimiento entre casillas
-    method realizarAnimacionDeTransicion(entidad, destino, frames, closure)
+    method realizarAnimacionDeTransicion(entidad, destino, frames, velocidad, closure)
     {
         self.iniciarAnimacion(
-            new AnimacionMovimiento(entidad = entidad, posicionDestino = destino, pool = frames, alTerminar = closure)
+            new AnimacionMovimiento(entidad = entidad, posicionDestino = destino, pool = frames, ticksPorFrame = velocidad, alTerminar = closure)
         )
     }
 
     // Lanza una animacion de ataque
-    method realizarAnimacionDeAtaque(entidad, destino, frames, closure)
+    method realizarAnimacionDeAtaque(entidad, destino, frames, velocidad, closure)
     {
         self.iniciarAnimacion(
-            new AnimacionAtaque(entidad = entidad, posicionDestino = destino, pool = frames, alTerminar = closure)
+            new AnimacionAtaque(entidad = entidad, posicionDestino = destino, pool = frames, ticksPorFrame = velocidad, alTerminar = closure)
         )
     }
     

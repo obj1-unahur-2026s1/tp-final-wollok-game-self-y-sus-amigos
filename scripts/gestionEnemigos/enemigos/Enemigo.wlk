@@ -1,9 +1,15 @@
+import scripts.gestionRecompensas.gestorRecompensas.*
+import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
+
 import scripts.gestionObjetos.gestorObjetos.*
+
 import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionNiveles.gestorNivel.*
+
 import gestorEnemigos.*
+import scripts.personaje.personaje.*
 
 class Enemigo
 {
@@ -11,8 +17,9 @@ class Enemigo
     var property position = game.at(0, 0)
     var property image = "default.png"
     var property dirActual = "abj"
-
+    
     // estados
+    var property pausa = false
     var property estaEsperando = false
     var property destinoReservado = null
     var property tpeando    = false
@@ -56,6 +63,7 @@ class Enemigo
                             and not estaEsperando 
                             and not transicion.transicionActiva()
                             and not tpeando
+                            and not pausa
 
     method ocupaPosicion(pos) = position == pos or destinoReservado == pos
 
@@ -77,34 +85,45 @@ class Enemigo
                 destinoReservado = destino
                 casillaActual.alSalir(self)
 
-                animador.realizarAnimacionDeTransicion(self, destino, frames,{
+                animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
                     destinoReservado = null
                     image = self.rutaImagen()
                     casillaDestino.alEntrar(self)
                     moviendose = false
+
+                    if(personaje.position() == destino)
+                    {
+                        self.hacerDaño()
+                    }
                 })
             } 
             else
             {
                 moviendose = false
                 estaEsperando = true
-                game.schedule(1500, { estaEsperando = false })
+                game.schedule(1800, { estaEsperando = false })
             }
         }
+    }
+
+    method hacerDaño()
+    {
+        personaje.perderIntento()
     }
 
     method matar()
     {
         gestorEnemigos.sacarEnemigo(self)
 
-        const sonidoMuerte = game.sound("audio\\SFX\\enemigoMuerte.mp3")
-        sonidoMuerte.volume(gestorNivel.volumenEfectos())
-        sonidoMuerte.play()
+        gestorSonidos.reproducirSonido("enemigoMuerte", "enemigos")
 
         animador.cancelarAnimacionesDe(self)
 
         const ruta = bancoImagenes.rutaAnimacionSimple("enemigos", "muerte", "play") + "enemigoMuerte_"
-        animador.reproducirAdelante(self, ruta, 6, 3, {game.removeVisual(self)})
+        animador.reproducirAdelante(self, ruta, 6, 4, {})
+
+        gestorRecompensas.generarDrop(position)
+        animador.reproducirAdelante(self, ruta, 6, 4, {game.removeVisual(self)})
     }
 
     method actualizarVisuales(){
@@ -116,12 +135,13 @@ class Enemigo
     {
         if(not estaEsperando 
             and not transicion.transicionActiva()
-            and not tpeando)
+            and not tpeando
+            and not pausa)
         {
             tpeando = true
             const frames = bancoImagenes.obtenerFrames(self.nombre(), "teleport", dirActual)
             
-            animador.realizarAnimacionDeTransicion(self, destino, frames, {
+            animador.realizarAnimacionDeTransicion(self, destino, frames, 4,{
                 image = "sprites\\enemigos\\" + self.nombre() + "\\mov\\" + dirActual + "\\" + self.nombre() + "_" + dirActual + ".png"
                 position = destino
                 tpeando = false

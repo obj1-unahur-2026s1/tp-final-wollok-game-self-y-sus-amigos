@@ -3,6 +3,7 @@ import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Portal inherits Objeto(nombre = "portal")
 {
@@ -25,9 +26,8 @@ class Portal inherits Objeto(nombre = "portal")
 
             if (portalDestino != null) {
                 entity.teletransportar(portalDestino.position())
-                const tp = game.sound("audio\\SFX\\tp_" + (1..2).anyOne() + ".mp3")
-                tp.volume(gestorNivel.volumenEfectos())
-                tp.play()
+                const tp = "tp_" + (1..2).anyOne()
+                gestorSonidos.reproducirSonido(tp, "objetos")
             }
 
             entity = null 

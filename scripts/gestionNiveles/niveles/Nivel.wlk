@@ -1,10 +1,10 @@
-import scripts.input.teclado.*
+import scripts.gestionInput.teclado.*
 
 class Nivel
 {
     var property position = game.at(0,0)
     var property image = "sprites\\niveles\\" + self.toString() + ".png"
-    var property controles = controlesJuego
+    var property controles = controlesMenu
 
     method musicasFondo() = [
         "audio\\Musica\\fondo1.mp3",

@@ -1,48 +1,105 @@
+
+import niveles.pantallaTitulo.*
 import niveles.datosNivel1.*
 import niveles.datosNivel2.*
 import niveles.datosNivel3.*
 import niveles.datosNivel4.*
 import niveles.datosNivel5.*
-import niveles.datosNivelADefinir.*
-import niveles.pantallaTitulo.*
+import niveles.datosNivel6.*
+import niveles.datosNivel7.*
+import niveles.datosNivel10.*
+import niveles.datosNivel11.*
+import niveles.datosNivel12.*
+import niveles.datosNivel13.*
+import niveles.datosNivel14.*
+import niveles.datosNivel15.*
 import niveles.datosNivel16.*
 import niveles.datosNivel17.*
-
+import niveles.datosNivel18.*
+import niveles.tienda.*
 
 
 import transicionNivel.*
 import fabricaNivel.*
 
 import scripts.gestionAnimaciones.animador.*
-
+import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionEnemigos.gestorEnemigos.*
+
+import scripts.personaje.personaje.*
 
 object gestorNivel
 {
     const niveles = [
         pantallaTitulo,
-        nivel_16,
         nivel_1,
         nivel_2,
         nivel_3,
         nivel_4,
         nivel_5,
-        nivel_17
+        nivel_6,
+        nivel_7,
+        nivel_10,
+        nivel_11,
+        nivel_12,
+        nivel_13,
+        nivel_14,
+        nivel_15,
+        nivel_16,
+        nivel_17,
+        nivel_18,
+        tienda
     ]
 
+    var property monedasIniciales = 0
     var property nivelActual = 0
-    var property musicaActual = null
+    const property primerNivelConTienda = 5
+    const property frecuenciaTienda = 2
+    var property enTienda = false
     var property volumenMusica = 0.3
     var property volumenEfectos = 0.3
 
+    method debeIrATienda()
+    {
+        return
+            nivelActual >= primerNivelConTienda and
+            (nivelActual - primerNivelConTienda) % frecuenciaTienda == 0
+    }
+
     method pasarNivel()
     {
-        nivelActual += 1 
-        transicion.activar()
+        if(enTienda)
+        {
+            self.cargarNivel(nivelActual + 1)
+        }
+        else
+        {
+            if(self.debeIrATienda())
+                self.cargarTienda()
+            else
+                self.cargarNivel(nivelActual + 1)
+        }
     }
 
     method reiniciarNivel() {
+        transicion.activar()
+        personaje.monedas(monedasIniciales)
+        personaje.tieneLlave(false)
+    }
+
+    method cargarNivel(numero)
+    {
+        enTienda = false
+        nivelActual = numero
+        monedasIniciales = personaje.monedas()
+        personaje.tieneLlave(false)
+        transicion.activar()
+    }
+
+    method cargarTienda()
+    {
+        enTienda = true
         transicion.activar()
     }
 
@@ -60,20 +117,17 @@ object gestorNivel
         gestorEnemigos.borrarEnemigos()
 
         game.clear()
-
-        if(musicaActual != null) musicaActual.stop()
+        
+        gestorSonidos.pararMusica()
     }
 
     method cargarNivelActual()
     {
         // referencias
-        const nivel = niveles.get(nivelActual)
+        const nivel =  if(enTienda) tienda else niveles.get(nivelActual)
         const mapa = nivel.mapaData()
 
-        musicaActual = game.sound( nivel.musicasFondo().anyOne() )
-        musicaActual.shouldLoop(true)
-        musicaActual.volume(volumenMusica)
-        musicaActual.play()
+        gestorSonidos.reproducirMusica(nivel.musicasFondo().anyOne())
 
         nivel.iniciarNivel()
 
@@ -84,6 +138,7 @@ object gestorNivel
         // construccion del mapa
         if (not mapa.isEmpty()) {
             self.construirMapa(mapa)
+            mapaObjetos.configuracionFinal()
             
             gestorEnemigos.enemigosActivos().forEach({e => e.actualizarVisuales()})
         }

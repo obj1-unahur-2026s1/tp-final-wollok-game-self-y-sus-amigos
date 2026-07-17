@@ -2,11 +2,12 @@ import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Laser inherits Objeto(nombre = "laser")
 {
     var property direccion
-    var property encendido = false
+    var property encendido = true
     const hacesProyectados = []
 
     var posicionHaz = self.obtenerSiguientePosicion(position)
@@ -27,9 +28,14 @@ class Laser inherits Objeto(nombre = "laser")
 
             hacesProyectados.add(haz)
             posicionHaz = self.obtenerSiguientePosicion(posicionHaz)
-        })
+        }) 
 
         image = "sprites\\objetos\\laser\\" + direccion + "\\laserOff_" + direccion + ".png"
+    }
+
+    override method configuracionFinal()
+    {
+        self.encender()
     }
 
     override method accionar()
@@ -44,9 +50,7 @@ class Laser inherits Objeto(nombre = "laser")
     {
         encendido = true
         // Sonido
-        const laserOn = game.sound("audio\\SFX\\laserOn.mp3")
-        laserOn.volume(gestorNivel.volumenEfectos())
-        laserOn.play()
+        gestorSonidos.reproducirSonido("laserOn", "objetos")
 
         // visual
         image = "sprites\\objetos\\laser\\" + direccion + "\\laserOn_" + direccion + ".png"
@@ -59,9 +63,7 @@ class Laser inherits Objeto(nombre = "laser")
         encendido = false
 
         // Sonido
-        const laserOff = game.sound("audio\\SFX\\laserOff.mp3")
-        laserOff.volume(gestorNivel.volumenEfectos())
-        laserOff.play()
+        gestorSonidos.reproducirSonido("laserOf", "objetos")
 
         // visual
         image = "sprites\\objetos\\laser\\" + direccion + "\\laserOff_" + direccion + ".png"
@@ -125,13 +127,19 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
     }
 
     override method sePoneEncima(entidad) {
-    if (encendido and entidad.nombre() == "caja") {
-        game.schedule(500, {emisor.proyectarRayo()})
+
+        if(entidad.nombre() == "personaje")
+        {
+            entidad.perderIntento()
+        }
+
+        if (emisor.encendido() and entidad.nombre() == "caja") {
+            game.schedule(500, {emisor.proyectarRayo()})
+        }
     }
-}
 
 override method soltar(entidad) {
-    if (entidad.nombre() == "caja") {
+    if (emisor.encendido() and entidad.nombre() == "caja") {
         emisor.proyectarRayo()
     }
 }

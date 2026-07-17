@@ -4,6 +4,7 @@ import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Puerta inherits Objeto(nombre = "Puerta")
 {

@@ -1,4 +1,5 @@
 import scripts.gestionObjetos.gestorObjetos.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Objeto
 {
@@ -26,6 +27,7 @@ class Objeto
     method soltar(entidad) {} 
     method alInteractuar(entidad) {}
     method accionar() {}
+    method configuracionFinal() {}
 }
 
 class ObjetoMovible inherits Objeto

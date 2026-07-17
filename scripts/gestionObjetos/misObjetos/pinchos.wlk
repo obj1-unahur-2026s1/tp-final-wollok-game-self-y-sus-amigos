@@ -3,12 +3,15 @@ import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionEnemigos.gestorEnemigos.*
+import scripts.gestionMejoras.gestorMejoras.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pinchos\\usar\\pinchosAbiertos.png")
 {
     var property abierto = true
     var property puedeCerrar = true
-    //const collision = new Colision(position = position)
+    
+    override method puedeEntrar(entidad,dir) = gestorMejoras.pasarPinchos() < 0 or !abierto
 
     override method initialize()
     {
@@ -20,7 +23,10 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
         } 
     }
 
-    override method puedeEntrar(entidad, dir) = !abierto
+    override method sePoneEncima(entidad)
+    {
+        if(abierto) entidad.perderIntento()
+    }
 
     override method accionar()
     {
@@ -33,6 +39,8 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
         if (not puedeCerrar)
         {
             puedeCerrar = true
+            abierto = true
+
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "pinchos", "usar")
             const enemigoPosicion = gestorEnemigos.hayEnemigoEn(position)
 
@@ -40,7 +48,6 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
                 enemigoPosicion.matar()
 
             animador.reproducirAdelante(self, ruta + "pinchosAbriendo_", 6, 2, {
-                abierto = true
                 image = ruta + "pinchosAbiertos.png"
                 const enemigo = gestorEnemigos.hayEnemigoEn(position)
                 if(enemigo != null) enemigo.matar()
@@ -53,10 +60,10 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
         if (puedeCerrar)
         {
             puedeCerrar = false
+            abierto = false
             const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "pinchos", "usar")
 
             animador.reproducirAtras(self, ruta + "pinchosAbriendo_", 6, 2, {
-                abierto = false
                 image = ruta + "pinchosCerrados.png"
             })
         }

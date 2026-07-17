@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {"level":"info","message":"⌛ Building environment","timeElapsed":750,"timestamp":"2026-07-11T00:32:20.429Z"}
 {"level":"info","message":"⌛ Building environment","timeElapsed":1044,"timestamp":"2026-07-11T00:32:21.481Z"}
 {"level":"info","message":"⌛ Building environment","timeElapsed":603,"timestamp":"2026-07-11T00:32:22.089Z"}
@@ -733,3 +734,5 @@
 {"level":"info","message":"⌛ Validating scripts/gestionAnimaciones/animaciones/AnimacionMovimiento.wlk","timeElapsed":189,"timestamp":"2026-07-16T04:31:56.892Z"}
 {"level":"info","message":"⌛ Validating scripts/gestionAnimaciones/animaciones/AnimacionAtaque.wlk","timeElapsed":207,"timestamp":"2026-07-16T04:31:57.100Z"}
 {"level":"info","message":"⌛ Validating juego.wpgm","timeElapsed":193,"timestamp":"2026-07-16T04:31:57.294Z"}
+=======
+>>>>>>> adfe3a74fb17a55adf431209c3527d6345a8d187

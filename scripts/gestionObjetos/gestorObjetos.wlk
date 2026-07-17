@@ -20,6 +20,7 @@ class Casilla
     method alEntrar(entidad)       = objetos.forEach({ obj => obj.sePoneEncima(entidad)})
     method alSalir(entidad)        = objetos.forEach({ obj => obj.soltar(entidad) })
     method alInteractuar(entidad)  = objetos.forEach({ obj => obj.alInteractuar(entidad) })
+    method configuracionFinal()    = objetos.forEach({ obj => obj.configuracionFinal() })
 
     method permitePasoLaser() = objetos.all({ o => o.dejaPasarLaser() })
 }
@@ -56,5 +57,12 @@ object mapaObjetos
     method limpiarObjetos()
     {
         casillas.clear()
+    }
+
+    method configuracionFinal()
+    {
+        casillas.values().forEach({ casilla =>
+            casilla.configuracionFinal()
+        })
     }
 }

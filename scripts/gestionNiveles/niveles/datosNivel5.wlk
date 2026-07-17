@@ -20,12 +20,12 @@ object nivel_5 inherits Nivel
         [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]
     ]
 
-    const tutorial1 = new Objeto(position = game.at(7,2))
+    const tutorial1 = new Objeto(position = game.at(7,1))
 
     override method iniciarNivel() {
         super()
         game.addVisual(tutorial1)
-        animador.reproducirLoop(tutorial1, bancoImagenes.rutaAnimacionSimple("UI", "tutorial", "tutorial5") + "tutorial_", 2, 10)
+        animador.reproducirLoop(tutorial1, bancoImagenes.rutaAnimacionSimple("UI", "tutorial", "tutorial5") + "tutorial_", 3, 10)
     }
 }
 

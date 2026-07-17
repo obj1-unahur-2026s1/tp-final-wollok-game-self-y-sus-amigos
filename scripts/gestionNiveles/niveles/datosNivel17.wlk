@@ -1,4 +1,7 @@
+import scripts.gestionAnimaciones.animador.*
+import scripts.gestionAnimaciones.bancoImagenes.*
 import Nivel.*
+import scripts.gestionObjetos.misObjetos.Objeto.*
 
 object nivel_17 inherits Nivel
 {
@@ -17,4 +20,3 @@ object nivel_17 inherits Nivel
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
     ]
 }
-//id del siguiente nivel 101 baja para izquierda o 102 baja para derecha 

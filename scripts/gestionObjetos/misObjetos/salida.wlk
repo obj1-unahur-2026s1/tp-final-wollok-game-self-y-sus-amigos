@@ -3,6 +3,7 @@ import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionNiveles.gestorNivel.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Salida inherits Objeto(nombre = "salida", image = "sprites\\objetos\\salida\\salida_der.png")
 {

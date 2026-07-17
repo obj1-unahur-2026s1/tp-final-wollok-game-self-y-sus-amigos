@@ -5,6 +5,7 @@ import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
+import scripts.gestionSonidos.gestorSonidos.*
 
 class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\caja\\caja.png")
 {
@@ -37,9 +38,7 @@ class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\ca
 
         moviendose = true
 
-        const sonido = game.sound("audio\\SFX\\empujar.mp3")
-        sonido.volume(gestorNivel.volumenEfectos())
-        sonido.play()
+        gestorSonidos.reproducirSonido("empujar", "objetos")
 
         mapaObjetos.removerObjeto(self, position)
         mapaObjetos.añadirObjeto(self, destino)
@@ -48,7 +47,7 @@ class Caja inherits ObjetoMovible(nombre = "caja", image = "sprites\\objetos\\ca
         casillaActual.alSalir(self)
 
         const frames = bancoImagenes.obtenerFrames("caja", "mov", dir)
-        animador.realizarAnimacionDeTransicion(self, destino, frames, {
+        animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
             image = "sprites\\objetos\\caja\\caja.png"
             game.removeVisual(self)
             game.addVisual(self)

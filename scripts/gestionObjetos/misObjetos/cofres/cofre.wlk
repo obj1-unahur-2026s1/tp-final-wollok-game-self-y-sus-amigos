@@ -18,10 +18,7 @@ class Cofre inherits Objeto(nombre = "cofre", image = "sprites\\objetos\\cofre\\
 
     method puedeAbrirse(entidad) = false
 
-    method entregarContenido(entidad)
-    {
-        gestorRecompensas.recompensaTienda().entregar(entidad)
-    }
+    method entregarContenido(entidad) {}
 
     method abrir(entidad)
     {

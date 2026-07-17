@@ -1,3 +1,5 @@
+import scripts.gestionMenus.menus.menuPausa.exit2
+
 import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionEnemigos.gestorEnemigos.*
@@ -7,6 +9,8 @@ import scripts.gestionAnimaciones.animador.*
 
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionMejoras.gestorMejoras.*
+
+
 //import gestorAnimaciones.*
 //import gestorObjetos.*
 
@@ -45,8 +49,14 @@ object personaje
             intentos += 1
     }
 
-    method perderIntento(){
+    method perderIntento()
+    {
         intentos -= 1
+
+        if(intentos <= 0)
+            exit2.entrar()
+        else
+            gestorNivel.reiniciarNivel()
     }
 
     method intentosMaximos()

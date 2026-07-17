@@ -10,7 +10,7 @@ class Baldosa inherits Objeto(nombre = "baldosa", image = "sprites\\objetos\\bal
 {
     var estaRoto = true
 
-    override method puedeEntrar(entidad, dir) = estaRoto
+    override method puedeEntrar(entidad, dir) = not estaRoto
 
     override method sePoneEncima(entidad) 
     {
@@ -18,6 +18,8 @@ class Baldosa inherits Objeto(nombre = "baldosa", image = "sprites\\objetos\\bal
         {
             const sonido = "baldosa" + (1..3).anyOne()
             gestorSonidos.reproducirSonido(sonido, "objetos")
+
+            if(estaRoto) entidad.perderIntento()
         }
     }
 

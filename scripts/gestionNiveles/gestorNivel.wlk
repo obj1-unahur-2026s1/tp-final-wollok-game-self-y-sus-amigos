@@ -26,6 +26,8 @@ import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 
+import scripts.personaje.personaje.*
+
 object gestorNivel
 {
     const niveles = [
@@ -48,6 +50,7 @@ object gestorNivel
         tienda
     ]
 
+    var property monedasIniciales = 0
     var property nivelActual = 0
     const property primerNivelConTienda = 5
     const property frecuenciaTienda = 2
@@ -79,12 +82,16 @@ object gestorNivel
 
     method reiniciarNivel() {
         transicion.activar()
+        personaje.monedas(monedasIniciales)
+        personaje.tieneLlave(false)
     }
 
     method cargarNivel(numero)
     {
         enTienda = false
         nivelActual = numero
+        monedasIniciales = personaje.monedas()
+        personaje.tieneLlave(false)
         transicion.activar()
     }
 

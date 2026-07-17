@@ -9,6 +9,7 @@ import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionNiveles.gestorNivel.*
 
 import gestorEnemigos.*
+import scripts.personaje.personaje.*
 
 class Enemigo
 {
@@ -89,6 +90,11 @@ class Enemigo
                     image = self.rutaImagen()
                     casillaDestino.alEntrar(self)
                     moviendose = false
+
+                    if(personaje.position() == destino)
+                    {
+                        self.hacerDaño()
+                    }
                 })
             } 
             else
@@ -98,6 +104,11 @@ class Enemigo
                 game.schedule(1800, { estaEsperando = false })
             }
         }
+    }
+
+    method hacerDaño()
+    {
+        personaje.perderIntento()
     }
 
     method matar()

@@ -1,6 +1,7 @@
 import cofre.*
 import scripts.gestionMejoras.gestorMejoras.*
 import scripts.gestionSonidos.gestorSonidos.*
+import scripts.gestionRecompensas.gestorRecompensas.*
 
 class CofreTienda inherits Cofre
 {
@@ -14,7 +15,7 @@ class CofreTienda inherits Cofre
 
     override method entregarContenido(entidad)
     {
-        super(entidad)
+        gestorRecompensas.recompensaTienda().entregar(entidad)
         entidad.gastarMonedas(self.precio())
     }
 }

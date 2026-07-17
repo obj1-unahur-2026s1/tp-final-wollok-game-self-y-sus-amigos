@@ -23,6 +23,11 @@ class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pin
         } 
     }
 
+    override method sePoneEncima(entidad)
+    {
+        if(abierto) entidad.perderIntento()
+    }
+
     override method accionar()
     {
         if (abierto) self.cerrar()

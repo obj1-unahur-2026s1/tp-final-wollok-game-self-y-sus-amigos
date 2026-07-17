@@ -36,14 +36,14 @@ object personaje
     method añadirMoneda(cantidad){
         monedas += cantidad + gestorMejoras.multiplicadorMonedas()
 
-        console.println("Se AGREGARON " + cantidad + "monedas.")
+        console.println("Se AGREGARON " + cantidad + " monedas.")
         console.println("Monedas Actuales: " + monedas)
     }
 
     method gastarMonedas(cantidad){
         monedas -= cantidad
 
-        console.println("Se GASTARON " + cantidad + "monedas.")
+        console.println("Se GASTARON " + cantidad + " monedas.")
         console.println("Monedas Actuales: " + monedas)
     }
 

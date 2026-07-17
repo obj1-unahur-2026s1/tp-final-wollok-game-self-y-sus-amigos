@@ -128,7 +128,7 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
 
     override method sePoneEncima(entidad) {
 
-        if(entidad.nombre() == "personaje")
+        if(emisor.encendido() and entidad.nombre() == "personaje")
         {
             entidad.perderIntento()
         }

@@ -1,6 +1,7 @@
 import Nivel.*
 import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionAnimaciones.animador.*
+import scripts.gestionAnimaciones.bancoImagenes.*
 
 object nivel_8 inherits Nivel{
     override method mapaData()=

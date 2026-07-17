@@ -34,6 +34,12 @@ object personaje
     var property intentos = 2
     var property tieneLlave = false
 
+
+    method reiniciarImagen()
+    {
+        image = "sprites\\personaje\\pj\\mov\\" + dirActual + "\\pj_" + dirActual + ".png"
+    }
+
     method añadirMoneda(cantidad){
         monedas += cantidad + gestorMejoras.multiplicadorMonedas()
 

@@ -76,7 +76,7 @@ object gestorMejoras
     method borrarTodasMejoras()
     {
         mejorasObtenidas.clear()
-        
+
     }
 
     method puedeObtener(mejora)
@@ -102,16 +102,13 @@ object gestorMejoras
 
     method mejoraAleatoria()
     {
-        mejorasDisponibles.forEach({ m =>
-            console.println(m.nombre())
-        })
-
         const disponibles = mejorasDisponibles.filter({ m =>
             self.puedeObtener(m)
         })
 
         const debugg = disponibles.anyOne()
-        console.println(debugg)
+        console.println("Mejora obtenida: " + debugg)
+
         return debugg
     }
 }

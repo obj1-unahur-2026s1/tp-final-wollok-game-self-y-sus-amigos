@@ -4,6 +4,6 @@ class RecompensaMonedas
 
     method entregar(personaje)
     {
-        personaje.añadirMonedas(cantidad)
+        personaje.añadirMoneda(cantidad)
     }
 }

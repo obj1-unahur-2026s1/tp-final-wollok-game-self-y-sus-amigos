@@ -1,4 +1,6 @@
 import scripts.gestionInput.teclado.*
+import scripts.gestionMenus.UI.contadorIntentos.contadorIntentos
+import scripts.gestionMenus.UI.contadorMonedas.contadorMonedas
 
 class Nivel
 {
@@ -33,6 +35,8 @@ class Nivel
     {
         controles.configurar()
         game.addVisual(self)
+        contadorMonedas.cargar()
+        contadorIntentos.cargar()
     }
 
     method mapaData() =

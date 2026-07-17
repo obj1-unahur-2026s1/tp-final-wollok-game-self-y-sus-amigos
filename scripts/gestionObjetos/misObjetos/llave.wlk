@@ -14,6 +14,6 @@ class Llave inherits Objeto(nombre = "llave", image = "sprites\\objetos\\llave\\
         moneda.volume(0.5)
         moneda.play()
 
-        entidad.tieneLlave(true)
+        if (entidad.nombre() == "personaje") entidad.tieneLlave(true)
     }
 }

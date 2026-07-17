@@ -4,7 +4,7 @@ object gestorEnemigos
 
     method comenzarMovimiento()
     {
-        game.onTick(200, "movimientoSecuencialEnemigos",
+        game.onTick(500, "movimientoSecuencialEnemigos",
         {
             if (!enemigosActivos.isEmpty()) 
             {

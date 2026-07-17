@@ -73,6 +73,12 @@ object gestorMejoras
         }
     }
 
+    method borrarTodasMejoras()
+    {
+        mejorasObtenidas.clear()
+        
+    }
+
     method puedeObtener(mejora)
     {
         return self.cantidad(mejora) < mejora.maximoAcumulacion()
@@ -104,6 +110,8 @@ object gestorMejoras
             self.puedeObtener(m)
         })
 
-        return disponibles.anyOne()
+        const debugg = disponibles.anyOne()
+        console.println(debugg)
+        return debugg
     }
 }

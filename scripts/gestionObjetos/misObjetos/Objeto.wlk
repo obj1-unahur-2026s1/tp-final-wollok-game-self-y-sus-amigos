@@ -27,6 +27,7 @@ class Objeto
     method soltar(entidad) {} 
     method alInteractuar(entidad) {}
     method accionar() {}
+    method configuracionFinal() {}
 }
 
 class ObjetoMovible inherits Objeto

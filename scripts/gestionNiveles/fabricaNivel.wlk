@@ -278,6 +278,11 @@ object fabricaNivel
 
         constructores.put(20, { p,c => new Baldosa(position = p, canal = c) })
 
+        constructores.put(400, { p,c => new Antorcha(position = p, canal = c) })
+        constructores.put(401, { p,c => new Antorcha(position = p, canal = c) })
+        constructores.put(402, { p,c => new Antorcha(position = p, canal = c) })
+        constructores.put(403, { p,c => new Antorcha(position = p, canal = c) })
+
         // Personaje  (Quizas seria mejor determinar la posicion inicial del jugador en el propio nivel y no aqui, es provisional)
         constructores.put(99, {
             p,c => personaje.position(p)

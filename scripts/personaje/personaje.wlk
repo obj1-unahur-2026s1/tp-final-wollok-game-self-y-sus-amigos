@@ -57,13 +57,22 @@ object personaje
     {
         intentos -= 1
 
-        if(intentos <= 0)
+        gestorSonidos.reproducirSonido("personajeMuerte", "personaje")
+
+        animador.cancelarAnimacionesDe(self)
+
+        const ruta = bancoImagenes.rutaAnimacionSimple("personaje", "muerte", "play") + "personajeMuerte_"
+        animador.reproducirAdelante(self, ruta, 6, 4, 
         {
-            exit2.entrar()
-            intentos = 2
-        }
-        else
-            gestorNivel.reiniciarNivel()
+            if(intentos <= 0)
+            {
+                exit2.entrar()
+                intentos = 2
+            }
+            else
+                gestorNivel.reiniciarNivel()
+        })
+
     }
 
     method intentosMaximos()

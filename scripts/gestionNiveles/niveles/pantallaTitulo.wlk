@@ -7,7 +7,8 @@ import scripts.gestionInput.teclado.*
 object pantallaTitulo inherits Nivel(controles = controlesMenu){
     
     override method iniciarNivel() { 
-        super()
+        controles.configurar()
+        game.addVisual(self)
         gestorMenu.iniciarTitulo()
     }
     

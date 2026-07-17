@@ -46,7 +46,7 @@ object gestorMejoras
 
     // Economía
     var property monedasExtraCofres = 1    // listo
-    var property multiplicadorMonedas = 1  // listo
+    var property multiplicadorMonedas = 0  // listo
     var property monedasFinalNivel = 0 // aun no
 
     var property bonusDescuentoCofres = 0  // listo

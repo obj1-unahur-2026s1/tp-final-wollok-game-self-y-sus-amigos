@@ -21,6 +21,8 @@ import niveles.datosNivel18.*
 import niveles.datosNivel19.*
 import niveles.datosNivel20.*
 import niveles.tienda.*
+import scripts.gestionMenus.UI.contadorIntentos.contadorIntentos
+import scripts.gestionMenus.UI.contadorMonedas.contadorMonedas
 
 
 import transicionNivel.*
@@ -92,7 +94,8 @@ object gestorNivel
 
     method reiniciarNivel() {
         transicion.activar()
-        personaje.monedas(monedasIniciales)
+        personaje.monedas(0)
+        personaje.añadirMoneda(monedasIniciales)
         personaje.tieneLlave(false)
     }
 

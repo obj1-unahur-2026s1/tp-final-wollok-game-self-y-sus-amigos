@@ -1,12 +1,12 @@
 import scripts.gestionMenus.menus.menuPausa.exit2
-
+import scripts.gestionMenus.UI.contadorIntentos.contadorIntentos
 import scripts.gestionSonidos.gestorSonidos.*
 import scripts.gestionNiveles.transicionNivel.*
 import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionAnimaciones.animador.*
-
+import scripts.gestionMenus.UI.contadorMonedas.contadorMonedas
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionMejoras.gestorMejoras.*
 
@@ -30,7 +30,7 @@ object personaje
     var property spawning   = false  
     var property vivo       = true 
 
-    var property monedas = 1000
+    var property monedas = 0
     var property intentos = 2
     var property tieneLlave = false
 
@@ -45,6 +45,7 @@ object personaje
 
         console.println("Se AGREGARON " + cantidad + " monedas.")
         console.println("Monedas Actuales: " + monedas)
+        contadorMonedas.actualizar()
     }
 
     method gastarMonedas(cantidad){
@@ -56,8 +57,10 @@ object personaje
 
     method añadirIntento()
     {
-        if(intentos < self.intentosMaximos())
+        if(intentos < self.intentosMaximos()){
             intentos += 1
+            contadorIntentos.actualizar()
+        }
     }
 
     method perderIntento()
@@ -67,6 +70,8 @@ object personaje
         intentos -= 1
 
         gestorSonidos.reproducirSonido("personajeMuerte", "personaje")
+        contadorIntentos.actualizar()
+        contadorMonedas.actualizar()
 
         animador.cancelarAnimacionesDe(self)
 

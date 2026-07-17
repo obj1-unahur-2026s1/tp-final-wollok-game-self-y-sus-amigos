@@ -7,6 +7,7 @@ import niveles.datosNivel4.*
 import niveles.datosNivel5.*
 import niveles.datosNivel6.*
 import niveles.datosNivel7.*
+import niveles.datosNivel10.*
 import niveles.datosNivel11.*
 import niveles.datosNivel12.*
 import niveles.datosNivel13.*
@@ -36,6 +37,7 @@ object gestorNivel
         nivel_5,
         nivel_6,
         nivel_7,
+        nivel_10,
         nivel_11,
         nivel_12,
         nivel_13,

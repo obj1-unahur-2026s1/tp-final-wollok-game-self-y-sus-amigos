@@ -15,6 +15,7 @@ import niveles.datosNivel14.*
 import niveles.datosNivel15.*
 import niveles.datosNivel16.*
 import niveles.datosNivel17.*
+import niveles.datosNivel18.*
 import niveles.tienda.*
 
 
@@ -47,6 +48,7 @@ object gestorNivel
         nivel_15,
         nivel_16,
         nivel_17,
+        nivel_18,
         tienda
     ]
 

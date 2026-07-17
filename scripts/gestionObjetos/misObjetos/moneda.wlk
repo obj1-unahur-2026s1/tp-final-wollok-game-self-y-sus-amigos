@@ -27,7 +27,7 @@ class Moneda inherits Objeto(nombre = "moneda", image = "sprites\\objetos\\moned
             gestorSonidos.reproducirSonido("agarrarMoneda", "objetos")
 
             // sumar moneda al jugador
-            entidad.añadirMoneda()
+            entidad.añadirMoneda(1)
 
             //contadorMonedas.actualizar()
         }

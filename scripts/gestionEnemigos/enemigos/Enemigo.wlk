@@ -29,6 +29,12 @@ class Enemigo
 
     method initialize()
     {
+        game.onTick(1, "colisionMuerte" + self.identity() + "", {
+            if(personaje.position() == position and personaje.vivo())
+                    {
+                        self.hacerDaño()
+                    }
+        })
         gestorEnemigos.añadirEnemigo(self)
         image = self.rutaImagen()
         game.addVisual(self)
@@ -90,11 +96,6 @@ class Enemigo
                     image = self.rutaImagen()
                     casillaDestino.alEntrar(self)
                     moviendose = false
-
-                    if(personaje.position() == destino)
-                    {
-                        self.hacerDaño()
-                    }
                 })
             } 
             else
@@ -113,6 +114,8 @@ class Enemigo
 
     method matar()
     {
+        game.removeTickEvent("colisionMuerte" + self.identity() + "")
+
         gestorEnemigos.sacarEnemigo(self)
 
         gestorSonidos.reproducirSonido("enemigoMuerte", "enemigos")

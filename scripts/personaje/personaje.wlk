@@ -28,6 +28,7 @@ object personaje
     var property tpeando    = false 
     var property atacando   = false
     var property spawning   = false  
+    var property vivo       = true 
 
     var property monedas = 1000
     var property intentos = 2
@@ -55,6 +56,8 @@ object personaje
 
     method perderIntento()
     {
+        vivo = false
+        moviendose = true
         intentos -= 1
 
         gestorSonidos.reproducirSonido("personajeMuerte", "personaje")
@@ -71,6 +74,7 @@ object personaje
             }
             else
                 gestorNivel.reiniciarNivel()
+            moviendose = false
         })
 
     }
@@ -95,6 +99,7 @@ object personaje
             position = game.at(position.x()+1, position.y())
             image = "sprites\\personaje\\pj\\mov\\" + dirActual + "\\pj_" + dirActual + ".png"
             spawning = false
+            vivo = true
         })
 
         gestorSonidos.reproducirSonido("spawn", "personaje")
@@ -192,43 +197,43 @@ object personaje
 
     method ocupaPosicion(pos) = position == pos or destinoReservado == pos
 
-method iniciarMovimiento(dir)
-{
-    if (self.estáQuieto())
+    method iniciarMovimiento(dir)
     {
-        const destino = self.obtenerDestino(dir)
-        const casilla = mapaObjetos.casilla(position)
-        const casillaDestino = mapaObjetos.casilla(destino)
+        if (self.estáQuieto())
+        {
+            const destino = self.obtenerDestino(dir)
+            const casilla = mapaObjetos.casilla(position)
+            const casillaDestino = mapaObjetos.casilla(destino)
 
-        if (not casillaDestino.puedeEntrar(self, dir))
-        {
-            dirActual = dir
-            image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
-        }
-        else
-        {
-            destinoReservado = destino   
-            casilla.alSalir(self)
-            self.moverHacia(destino, casillaDestino, dir)
+            if (not casillaDestino.puedeEntrar(self, dir))
+            {
+                dirActual = dir
+                image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
+            }
+            else
+            {
+                destinoReservado = destino   
+                casilla.alSalir(self)
+                self.moverHacia(destino, casillaDestino, dir)
+            }
         }
     }
-}
 
-method moverHacia(destino, casilla, dir)
-{
-    moviendose = true
-    dirActual = dir
-    
-    const frames = bancoImagenes.obtenerFrames("pj", "mov", dir)
-
-    animador.realizarAnimacionDeTransicion(self, destino, frames, gestorMejoras.ticksMovimiento(),
+    method moverHacia(destino, casilla, dir)
     {
-        moviendose = false
-        destinoReservado = null   
-        image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
-        casilla.alEntrar(self)
-    })
-}
+        moviendose = true
+        dirActual = dir
+        
+        const frames = bancoImagenes.obtenerFrames("pj", "mov", dir)
+
+        animador.realizarAnimacionDeTransicion(self, destino, frames, gestorMejoras.ticksMovimiento(),
+        {
+            moviendose = false
+            destinoReservado = null   
+            image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
+            casilla.alEntrar(self)
+        })
+    }
 
     method teletransportar(destino)
     {

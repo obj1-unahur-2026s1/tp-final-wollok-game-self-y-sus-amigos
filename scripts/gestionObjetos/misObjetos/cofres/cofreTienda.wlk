@@ -34,6 +34,5 @@ class CofreTienda inherits Cofre
         animador.reproducirAdelante(entidad, ruta, 13, 3, {
             gestorRecompensas.recompensaTienda().entregar(entidad)
         })
-
     }
 }

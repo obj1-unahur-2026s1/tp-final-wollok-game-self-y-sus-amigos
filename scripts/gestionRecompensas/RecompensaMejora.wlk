@@ -1,5 +1,6 @@
 import scripts.gestionMejoras.gestorMejoras.*
 import scripts.gestionSonidos.gestorSonidos.*
+import scripts.gestionMenus.menus.menuCartelMejora.*
 
 class RecompensaMejora
 {
@@ -7,13 +8,8 @@ class RecompensaMejora
 
     method entregar(personaje)
     {
-        game.addVisual(mejora)
-
         gestorMejoras.agregar(mejora)
 
-        game.schedule(10000, {
-            game.removeVisual(mejora)
-            personaje.reiniciarImagen()
-        })
+        new MenuCartelMejora().mostrar(mejora, personaje)
     }
 }

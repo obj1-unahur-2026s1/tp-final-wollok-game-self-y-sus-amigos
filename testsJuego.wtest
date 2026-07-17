@@ -1,0 +1,37 @@
+import scripts.personaje.personaje.*
+import scripts.gestionNiveles.niveles.tienda.*
+import scripts.gestionNiveles.gestorNivel.*
+
+describe "Wtest funcionamiento de la tienda" {
+    test "antes de nivel 5 no corresponde abrir la tienda" {
+        gestorNivel.nivelActual(4)
+
+        assert.notThat(gestorNivel.debeIrATienda())
+    }
+}
+
+    test "en el nivel 5 corresponde abrir la tienda" {
+        gestorNivel.nivelActual(5)
+
+        assert.that(gestorNivel.debeIrATienda())
+    }
+    test "en el nivel 6 no corresponde abrir la tienda" {
+            gestorNivel.nivelActual(6)
+
+        assert.notThat(gestorNivel.debeIrATienda())
+    }
+
+
+test "cargar un nivel actualiza el nivel y sale de la tienda" {
+    gestorNivel.enTienda(true)
+    gestorNivel.cargarNivel(8)
+
+    assert.equals(8, gestorNivel.nivelActual())
+    assert.notThat(gestorNivel.enTienda())
+}
+
+test "el personaje pierde la llave al reiniciar el nivel" {
+    personaje.tieneLlave(true)
+    gestorNivel.reiniciarNivel()
+    assert.notThat(personaje.tieneLlave())
+}

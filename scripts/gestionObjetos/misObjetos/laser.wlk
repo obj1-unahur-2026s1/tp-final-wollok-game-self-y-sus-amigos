@@ -127,10 +127,16 @@ class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
     }
 
     override method sePoneEncima(entidad) {
-    if (emisor.encendido() and entidad.nombre() == "caja") {
-        game.schedule(500, {emisor.proyectarRayo()})
+
+        if(entidad.nombre() == "personaje")
+        {
+            entidad.perderIntento()
+        }
+
+        if (emisor.encendido() and entidad.nombre() == "caja") {
+            game.schedule(500, {emisor.proyectarRayo()})
+        }
     }
-}
 
 override method soltar(entidad) {
     if (emisor.encendido() and entidad.nombre() == "caja") {

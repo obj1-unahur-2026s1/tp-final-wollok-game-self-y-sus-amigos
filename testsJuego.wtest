@@ -1,6 +1,9 @@
 import scripts.personaje.personaje.*
+import scripts.gestionEnemigos.*
+
 import scripts.gestionNiveles.niveles.tienda.*
 import scripts.gestionNiveles.gestorNivel.*
+
 
 describe "conjunto de test de personaje" {
     test "el personaje ocupa la posicion donde se encuentra " {
@@ -15,7 +18,6 @@ describe "conjunto de test de personaje" {
     test "el personaje obtiene la cantidad maxima de intentos" {
         assert.equals(2, personaje.intentosMaximos())
     }
-
 
 }
 describe "Wtest funcionamiento de la tienda" {

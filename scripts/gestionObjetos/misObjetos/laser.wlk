@@ -8,9 +8,9 @@ class Laser inherits Objeto(nombre = "laser")
 {
     var property direccion
     var property encendido = true
-    const hacesProyectados = []
-
-    var posicionHaz = self.obtenerSiguientePosicion(position)
+    const casillasLinea = []
+    const sensores = []
+    const rayo = new RayoVisual()
 
     override method puedeEntrar(entidad, dir) = false
 
@@ -18,90 +18,114 @@ class Laser inherits Objeto(nombre = "laser")
     {
         super()
         gestorCanales.registrar(self, canal)
-
-        (1..20).forEach({ i =>
-            const haz = new HazDeLaser(
-                position = posicionHaz,
-                direccion = direccion,
-                emisor = self
-            )
-
-            hacesProyectados.add(haz)
-            posicionHaz = self.obtenerSiguientePosicion(posicionHaz)
-        }) 
-
         image = "sprites/objetos/laser/" + direccion + "/laserOff_" + direccion + ".png"
     }
 
     override method configuracionFinal()
     {
-        hacesProyectados.forEach({a => game.removeVisual(a); game.addVisual(a)})
+        self.cachearCasillas()
+        game.addVisual(rayo)
         self.encender()
     }
+
+    // ---------- Cache de casillas y sensores ----------
+
+    method cachearCasillas()
+    {
+        var pos = self.obtenerSiguientePosicion(position)
+        casillasLinea.clear()
+        sensores.clear()
+
+        (1..20).forEach({ i =>
+            const casilla = mapaObjetos.casilla(pos)
+            const sensor = new SensorLaser(emisor = self, position = pos)
+
+            casilla.añadir(sensor)
+            casillasLinea.add(casilla)
+            sensores.add(sensor)
+
+            pos = self.obtenerSiguientePosicion(pos)
+        })
+    }
+
+    // ---------- Estado ----------
 
     override method accionar()
     {
         if (encendido)
             self.apagar()
-        else 
+        else
             self.encender()
     }
 
     method encender()
     {
         encendido = true
-        // Sonido
         gestorSonidos.reproducirSonido("laserOn", "objetos")
-
-        // visual
         image = "sprites/objetos/laser/" + direccion + "/laserOn_" + direccion + ".png"
-        
         self.proyectarRayo()
     }
 
     method apagar()
     {
         encendido = false
-
-        // Sonido
         gestorSonidos.reproducirSonido("laserOf", "objetos")
-
-        // visual
         image = "sprites/objetos/laser/" + direccion + "/laserOff_" + direccion + ".png"
-
-        self.limpiarRayo()
+        self.aplicarLargo(0)
     }
 
-    method limpiarRayo()
-    {
-        hacesProyectados.forEach({ haz =>
-            haz.desactivar()
-        })
-    }
+    // ---------- Proyección ----------
 
     method proyectarRayo()
-{
-    if (encendido)
     {
-        self.limpiarRayo()
-        self.proyectarDesde(
-            self.obtenerSiguientePosicion(position),
-            0
-        )
+        if (encendido)
+            self.aplicarLargo(self.largoDelRayo())
     }
-}
 
-    method proyectarDesde(posicionActual, indice)
+    method largoDelRayo()
     {
-        if (mapaObjetos.casilla(posicionActual).permitePasoLaser())
-        {
-            hacesProyectados.get(indice).activar()
+        var largo = 0
+        var sigue = true
+        casillasLinea.forEach({ casilla =>
+            if (sigue and casilla.permitePasoLaser())
+                largo += 1
+            else
+                sigue = false
+        })
+        return largo
+    }
 
-            self.proyectarDesde(
-                self.obtenerSiguientePosicion(posicionActual),
-                indice + 1
-            )
+    method aplicarLargo(largo)
+    {
+        // sensores: activos solo dentro del rayo
+        (0..sensores.size() - 1).forEach({ i =>
+            sensores.get(i).activo(i < largo)
+        })
+
+        // visual: una sola imagen del largo justo
+        if (largo == 0)
+        {
+            rayo.image("sprites/utilidades/transparente.png")
         }
+        else
+        {
+            rayo.position(self.posicionDelRayo(largo))
+            rayo.image("sprites/objetos/laser/" + self.tipoDeHaz() + "/hazDeLaser_" + self.tipoDeHaz() + "_" + largo + ".png")
+        }
+    }
+
+    // La imagen se ancla en su esquina inferior izquierda
+    method posicionDelRayo(largo)
+    {
+        return
+            if      (direccion == "izq")  position.left(largo)
+            else if (direccion == "abj")  position.down(largo)
+            else                          self.obtenerSiguientePosicion(position)
+    }
+
+    method tipoDeHaz()
+    {
+        return if (direccion == "arr" or direccion == "abj") "vertical" else "horizontal"
     }
 
     method obtenerSiguientePosicion(pos)
@@ -115,61 +139,41 @@ class Laser inherits Objeto(nombre = "laser")
     }
 }
 
-class HazDeLaser inherits Objeto(nombre = "hazDeLaser")
+// Único visual del rayo
+class RayoVisual
 {
-    var property direccion
-    var property encendido = false
-    const property emisor
-
-    override method initialize()
-    {
-        super()
-        self.actualizarVisual()
-    }
-
-    override method sePoneEncima(entidad) {
-
-        if(emisor.encendido() and entidad.nombre() == "personaje")
-        {
-            entidad.perderIntento()
-        }
-
-        if (emisor.encendido() and entidad.nombre() == "caja") {
-            game.schedule(500, {emisor.proyectarRayo()})
-        }
-    }
-
-override method soltar(entidad) {
-    if (emisor.encendido() and entidad.nombre() == "caja") {
-        emisor.proyectarRayo()
-    }
+    var property position = game.at(0, 0)
+    var property image = "sprites/utilidades/transparente.png"
 }
 
-    method activar()
+// Objeto sin visual: solo vive dentro de la Casilla y detecta
+class SensorLaser
+{
+    const property emisor
+    const property position
+    var property activo = false
+    const property nombre = "sensorLaser"
+
+    method puedeEntrar(entidad, dir) = true
+    method dejaPasarLaser() = true
+    method alInteractuar(entidad) {}
+    method configuracionFinal() {}
+
+    method sePoneEncima(entidad)
     {
-        encendido = true
-        self.actualizarVisual()
-    }
-    
-    method desactivar()
-    {
-        encendido = false
-        self.actualizarVisual()
+        if (emisor.encendido())
+        {
+            if (activo and entidad.nombre() == "personaje")
+                entidad.perderIntento()
+
+            if (entidad.nombre() == "caja")
+                game.schedule(500, { emisor.proyectarRayo() })
+        }
     }
 
-    method actualizarVisual()
+    method soltar(entidad)
     {
-        if (encendido) {
-            image = "sprites/objetos/laser/hazDeLaser_" + self.tipoDeHaz() + ".png"
-        }
-        else {
-            image = "sprites/utilidades/transparente.png"
-        }
+        if (emisor.encendido() and entidad.nombre() == "caja")
+            emisor.proyectarRayo()
     }
-
-    method tipoDeHaz()
-    {
-        if(direccion == "arr" or direccion == "abj") return "vertical"
-        else return "horizontal"
-    } 
 }

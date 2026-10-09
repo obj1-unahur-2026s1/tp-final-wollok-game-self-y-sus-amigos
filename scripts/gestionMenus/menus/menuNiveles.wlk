@@ -7,8 +7,8 @@ object menuNiveles inherits Menu(position = game.at(7, 2)) {
     const totalPaginas = 2
     const columnas = 5
 
-    const sliderPaginas = new VisualMenu(position = game.at(7, 2), image = "sprites\\UI\\menu\\menuNiveles\\menuNivelesPage_1.png")
-    const puntero = new VisualMenu(position = game.at(7, 2), image = "sprites\\UI\\menu\\menuNiveles\\menuNivelesPuntero_1.png")
+    const sliderPaginas = new VisualMenu(position = game.at(7, 2), image = "sprites/UI/menu/menuNiveles/menuNivelesPage_1.png")
+    const puntero = new VisualMenu(position = game.at(7, 2), image = "sprites/UI/menu/menuNiveles/menuNivelesPuntero_1.png")
 
     method opcionActualPuntero() = if (opcionActual > 10) opcionActual - 10 else opcionActual
     method paginaActual()        = (opcionActual - 1).div(10) + 1
@@ -50,9 +50,9 @@ object menuNiveles inherits Menu(position = game.at(7, 2)) {
     }
 
     method aplicar() {
-        image = "sprites\\UI\\menu\\menuNiveles\\menuNiveles_" + self.paginaActual() + ".png"
-        sliderPaginas.image("sprites\\UI\\menu\\menuNiveles\\menuNivelesPage_" + self.paginaActual() + ".png")
-        puntero.image("sprites\\UI\\menu\\menuNiveles\\menuNivelesPuntero_" + self.opcionActualPuntero() + ".png")
+        image = "sprites/UI/menu/menuNiveles/menuNiveles_" + self.paginaActual() + ".png"
+        sliderPaginas.image("sprites/UI/menu/menuNiveles/menuNivelesPage_" + self.paginaActual() + ".png")
+        puntero.image("sprites/UI/menu/menuNiveles/menuNivelesPuntero_" + self.opcionActualPuntero() + ".png")
     }
 
     override method aceptar() {

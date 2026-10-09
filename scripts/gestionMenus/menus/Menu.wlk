@@ -4,7 +4,7 @@ import scripts.gestionSonidos.gestorSonidos.*
 class Menu
 {
     var property position = game.at(6, 1)
-    var property image = "sprites\\UI\\menu\\" + self + "\\" + self + "_1.png"
+    var property image = "sprites/UI/menu/" + self + "/" + self + "_1.png"
 
     method opcionSeleccionada() = opciones.get(opcionActual - 1) 
     var property opcionActual = 1
@@ -49,6 +49,6 @@ class Menu
     }
 
     method actualizar() {
-        image = "sprites\\UI\\menu\\" + self + "\\" + self + "_" + opcionActual + ".png"
+        image = "sprites/UI/menu/" + self + "/" + self + "_" + opcionActual + ".png"
     }
 }

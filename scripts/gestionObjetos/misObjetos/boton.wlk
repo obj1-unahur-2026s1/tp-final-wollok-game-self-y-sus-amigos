@@ -5,7 +5,7 @@ import scripts.gestionObjetos.gestorCanales.*
 import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 
-class Boton inherits Objeto(nombre = "boton", image = "sprites\\objetos\\boton\\boton_sinPulsar.png")
+class Boton inherits Objeto(nombre = "boton", image = "sprites/objetos/boton/boton_sinPulsar.png")
 {
     var property pisado = false
     var animando = false            
@@ -32,7 +32,7 @@ class Boton inherits Objeto(nombre = "boton", image = "sprites\\objetos\\boton\\
             animador.reproducirAdelante(self, ruta, 7, 2,
             {
                 pisado = true
-                image = "sprites\\objetos\\boton\\boton_pulsado.png"
+                image = "sprites/objetos/boton/boton_pulsado.png"
                 gestorCanales.notificarAccion(canal)
                 
                 animando = false
@@ -63,7 +63,7 @@ class Boton inherits Objeto(nombre = "boton", image = "sprites\\objetos\\boton\\
                 animador.reproducirAtras(self, ruta, 7, 2,
                 {
                     pisado = false
-                    image = "sprites\\objetos\\boton\\boton_sinPulsar.png"
+                    image = "sprites/objetos/boton/boton_sinPulsar.png"
                     gestorCanales.notificarAccion(canal)
                     
                     animando = false

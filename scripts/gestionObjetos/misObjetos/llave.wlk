@@ -2,7 +2,7 @@ import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionObjetos.gestorObjetos.*
 import scripts.gestionSonidos.gestorSonidos.*
 
-class Llave inherits Objeto(nombre = "llave", image = "sprites\\objetos\\llave\\llave.png")
+class Llave inherits Objeto(nombre = "llave", image = "sprites/objetos/llave/llave.png")
 {
     override method sePoneEncima(entidad)
     {
@@ -10,7 +10,7 @@ class Llave inherits Objeto(nombre = "llave", image = "sprites\\objetos\\llave\\
         mapaObjetos.removerObjeto(self, game.at(0,0))
 
         // activar sonido
-        const moneda = game.sound("audio\\SFX\\agarrarMoneda.mp3")
+        const moneda = game.sound("audio/SFX/agarrarMoneda.mp3")
         moneda.volume(0.5)
         moneda.play()
 

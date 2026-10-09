@@ -5,7 +5,7 @@ class Objeto
 {
     var property nombre = ""
     var property position = game.at(0, 0)
-    var property image = "sprites\\utilidades\\transparente.png"
+    var property image = "sprites/utilidades/transparente.png"
     var property canal = 0
 
     method initialize()

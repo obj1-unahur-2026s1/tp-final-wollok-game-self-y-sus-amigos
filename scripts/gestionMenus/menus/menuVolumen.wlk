@@ -3,7 +3,7 @@ import scripts.gestionMenus.menus.Menu.*
 import scripts.gestionMenus.gestorMenu.*
 import scripts.gestionSonidos.gestorSonidos.*
 
-object menuVolumen inherits Menu(position = game.at(7, 5), image = "sprites\\UI\\menu\\menuVolumen\\menu_Volumen.png") {
+object menuVolumen inherits Menu(position = game.at(7, 5), image = "sprites/UI/menu/menuVolumen/menu_Volumen.png") {
 
     const sliders = [
         new Slider(position = game.at(7, 4), prefijo = "musica", alCambiar = { v => gestorSonidos.volumenMusica(v) }),
@@ -45,9 +45,9 @@ class Slider {
     const property prefijo
     const property alCambiar
     const niveles = [0, 25, 50, 75, 100]
-    const property tileSeleccion = new VisualMenu(position = position, image = "sprites\\utilidades\\transparente.png")
+    const property tileSeleccion = new VisualMenu(position = position, image = "sprites/utilidades/transparente.png")
 
-    method image() = "sprites\\UI\\menu\\menuVolumen\\" + prefijo + "_" + niveles.get(nivel) + ".png"
+    method image() = "sprites/UI/menu/menuVolumen/" + prefijo + "_" + niveles.get(nivel) + ".png"
 
     method modificar(delta) {
         nivel = (nivel + delta).min(niveles.size() - 1).max(0)
@@ -56,6 +56,6 @@ class Slider {
         gestorSonidos.actualizarVolumenMusica()
     }
 
-    method activar()    { tileSeleccion.image("sprites\\UI\\menu\\menuVolumen\\" + prefijo + "_Select.png") }
-    method desactivar() { tileSeleccion.image("sprites\\utilidades\\transparente.png") }
+    method activar()    { tileSeleccion.image("sprites/UI/menu/menuVolumen/" + prefijo + "_Select.png") }
+    method desactivar() { tileSeleccion.image("sprites/utilidades/transparente.png") }
 }

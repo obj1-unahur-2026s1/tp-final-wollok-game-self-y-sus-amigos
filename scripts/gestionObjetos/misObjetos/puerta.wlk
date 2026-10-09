@@ -20,7 +20,7 @@ class Puerta inherits Objeto(nombre = "Puerta")
         super()
         self.actualizarPosicion()
         gestorCanales.registrar(self, canal)
-        image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_cerrada.png"
+        image = "sprites/objetos/puerta/abrir/" + direccion + "/puerta_cerrada.png"
         if (abierto)
         {
             self.cerrar()
@@ -42,9 +42,9 @@ class Puerta inherits Objeto(nombre = "Puerta")
         {
     
             puedeCerrar = false
-            const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "\\puerta_" + direccion + "_"
+            const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "/puerta_" + direccion + "_"
             animador.reproducirAdelante(self, ruta, 8, 1, {
-                image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_abierta.png"
+                image = "sprites/objetos/puerta/abrir/" + direccion + "/puerta_abierta.png"
                 abierto = true
             })
         }
@@ -59,9 +59,9 @@ class Puerta inherits Objeto(nombre = "Puerta")
                 if(enemigo != null) enemigo.matar()
 
             puedeCerrar = true
-            const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "\\puerta_" + direccion + "_"
+            const ruta = bancoImagenes.rutaAnimacionSimple("objetos", "puerta", "abrir") + direccion + "/puerta_" + direccion + "_"
             animador.reproducirAtras(self, ruta, 8, 1, {
-                image = "sprites\\objetos\\puerta\\abrir\\" + direccion + "\\puerta_cerrada.png"
+                image = "sprites/objetos/puerta/abrir/" + direccion + "/puerta_cerrada.png"
                 abierto = false
             })
         }

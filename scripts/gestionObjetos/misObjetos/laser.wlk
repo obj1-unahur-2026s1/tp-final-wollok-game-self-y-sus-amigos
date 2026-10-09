@@ -30,7 +30,7 @@ class Laser inherits Objeto(nombre = "laser")
             posicionHaz = self.obtenerSiguientePosicion(posicionHaz)
         }) 
 
-        image = "sprites\\objetos\\laser\\" + direccion + "\\laserOff_" + direccion + ".png"
+        image = "sprites/objetos/laser/" + direccion + "/laserOff_" + direccion + ".png"
     }
 
     override method configuracionFinal()
@@ -54,7 +54,7 @@ class Laser inherits Objeto(nombre = "laser")
         gestorSonidos.reproducirSonido("laserOn", "objetos")
 
         // visual
-        image = "sprites\\objetos\\laser\\" + direccion + "\\laserOn_" + direccion + ".png"
+        image = "sprites/objetos/laser/" + direccion + "/laserOn_" + direccion + ".png"
         
         self.proyectarRayo()
     }
@@ -67,7 +67,7 @@ class Laser inherits Objeto(nombre = "laser")
         gestorSonidos.reproducirSonido("laserOf", "objetos")
 
         // visual
-        image = "sprites\\objetos\\laser\\" + direccion + "\\laserOff_" + direccion + ".png"
+        image = "sprites/objetos/laser/" + direccion + "/laserOff_" + direccion + ".png"
 
         self.limpiarRayo()
     }
@@ -160,10 +160,10 @@ override method soltar(entidad) {
     method actualizarVisual()
     {
         if (encendido) {
-            image = "sprites\\objetos\\laser\\hazDeLaser_" + self.tipoDeHaz() + ".png"
+            image = "sprites/objetos/laser/hazDeLaser_" + self.tipoDeHaz() + ".png"
         }
         else {
-            image = "sprites\\utilidades\\transparente.png"
+            image = "sprites/utilidades/transparente.png"
         }
     }
 

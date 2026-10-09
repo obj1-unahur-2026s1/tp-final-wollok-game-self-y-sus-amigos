@@ -10,7 +10,7 @@ import menus.menuVolumen.*
 
 object gestorMenu {
     
-    const property menuVacio = new VisualMenu(position = menuActual.position(), image = "sprites\\UI\\menu\\menuVacio.png")
+    const property menuVacio = new VisualMenu(position = menuActual.position(), image = "sprites/UI/menu/menuVacio.png")
     var property inMenu = true 
     var property menuActual = menuTitulo
     const property visualesMenu = []
@@ -30,7 +30,7 @@ object gestorMenu {
     }
 
     method iniciarPausa() {
-        menuVacio.image("sprites\\UI\\menu\\menuPausa\\menuVacioPausa.png")
+        menuVacio.image("sprites/UI/menu/menuPausa/menuVacioPausa.png")
         menuPausa.opcionActual(1)
         menuPausa.actualizar()
         self.abrir(menuPausa)
@@ -38,7 +38,7 @@ object gestorMenu {
     }
 
     method iniciarTitulo() {
-        menuVacio.image("sprites\\UI\\menu\\menuVacio.png")
+        menuVacio.image("sprites/UI/menu/menuVacio.png")
         menuActual = menuTitulo
         self.añadirMenuVacio()
         self.abrir(menuTitulo)

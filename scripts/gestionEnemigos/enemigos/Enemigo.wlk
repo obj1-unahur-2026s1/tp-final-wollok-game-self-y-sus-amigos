@@ -25,7 +25,7 @@ class Enemigo
     var property tpeando    = false
     var property moviendose = false 
 
-    method rutaImagen() = "sprites\\enemigos\\" + nombre +"\\mov\\" + dirActual + "\\" + nombre + "_" + dirActual + ".png" 
+    method rutaImagen() = "sprites/enemigos/" + nombre +"/mov/" + dirActual + "/" + nombre + "_" + dirActual + ".png" 
 
     method initialize()
     {
@@ -91,7 +91,7 @@ class Enemigo
                 destinoReservado = destino
                 casillaActual.alSalir(self)
 
-                animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
+                animador.realizarAnimacionDeTransicion(self, destino, frames, 6,{
                     destinoReservado = null
                     image = self.rutaImagen()
                     casillaDestino.alEntrar(self)
@@ -145,7 +145,7 @@ class Enemigo
             const frames = bancoImagenes.obtenerFrames(self.nombre(), "teleport", dirActual)
             
             animador.realizarAnimacionDeTransicion(self, destino, frames, 4,{
-                image = "sprites\\enemigos\\" + self.nombre() + "\\mov\\" + dirActual + "\\" + self.nombre() + "_" + dirActual + ".png"
+                image = "sprites/enemigos/" + self.nombre() + "/mov/" + dirActual + "/" + self.nombre() + "_" + dirActual + ".png"
                 position = destino
                 tpeando = false
             })

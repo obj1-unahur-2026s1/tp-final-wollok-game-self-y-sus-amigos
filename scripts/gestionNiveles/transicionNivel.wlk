@@ -7,7 +7,7 @@ import scripts.personaje.personaje.*
 
 object transicion
 {
-    var property image = "sprites\\utilidades\\transparente.png"
+    var property image = "sprites/utilidades/transparente.png"
     var property position = game.at(0, 0)
     var property transicionActiva = false
 

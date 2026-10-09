@@ -6,7 +6,7 @@ import scripts.gestionEnemigos.gestorEnemigos.*
 import scripts.gestionMejoras.gestorMejoras.*
 import scripts.gestionSonidos.gestorSonidos.*
 
-class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites\\objetos\\pinchos\\usar\\pinchosAbiertos.png")
+class Pinchos inherits Objeto(nombre = "pinchos", image = "sprites/objetos/pinchos/usar/pinchosAbiertos.png")
 {
     var property abierto = true
     var property puedeCerrar = true

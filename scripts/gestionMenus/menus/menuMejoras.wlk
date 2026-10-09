@@ -6,13 +6,13 @@ import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionMenus.menus.Menu.*
 import scripts.gestionMenus.gestorMenu.*
 
-object menuMejoras inherits Menu(image = "sprites\\UI\\menu\\menuMejoras\\menuMejoras.png", position = game.at(6,3)) 
+object menuMejoras inherits Menu(image = "sprites/UI/menu/menuMejoras/menuMejoras.png", position = game.at(6,3)) 
 {
-    const multiplicador = new VisualMenu(position = game.at(6, 3), image = "sprites\\UI\\menu\\menuMejoras\\multiplicador\\multiplicador_1.png")
-    const definicion = new VisualMenu(position = game.at(6, 3), image = "sprites\\UI\\menu\\menuMejoras\\descripcionesMejoras\\noUpgrades.png")
-    const objeto1 = new VisualMenu(position = game.at(6, 3), image = "sprites\\utilidades\\transparente.png")
-    const objeto2 = new VisualMenu(position = game.at(6, 3), image = "sprites\\utilidades\\transparente.png")
-    const objeto3 = new VisualMenu(position = game.at(6, 3), image = "sprites\\utilidades\\transparente.png")
+    const multiplicador = new VisualMenu(position = game.at(6, 3), image = "sprites/UI/menu/menuMejoras/multiplicador/multiplicador_1.png")
+    const definicion = new VisualMenu(position = game.at(6, 3), image = "sprites/UI/menu/menuMejoras/descripcionesMejoras/noUpgrades.png")
+    const objeto1 = new VisualMenu(position = game.at(6, 3), image = "sprites/utilidades/transparente.png")
+    const objeto2 = new VisualMenu(position = game.at(6, 3), image = "sprites/utilidades/transparente.png")
+    const objeto3 = new VisualMenu(position = game.at(6, 3), image = "sprites/utilidades/transparente.png")
 
     override method entrar()
     {
@@ -46,15 +46,15 @@ object menuMejoras inherits Menu(image = "sprites\\UI\\menu\\menuMejoras\\menuMe
     {
         if (!opciones.isEmpty())
         {
-            objeto1.image("sprites\\mejoras\\grandes\\" + self.objetoActual() + ".png")
-            objeto2.image("sprites\\mejoras\\pequeños\\" + self.objetoAnterior() + "_a.png")
-            objeto3.image("sprites\\mejoras\\pequeños\\" + self.objetoSiguiente() + "_b.png")
-            definicion.image("sprites\\UI\\menu\\menuMejoras\\descripcionesMejoras\\" + self.objetoActual() + ".png")
-            multiplicador.image("sprites\\UI\\menu\\menuMejoras\\multiplicador\\multiplicador_" + gestorMejoras.cantidad(self.objetoActual()) + ".png")
+            objeto1.image("sprites/mejoras/grandes/" + self.objetoActual() + ".png")
+            objeto2.image("sprites/mejoras/pequeños/" + self.objetoAnterior() + "_a.png")
+            objeto3.image("sprites/mejoras/pequeños/" + self.objetoSiguiente() + "_b.png")
+            definicion.image("sprites/UI/menu/menuMejoras/descripcionesMejoras/" + self.objetoActual() + ".png")
+            multiplicador.image("sprites/UI/menu/menuMejoras/multiplicador/multiplicador_" + gestorMejoras.cantidad(self.objetoActual()) + ".png")
         }
         else
         {
-            definicion.image("sprites\\UI\\menu\\menuMejoras\\descripcionesMejoras\\noUpgrades.png")
+            definicion.image("sprites/UI/menu/menuMejoras/descripcionesMejoras/noUpgrades.png")
             
             game.removeVisual(multiplicador)
             game.removeVisual(objeto1)

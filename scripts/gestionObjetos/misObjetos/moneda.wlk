@@ -5,7 +5,7 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionNiveles.gestorNivel.*
 import scripts.gestionSonidos.gestorSonidos.*
 
-class Moneda inherits Objeto(nombre = "moneda", image = "sprites\\objetos\\moneda\\moneda.png")
+class Moneda inherits Objeto(nombre = "moneda", image = "sprites/objetos/moneda/moneda.png")
 {
     override method initialize()
     {

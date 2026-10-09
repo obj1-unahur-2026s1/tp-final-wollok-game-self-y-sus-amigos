@@ -42,7 +42,7 @@ object gestorMejoras
 
     // Espada
     var property alcanceEspada = 1  // listo
-    var property ticksAtaque = 2    // listo
+    var property ticksAtaque = 6   // listo
 
     // Economía
     var property monedasExtraCofres = 1    // listo

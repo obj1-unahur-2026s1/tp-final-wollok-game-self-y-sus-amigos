@@ -2,7 +2,7 @@ import scripts.gestionEnemigos.enemigos.Enemigo.*
 import scripts.personaje.personaje.*
 import scripts.gestionObjetos.gestorObjetos.*
 
-class Sapo inherits Enemigo(nombre = "sapo", image = "sprites\\enemigos\\sapo\\mov\\abj\\sapo_abj.png")
+class Sapo inherits Enemigo(nombre = "sapo", image = "sprites/enemigos/sapo/mov/abj/sapo_abj.png")
 {
     method intentarMoverseEn(dirPrincipal, dirSecundaria)
 {

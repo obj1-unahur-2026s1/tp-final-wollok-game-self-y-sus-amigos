@@ -4,7 +4,7 @@ import scripts.gestionAnimaciones.animador.*
 import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionSonidos.gestorSonidos.*
 
-class Palanca inherits Objeto(nombre = "palanca", image = "sprites\\objetos\\palanca\\palancaCerrada.png")
+class Palanca inherits Objeto(nombre = "palanca", image = "sprites/objetos/palanca/palancaCerrada.png")
 {
     var property activada = false
     var animando = false
@@ -33,7 +33,7 @@ class Palanca inherits Objeto(nombre = "palanca", image = "sprites\\objetos\\pal
 
         animador.reproducirAdelante(self, ruta + "palanca_", 8, 3, {
             activada = true
-            image = "sprites\\objetos\\palanca\\palancaAbierta.png"
+            image = "sprites/objetos/palanca/palancaAbierta.png"
             gestorCanales.notificarAccion(canal)
             animando = false
         })
@@ -47,7 +47,7 @@ class Palanca inherits Objeto(nombre = "palanca", image = "sprites\\objetos\\pal
 
         animador.reproducirAtras(self, ruta + "palanca_", 8, 3, {
             activada = false
-            image = "sprites\\objetos\\palanca\\palancaCerrada.png"
+            image = "sprites/objetos/palanca/palancaCerrada.png"
             gestorCanales.notificarAccion(canal)
             animando = false
         })

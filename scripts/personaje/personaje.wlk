@@ -19,7 +19,7 @@ object personaje
     // propiedades visuales y de posición básicos
     var property position = game.at(0, 0)
     var property destinoReservado = null
-    var property image = "sprites\\utilidades\\transparente.png"
+    var property image = "sprites/utilidades/transparente.png"
     var property nombre = "personaje"
     var property dirActual = "abj"
 
@@ -37,7 +37,7 @@ object personaje
 
     method reiniciarImagen()
     {
-        image = "sprites\\personaje\\pj\\mov\\" + dirActual + "\\pj_" + dirActual + ".png"
+        image = "sprites/personaje/pj/mov/" + dirActual + "/pj_" + dirActual + ".png"
     }
 
     method añadirMoneda(cantidad){
@@ -81,6 +81,8 @@ object personaje
             if(intentos <= 0)
             {
                 exit2.entrar()
+                self.monedas(0)
+                self.añadirMoneda(gestorNivel.monedasIniciales())
                 intentos = 2
             }
             else
@@ -108,9 +110,11 @@ object personaje
         animador.reproducirAdelante(self, ruta + "Spawn_", 13, 3,
         {
             position = game.at(position.x()+1, position.y())
-            image = "sprites\\personaje\\pj\\mov\\" + dirActual + "\\pj_" + dirActual + ".png"
+            image = "sprites/personaje/pj/mov/" + dirActual + "/pj_" + dirActual + ".png"
             spawning = false
             vivo = true
+            atacando = false
+            moviendose = false
         })
 
         gestorSonidos.reproducirSonido("spawn", "personaje")
@@ -219,7 +223,7 @@ object personaje
             if (not casillaDestino.puedeEntrar(self, dir))
             {
                 dirActual = dir
-                image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
+                image = "sprites/personaje/pj/mov/" + dir + "/pj_" + dir + ".png"
             }
             else
             {
@@ -241,7 +245,7 @@ object personaje
         {
             moviendose = false
             destinoReservado = null   
-            image = "sprites\\personaje\\pj\\mov\\" + dir + "\\pj_" + dir + ".png"
+            image = "sprites/personaje/pj/mov/" + dir + "/pj_" + dir + ".png"
             casilla.alEntrar(self)
         })
     }
@@ -254,7 +258,7 @@ object personaje
             const frames = bancoImagenes.obtenerFrames("pj", "teleport", dirActual)
             
             animador.realizarAnimacionDeTransicion(self, destino, frames, 5,{
-                image = "sprites\\personaje\\pj\\mov\\" + dirActual + "\\pj_" + dirActual + ".png"
+                image = "sprites/personaje/pj/mov/" + dirActual + "/pj_" + dirActual + ".png"
                 position = destino
                 tpeando = false
             })

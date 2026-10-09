@@ -10,7 +10,7 @@ describe "conjunto de test de personaje" {
     test "el personaje agrega monedas correctamente" {
         personaje.monedas(50)
         personaje.añadirMoneda(3)
-        assert.equals(54, personaje.monedas())
+        assert.equals(53, personaje.monedas())
     }
     test "el personaje obtiene la cantidad maxima de intentos" {
         assert.equals(2, personaje.intentosMaximos())

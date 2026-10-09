@@ -147,12 +147,12 @@ object bancoImagenes
 
     method ruta(carpeta, entidad, accion, direccion, variante, frame)
     {
-        return "sprites\\" +
-            carpeta + "\\" +
-            entidad + "\\" +
-            accion + "\\" +
-            direccion + "\\" +
-            variante + "\\" +
+        return "sprites/" +
+            carpeta + "/" +
+            entidad + "/" +
+            accion + "/" +
+            direccion + "/" +
+            variante + "/" +
             entidad + "_" +
             accion +  "_" +
             direccion + "_" +
@@ -162,9 +162,9 @@ object bancoImagenes
 
     method rutaAnimacionSimple(carpeta, entidad, accion)
     {
-        return "sprites\\" +
-            carpeta + "\\" +
-            entidad + "\\" +
-            accion + "\\"
+        return "sprites/" +
+            carpeta + "/" +
+            entidad + "/" +
+            accion + "/"
     }
 }

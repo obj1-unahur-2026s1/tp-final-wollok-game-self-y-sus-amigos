@@ -4,7 +4,7 @@ import scripts.gestionObjetos.misObjetos.Objeto.*
 import scripts.gestionRecompensas.gestorRecompensas.*
 import scripts.gestionSonidos.gestorSonidos.*
 
-class Cofre inherits Objeto(nombre = "cofre", image = "sprites\\objetos\\cofre\\cofreCerrado.png")
+class Cofre inherits Objeto(nombre = "cofre", image = "sprites/objetos/cofre/cofreCerrado.png")
 {
     var property abierto = false
 
@@ -33,7 +33,7 @@ class Cofre inherits Objeto(nombre = "cofre", image = "sprites\\objetos\\cofre\\
             ) + "chest_"
 
             animador.reproducirAdelante(self, ruta, 5, 3, {
-                image = "sprites\\objetos\\cofre\\cofreAbierto.png"
+                image = "sprites/objetos/cofre/cofreAbierto.png"
                 self.entregarContenido(entidad)
             })
         }

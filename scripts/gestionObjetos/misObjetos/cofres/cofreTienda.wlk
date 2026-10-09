@@ -8,7 +8,7 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 
 class CofreTienda inherits Cofre
 {
-    const cartel = new Cartel(position = position.up(1), image = "sprites\\objetos\\cartel\\cartel_" + self.precio() + ".png")
+    const cartel = new Cartel(position = position.up(1), image = "sprites/objetos/cartel/cartel_" + self.precio() + ".png")
     const property precioBase = 30
     method precio() = precioBase - gestorMejoras.bonusDescuentoCofres()
 

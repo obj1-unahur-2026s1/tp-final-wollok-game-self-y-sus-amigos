@@ -27,6 +27,6 @@ object gestorSonidos {
         if (musicaActual != null) musicaActual.stop()
     }
 
-    method ruta(sonido, ruta) = "audio\\SFX\\" + ruta + "\\" + sonido + ".mp3"
+    method ruta(sonido, ruta) = "audio/SFX/" + ruta + "/" + sonido + ".mp3"
 
 }

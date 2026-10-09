@@ -7,7 +7,7 @@ import scripts.gestionAnimaciones.bancoImagenes.*
 import scripts.gestionSonidos.gestorSonidos.*
 import scripts.personaje.personaje.*
 
-class Baldosa inherits Objeto(nombre = "baldosa", image = "sprites\\objetos\\baldosa\\baldosa.png")
+class Baldosa inherits Objeto(nombre = "baldosa", image = "sprites/objetos/baldosa/baldosa.png")
 {
     var estaRoto = false
     override method dejaPasarLaser() = true
